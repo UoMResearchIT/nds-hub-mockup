@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Choropleth</title>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+</head>
+
+<body>
+  
+  <div id="app-container" >
+
+    <v-app id="app">
+      <v-app-bar clipped-left
+                 color="deep-purple"
+                 dark
+                 dense
+                 flat
+                 app>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-toolbar-title>Leaflet Choropleth</v-toolbar-title>
+      </v-app-bar>
+
+      <v-navigation-drawer clipped
+                           permanent
+                           app>
+        <v-treeview activatable
+                    :active.sync="selectedField"
+                    dense
+                    hoverable
+                    :items="treeViewItems"
+                    :open.sync="openedFolders"
+                    open-on-click
+                    @update:active="updateMap()">
+          <template v-slot:prepend="{ item, active, open }">
+            <v-icon v-if="item.isFolder">
+              {{ open ? 'mdi-folder-open-outline' : 'mdi-folder-outline' }}
+            </v-icon>
+            <v-icon v-else>
+              {{ active ? 'mdi-radiobox-marked' : 'mdi-radiobox-blank' }}
+            </v-icon>
+          </template>
+        </v-treeview>
+      </v-navigation-drawer>
+
+      <v-main app>
+        <div id="map"></div>
+      </v-main>
+
+      <v-footer color="orange" app>
+        <p>This is the footer of the application. It can be removed.</p>
+      </v-footer>
+    </v-app>
+
+  </div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.js"></script>
+  <script type="text/javascript" src="libs/choropleth-1.0.0/choropleth.js"></script>
+  <script type="text/javascript" src="js/app-data.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+
+</body>
+</html>
