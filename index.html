@@ -26,14 +26,15 @@
                  app>
         <v-row>
           <v-toolbar-title>DSH Logo Here</v-toolbar-title> 
-        </v-row>
-        <search-btn></search-btn> 
-        
+        </v-row>  
+        <search-btn></search-btn>
+      
       </v-app-bar>
-
+      
+      
       <v-navigation-drawer clipped
-                           permanent
-                           app>
+        permanent
+        app>
         <v-treeview activatable
                     :active.sync="selectedField"
                     dense
@@ -42,19 +43,35 @@
                     :open.sync="openedFolders"
                     open-on-click
                     @update:active="updateMap()">
-          <template v-slot:prepend="{ item, active, open }">
-            <v-icon v-if="item.isFolder">
-              {{ open ? 'mdi-folder-open-outline' : 'mdi-folder-outline' }}
-            </v-icon>
-            <v-icon v-else>
-              {{ active ? 'mdi-radiobox-marked' : 'mdi-radiobox-blank' }}
-            </v-icon>
-          </template>
-        </v-treeview>
-      </v-navigation-drawer>
+                    <template v-slot:prepend="{ item, active, open }">
+                      <v-icon v-if="item.isFolder">
+                        {{ open ? 'mdi-folder-open-outline' : 'mdi-folder-outline' }}
+                      </v-icon>
+                      <v-icon v-else>
+                        {{ active ? 'mdi-radiobox-marked' : 'mdi-radiobox-blank' }}
+                      </v-icon>
+                    </template>
+                  </v-treeview>
+                </v-navigation-drawer>
+                
+                <v-main app>
+                  
+                  <!-- <search-bar>
+                    <template #search-item>
+                      Search something
+                    </template>
+                  </search-bar> -->
+<!--                   
+                  <v-row>
+                    <v-col class="red" cols="2">
+                      <h1>HERE is the Panel</h1>
+                    </v-col>
+                    
+                    <v-col class="blue" col="10">
+                      <h1>HERE is the Map</h1>
+                    </v-col>
+                  </v-row> -->
 
-      <v-main app>
-        
         <div id="map"></div>
       </v-main>
 
@@ -68,6 +85,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.js"></script>
   <script type="text/javascript" src="libs/choropleth-1.0.0/choropleth.js"></script>
   <script type="text/javascript" src="js/app-data.js"></script>
+  <script type="text/javascript" src="data/map-data.js"></script>
   <script type="text/javascript" src="components/searchBar.js"></script>
   <script type="text/javascript" src="components/searchBtn.js"></script>
   <script type="text/javascript" src="js/index.js"></script>

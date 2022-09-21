@@ -12,7 +12,6 @@ Vue.component(
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   color="primary"
-                  dark
                   v-bind="attrs"
                   v-on="on"
                 >
@@ -43,8 +42,15 @@ Vue.component(
                     </v-btn>
                   </v-toolbar-items>
                 </v-toolbar>
-                <search-bar></search-bar>
+                
                 <v-list>
+                <v-list-item>
+                  <search-bar>
+                  <template #search-item>
+                    Search For
+                  </template>
+                  </search-bar>
+                </v-list-item>
 
                 
 
