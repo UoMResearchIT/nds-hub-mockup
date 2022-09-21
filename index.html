@@ -27,7 +27,7 @@
         <v-row>
           <v-toolbar-title>DSH Logo Here</v-toolbar-title> 
         </v-row>  
-        <search-btn></search-btn>
+        <search-btn @add-to-map="setMapLayers"></search-btn>
       
       </v-app-bar>
       
@@ -35,42 +35,37 @@
       <v-navigation-drawer clipped
         permanent
         app>
-        <v-treeview activatable
-                    :active.sync="selectedField"
-                    dense
-                    hoverable
-                    :items="treeViewItems"
-                    :open.sync="openedFolders"
-                    open-on-click
-                    @update:active="updateMap()">
-                    <template v-slot:prepend="{ item, active, open }">
-                      <v-icon v-if="item.isFolder">
-                        {{ open ? 'mdi-folder-open-outline' : 'mdi-folder-outline' }}
-                      </v-icon>
-                      <v-icon v-else>
-                        {{ active ? 'mdi-radiobox-marked' : 'mdi-radiobox-blank' }}
-                      </v-icon>
-                    </template>
-                  </v-treeview>
-                </v-navigation-drawer>
+        <v-list v-if="layers.length > 0">
+          <v-subheader>Added Layers</v-subheader>
+  
+          <v-list-item-group
+            v-model="selectedLayersIndex"
+            multiple
+            active-class=""
+          >
+            <v-list-item v-for="(layer, i) in layers" :key="i">
+              <template v-slot:default="{ active }">
+                <v-list-item-action>
+                  <v-checkbox :input-value="active"></v-checkbox>
+                </v-list-item-action>
+                <v-list-item-content>
+
+
+                  <v-list-item-title>
+                    {{layer}}
+                  </v-list-item-title> 
+                </v-list-item-content>
+              </template>
+            </v-list-item>
+          </v-list-item-group>
+          <v-btn block @click="removeAllLayers">Remove all layers</v-btn>
+        </v-list>
+
+          <h2 v-else> No map layer added <br/> please search data.</h2>
+
+      </v-navigation-drawer>
                 
                 <v-main app>
-                  
-                  <!-- <search-bar>
-                    <template #search-item>
-                      Search something
-                    </template>
-                  </search-bar> -->
-<!--                   
-                  <v-row>
-                    <v-col class="red" cols="2">
-                      <h1>HERE is the Panel</h1>
-                    </v-col>
-                    
-                    <v-col class="blue" col="10">
-                      <h1>HERE is the Map</h1>
-                    </v-col>
-                  </v-row> -->
 
         <div id="map"></div>
       </v-main>
@@ -86,8 +81,10 @@
   <script type="text/javascript" src="libs/choropleth-1.0.0/choropleth.js"></script>
   <script type="text/javascript" src="js/app-data.js"></script>
   <script type="text/javascript" src="data/map-data.js"></script>
+  
   <script type="text/javascript" src="components/searchBar.js"></script>
   <script type="text/javascript" src="components/searchBtn.js"></script>
+  <script type="text/javascript" src="js/spatial.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
 
 </body>

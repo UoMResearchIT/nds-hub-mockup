@@ -38,20 +38,19 @@ Vue.component(
                       text
                       @click="dialog = false"
                     >
-                      Save
+                      Close
                     </v-btn>
                   </v-toolbar-items>
                 </v-toolbar>
                 
                 <v-list>
                 <v-list-item>
-                  <search-bar>
-                  <template #search-item>
-                    Search For
-                  </template>
-                  </search-bar>
+                <search-bar @add-to-map="onAddToMap">
+                  <template #search-item>Search For</template>
+                </search-bar>
                 </v-list-item>
-
+                
+                
                 
 
 
@@ -64,8 +63,16 @@ Vue.component(
                 dialog: false,
                 notifications: false,
                 sound: true,
-                widgets: false
+                widgets: false,
+                layers: null
             }
-        }
+        },
+
+        methods: {
+          onAddToMap(layers){
+            this.$emit("add-to-map", layers)
+            this.dialog = false
+          }
+        },
     }
 )
