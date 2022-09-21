@@ -85,7 +85,7 @@ let appViewModel = new Vue({
     removeAllLayers() {
       
       while(this.layers.length > 0) {
-        this.layers.pop();
+        this.layers.pop(); /*no good*/
     }
       console.log("removeAllLayers!!")
       console.log(this.layers)
