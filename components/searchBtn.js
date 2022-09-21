@@ -3,8 +3,6 @@ Vue.component(
         template: 
         /*html*/
         `
-        <template>
-          <v-row justify="center">
             <v-dialog
               v-model="dialog"
               fullscreen
@@ -54,8 +52,6 @@ Vue.component(
                 </v-list>
               </v-card>
             </v-dialog>
-          </v-row>
-        </template>
         `,
         data(){
             return {
