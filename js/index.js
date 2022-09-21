@@ -148,10 +148,7 @@ let appViewModel = new Vue({
    * @return {object} - The model of the application.
    */
   data: {
-    dialog: false,
-        notifications: false,
-        sound: true,
-        widgets: false,
+    
 
     /**
      * The items used to create the treeview hierarchy.
