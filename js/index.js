@@ -25,7 +25,18 @@ let appViewModel = new Vue({
    * 
    * @type {Vuetify} - A new Vuetify object.
    */
-  vuetify: new Vuetify(),
+  vuetify: new Vuetify({
+    theme: {
+      themes: {
+        light: {
+          primary: '#660099',
+          secondary: '#FFCC33',
+          accent: '#3E863E',
+          //error: '#b71c1c',
+        },
+      },
+    },
+  }),
 
   /**
    * The model associated with the view.
