@@ -27,9 +27,9 @@ Vue.component('left-side-panel', {
 
     <p>current tab: {{this.currentTabName}}</p>
 
-    <tab-question-content v-if="this.currentTabName==='question'"></tab-question-content>
-    <tab-data-content v-if="this.currentTabName==='data'"></tab-data-content>
-    <tab-model-content v-if="this.currentTabName==='model'"></tab-model-content>
+    <tab-question-content v-if="this.currentTabName === 'question'"></tab-question-content>
+    <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content>
+    <tab-model-content v-if="this.currentTabName === 'model'"></tab-model-content>
     
     </v-container>
     </v-navigation-drawer>
