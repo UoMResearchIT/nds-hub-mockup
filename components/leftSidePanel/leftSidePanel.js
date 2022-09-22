@@ -24,8 +24,8 @@ Vue.component('left-side-panel', {
     
     
     <v-container fill-height>
-
-    <p>current tab: {{this.currentTabName}}</p>
+    
+    
 
     <tab-question-content v-if="this.currentTabName === 'question'"></tab-question-content>
     <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content>
