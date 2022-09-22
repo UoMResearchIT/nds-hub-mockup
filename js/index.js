@@ -46,7 +46,7 @@ let appViewModel = new Vue({
    */
   data: {
     layers: [],
-    selectedLayersIndex:[],
+    selectedLayersIndex: [],
     /**
      * The items used to create the treeview hierarchy.
      * 
@@ -92,20 +92,20 @@ let appViewModel = new Vue({
       this.layers = layers;
       alert("Added to Map!")
     },
-    
+
     removeAllLayers() {
-      
-      while(this.layers.length > 0) {
+
+      while (this.layers.length > 0) {
         this.layers.pop(); /*no good*/
-    }
+      }
       console.log("removeAllLayers!!")
       console.log(this.layers)
     },
 
   },
-  
+
   computed: {
-    selectedLayers(){
+    selectedLayers() {
       return this.selectedLayersIndex.map(i => this.layers[i])
     }
   }
