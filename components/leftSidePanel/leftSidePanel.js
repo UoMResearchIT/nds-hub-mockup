@@ -16,7 +16,7 @@ Vue.component('left-side-panel', {
       class=" rounded-0"
       width="100%"
       >
-      <v-tab v-for="(tab, index) in tabs" :key="index" @click="Debug">
+      <v-tab v-for="(tab, index) in tabs" :key="index">
     <v-icon>{{tab.icon}}</v-icon>
     </v-tab>
     </v-tabs>
@@ -49,7 +49,7 @@ Vue.component('left-side-panel', {
 
     methods: {
         Debug() {
-            /**/
+            /*v-model is slower than @click*/
             console.log("selectedTabIndex: " + this.tabs[this.selectedTabIndex].name);
         }
     },
