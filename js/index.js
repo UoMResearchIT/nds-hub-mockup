@@ -10,7 +10,7 @@
  * 
  * @type {Vue}
  */
-let appViewModel = new Vue({
+const appViewModel = new Vue({
 
   /**
    * The name of the HTML component (the view) that this ViewModel
