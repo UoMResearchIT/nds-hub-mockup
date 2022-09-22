@@ -15,14 +15,8 @@ Vue.component('left-side-panel', {
       background-color="indigo"
       dark
     >
-      <v-tab>
-        <v-icon>mdi-chart-box </v-icon>
-      </v-tab>
-      <v-tab>
-        <v-icon>mdi-head-question  </v-icon>
-      </v-tab>
-      <v-tab>
-        <v-icon>mdi-map-search</v-icon>
+      <v-tab v-for="tab in tabs">
+        <v-icon>{{tab.icon}}</v-icon>
       </v-tab>
     </v-tabs>
   </template>
@@ -34,12 +28,12 @@ Vue.component('left-side-panel', {
 
     data() {
         return {
-            items: [
-                { title: 'Home', icon: 'mdi-view-dashboard' },
-                { title: 'About', icon: 'mdi-forum' },
+            tabs: [
+                { title: 'Ask a Question', icon: 'mdi-head-question' },
+                { title: 'Do more with Data', icon: 'mdi-database-search' },
+                { title: 'Create a model', icon: 'mdi-chart-box' },
             ],
-            links: ['Home', 'Contacts', 'Settings'],
-            mini: true,
+            links: ['Home', 'Contacts', 'Settings']
         }
     },
 
