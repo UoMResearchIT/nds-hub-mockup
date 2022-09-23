@@ -1,14 +1,12 @@
 Vue.component('left-side-panel', {
     template:
-        /* html */
-        `
-    <v-navigation-drawer
-      app
-      permanent
-      width="25%"
-      >    
-      
-      <v-tabs
+    /* html */
+    `
+    <v-navigation-drawer clipped
+    permanent
+    app width="25%">
+
+    <v-tabs
       v-model="selectedTabIndex"
       fixed-tabs
       dark
@@ -20,7 +18,6 @@ Vue.component('left-side-panel', {
     <v-icon>{{tab.icon}}</v-icon>
     </v-tab>
     </v-tabs>
-    </div>
     
     
     <v-container fill-height>

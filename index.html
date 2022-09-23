@@ -23,17 +23,24 @@
 
     <v-app id="app">
       
-      <left-side-panel></left-side-panel>
       
-      <v-app-bar color="primary" dark dense flat app>
+      <v-app-bar color="primary" dark dense flat app clipped-left>
         <v-row>
           <v-toolbar-title>DSH Logo Here</v-toolbar-title>
         </v-row>
         <search-btn @add-to-map="setMapLayers"></search-btn>
       </v-app-bar>
       
-      <v-main app>
 
+
+        
+        <!-- here goes all left side content   -->
+        
+        <left-side-panel></left-side-panel>
+        
+    
+      
+      <v-main app>
         <div id="map"></div>
       </v-main>
 
