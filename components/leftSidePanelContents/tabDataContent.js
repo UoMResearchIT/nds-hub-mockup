@@ -1,14 +1,9 @@
 Vue.component(
-    'tab-data-content', {
-        template:
-        /*html*/
-        `
-        <v-card
-        
-    class="mx-auto"
-    max-width="344"
-    outlined
-  >
+  'tab-data-content', {
+  template:
+    /*html*/
+    `
+    <v-card outlined>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="text-overline mb-4">  

@@ -20,26 +20,55 @@
 <body>
 
   <div id="app-container">
-
-    <v-app id="app">
-      
-      
-      <v-app-bar color="primary" dark dense flat app clipped-left>
-        <v-row>
-          <v-toolbar-title>DSH Logo Here</v-toolbar-title>
-        </v-row>
-        <search-btn @add-to-map="setMapLayers"></search-btn>
-      </v-app-bar>
-      
-
-
-        
-        <!-- here goes all left side content   -->
-        
-        <left-side-panel></left-side-panel>
-        
     
+    
+    <v-app id="app">
+      <v-app-bar
+      color="primary"
+      dark
+      app
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>DHS LOGO</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <search-btn></search-btn>
+    </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      bottom
+      width="25%"
+      app
+    >
       
+    <v-tabs
+    v-model="selectedTabIndex"
+    fixed-tabs
+    dark
+    background-color="indigo"
+    class=" rounded-0"
+    width="100%"
+    >
+    <v-tab v-for="(tab, index) in tabs" :key="index">
+  <v-icon>{{tab.icon}}</v-icon>
+  </v-tab>
+  </v-tabs>
+  
+  
+  <v-container fill-height>
+  
+    <tab-question-content v-if="this.currentTabName === 'question'"></tab-question-content>
+    <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content>
+    <tab-model-content v-if="this.currentTabName === 'model'"></tab-model-content>
+  
+  
+  </v-container>
+        
+    </v-navigation-drawer>
+
       <v-main app>
         <div id="map"></div>
       </v-main>
@@ -57,10 +86,10 @@
   <script type="text/javascript" src="data/app-data.js"></script>
   <script type="text/javascript" src="data/map-data.js"></script>
 
-  <script type="text/javascript" src="components/leftSidePanel/tabQuestionContent.js"></script>
-  <script type="text/javascript" src="components/leftSidePanel/tabModelContent.js"></script>
-  <script type="text/javascript" src="components/leftSidePanel/tabDataContent.js"></script>
-  <script type="text/javascript" src="components/leftSidePanel/leftSidePanel.js"></script>
+  <script type="text/javascript" src="components/leftSidePanelContents/tabQuestionContent.js"></script>
+  <script type="text/javascript" src="components/leftSidePanelContents/tabModelContent.js"></script>
+  <script type="text/javascript" src="components/leftSidePanelContents/tabDataContent.js"></script>
+
   <script type="text/javascript" src="components/searchBar.js"></script>
   <script type="text/javascript" src="components/searchBtn.js"></script>
   

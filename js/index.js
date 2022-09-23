@@ -45,6 +45,13 @@ const appViewModel = new Vue({
    * @return {object} - The model of the application.
    */
   data: {
+    selectedTabIndex: 0,
+    tabs: [
+      { name: 'question', title: 'Ask a Question', icon: 'mdi-head-question' },
+      { name: 'data', title: 'Do more with Data', icon: 'mdi-database-search' },
+      { name: 'model', title: 'Create a model', icon: 'mdi-chart-box' },
+    ],
+    drawer: false,
     layers: [],
     selectedLayersIndex: [],
     /**
@@ -105,6 +112,10 @@ const appViewModel = new Vue({
   },
 
   computed: {
+    currentTabName() {
+      return this.tabs[this.selectedTabIndex].name;
+    },
+
     selectedLayers() {
       return this.selectedLayersIndex.map(i => this.layers[i])
     }
