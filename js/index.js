@@ -112,20 +112,6 @@ class Spatial {
 
 };
 
-class Presentation {
-
-  // /**
-  //    * Gets the text of the login button.
-  //    * 
-  //    * @returns {String} - The text of the login button.
-  //    */
-  // static getUserLoginButtonText() {
-  //   return AppState.isUserLoggedIn ? "Logout" : "Login";
-  // }
-
-}
-
-
 /**
  * ================================================================================
  *   ViewModels.
@@ -168,10 +154,6 @@ let appViewModel = new Vue({
    * @return {object} - The model of the application.
    */
   data: {
-
-    // isUserLoggedIn: AppState.isUserLoggedIn,
-    
-    // userLoginButtonText: Presentation.getUserLoginButtonText(),
 
     login : {
       isLoginDialogOpen: false,

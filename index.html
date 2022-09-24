@@ -39,100 +39,7 @@
           <v-icon>mdi-magnify</v-icon>
            Search
         </v-btn>
-        <!-- <v-btn  class="secondary--text"
-                color="primary">
-          <v-icon>mdi-login</v-icon>
-          {{ userLoginButtonText }}
-        </v-btn> -->
-        <!-- <login-btn></login-btn> -->
-
-        
-        <v-dialog v-model="login.isLoginDialogOpen"
-                  persistent
-                  max-width="600px"
-                  value="true">
-
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn  class="secondary--text"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on">
-              <v-icon>mdi-login</v-icon>
-              {{ getUserLoginButtonText() }}
-            </v-btn>
-          </template>
-
-          <v-card v-show="!isUserLoggedIn()">
-            <v-card-title>
-              <span class="text-h5">User Login</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-text-field label="Username"
-                                required
-                                v-model="login.username"
-                                v-on:keydown="clearLoginError()">
-                  </v-text-field>
-                </v-row>
-                <v-row>
-                  <v-text-field label="Password"
-                                type="password"
-                                required
-                                v-model="login.password"
-                                v-on:keydown="clearLoginError()">
-                  </v-text-field>
-                </v-row>
-                <v-row>
-                  <v-alert  dense
-                            outlined
-                            type="error"
-                            v-show="login.isLoginError">
-                    Username or password is <strong>invalid</strong>!
-                  </v-alert>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn  color="accent"
-                      text
-                      @click="userLogin()">
-                Login
-              </v-btn>
-              <v-btn  color="accent"
-                      text
-                      @click="login.isLoginDialogOpen = false">
-                Cancel
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-
-          <v-card v-show="isUserLoggedIn()">
-            <v-card-title>
-              <span class="text-h5">Are you sure you want to logout?</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn  color="accent"
-                      text
-                      @click="userLogout()">
-                Yes
-              </v-btn>
-              <v-btn  color="accent"
-                      text
-                      @click="login.isLoginDialogOpen = false">
-                No
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-
-        </v-dialog>
+        <log-in-out-btn></log-in-out-btn>
         
 
       </v-app-bar>
@@ -196,6 +103,8 @@
   <script type="text/javascript" src="data/app-data.js"></script>
   <!-- <script type="text/javascript" src="data/app-data-hub-apps.js"></script> -->
   <!-- <script type="text/javascript" src="data/app-data-map.js"></script> -->
+
+  <script type="text/javascript" src="components/logInOutButton.js"></script>
 
   <script type="text/javascript" src="js/index.js"></script>
 
