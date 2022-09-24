@@ -45,13 +45,10 @@
       </v-app-bar>
 
 
+      
 
 
-
-
-
-
-      <v-navigation-drawer  id ="navigation-drawer"
+      <!-- <v-navigation-drawer  id ="navigation-drawer"
                             app
                             clipped
                             permanent
@@ -77,12 +74,29 @@
           </template>
         </v-treeview>
 
-      </v-navigation-drawer>
+      </v-navigation-drawer> -->
 
       <v-main id="main"
               app>
 
-        <div id="map"></div>
+        <!-- <div id="map"></div> -->
+
+        <v-carousel v-model="counter">
+          <v-carousel-item  v-for="(color, i) in colors"
+                            :key="color">
+            <v-sheet  :color="color"
+                      height="100%"
+                      tile>
+              <v-row  class="fill-height"
+                      align="center"
+                      justify="center">
+                <div class="text-h2">
+                  Slide {{ i + 1 }}
+                </div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+        </v-carousel>
 
       </v-main>
 

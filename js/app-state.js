@@ -28,5 +28,5 @@
       throw Error('AppState class is static and cannot be instantiated.');
     }
   }
-
+  
 }

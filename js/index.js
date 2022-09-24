@@ -155,18 +155,16 @@ let appViewModel = new Vue({
    */
   data: {
 
-    login : {
-      isLoginDialogOpen: false,
+    counter: 0,
 
-      username: "vasilis",
-  
-      password: "koula",
-  
-      isLoginError: false,
-    },
+    colors: [
+      'primary',
+      'secondary',
+      'yellow darken-2',
+      'red',
+      'orange',
+    ],
     
-    
-
 
 
     /**
@@ -292,6 +290,6 @@ let appViewModel = new Vue({
 
 
 
-Spatial.initializeMap();
+//Spatial.initializeMap();
 
-appViewModel.updateMap();
+//appViewModel.updateMap();
