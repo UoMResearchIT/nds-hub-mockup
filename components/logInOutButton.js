@@ -1,5 +1,9 @@
 Vue.component(
   'log-in-out-btn', {
+
+    /**
+     * The view (presentation) of the component.
+     */
     template: 
     /*html*/
     `
@@ -90,15 +94,33 @@ Vue.component(
 
     </v-dialog>
     `,
+
+    /**
+     * The model associated with the component.
+     * This is the model in the MVVM pattern.
+     * @return {object} - The model of the application.
+     */
     data() {
       return {
 
+        /**
+         * Indicates whether the login dialog is open or not.
+         */
         isLoginDialogOpen: false,
 
-        username: "vasilis",
-    
-        password: "koula",
-    
+        /**
+         * The username.
+         */
+        username: "",
+
+        /**
+         * The password
+         */
+        password: "",
+
+        /**
+         * Indicates whether there is a login error or not.
+         */
         isLoginError: false,
 
       }
