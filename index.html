@@ -21,53 +21,51 @@
 
   <div id="app-container">
     
-    
     <v-app id="app">
-      <v-app-bar
-      color="primary"
-      dark
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar  class="secondary--text"
+                  clipped-left
+                  color="primary"
+                  dark
+                  dense
+                  flat
+                  app>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>DHS LOGO</v-toolbar-title>
+        <v-toolbar-title>DHS LOGO</v-toolbar-title>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <search-btn></search-btn>
-    </v-app-bar>
+        <search-btn></search-btn>
+      </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      bottom
-      width="25%"
-      app
-    >
-      
-    <v-tabs
-    v-model="selectedTabIndex"
-    fixed-tabs
-    dark
-    background-color="indigo"
-    class=" rounded-0"
-    width="100%"
-    >
-    <v-tab v-for="(tab, index) in tabs" :key="index">
-  <v-icon>{{tab.icon}}</v-icon>
-  </v-tab>
-  </v-tabs>
-  
-  
-  <v-container fill-height>
-  
-    <tab-question-content v-if="this.currentTabName === 'question'"></tab-question-content>
-    <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content>
-    <tab-model-content v-if="this.currentTabName === 'model'"></tab-model-content>
-  
-  
-  </v-container>
+      <v-navigation-drawer  v-model="drawer"
+                            app
+                            clipped
+                            permanent
+                            width="25%"
+                            overflow-hidden>
         
-    </v-navigation-drawer>
+      <v-tabs v-model="selectedTabIndex"
+              fixed-tabs
+              dark
+              background-color="indigo"
+              class="rounded-0"
+              width="100%"
+              fixed>
+        <v-tab v-for="(tab, index) in tabs" :key="index">
+        <v-icon>{{tab.icon}}</v-icon>
+        </v-tab>
+      </v-tabs>
+    
+      <v-container>
+      
+        <tab-question-content v-if="this.currentTabName === 'question'"></tab-question-content>
+        <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content>
+        <tab-model-content v-if="this.currentTabName === 'model'"></tab-model-content>
+        
+      </v-container>
+          
+      </v-navigation-drawer>
 
       <v-main app>
         <div id="map"></div>
