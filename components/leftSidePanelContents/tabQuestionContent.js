@@ -39,62 +39,50 @@ Vue.component(
     
 
     <v-card v-if="activeQuestion && activeQuestion.answer">
+    
     <v-card-title>Answer for your question</v-card-title>
     <v-card-subtitle>{{activeQuestion.question}}</v-card-subtitle>
     
     <v-container>
     
-    <p>Answer title: {{activeQuestion.answer.title}}</p>
-    <p>Data for Legend: {{activeQuestion.answer.data.name}}</p>
+    <p>Answer title: {{activeQuestionAnswer.title}}</p>
+    <p>Data for Legend: {{activeQuestionAnswer.data.name}}</p>
     
     <v-row justify="space-around">
     <v-card-subtitle>related Data</v-card-subtitle>
     
-    <v-col
-    cols="12"
-    sm="10"
-    md="8"
-    >
-    <v-sheet
-    
-    >
+    <v-sheet>
     <v-chip-group>
     <v-chip
-    v-for="d in activeQuestion.answer.ref.data"
+    v-for="d in activeQuestionAnswer.ref.data"
     :key="d.name"
     >
     <a :href="d.link" class="secondary--text">{{ d.name }}</a>
     </v-chip>
     </v-chip-group>
     </v-sheet>
-    </v-col>
     </v-row>
     
     <v-row justify="space-around">
-    <v-card-subtitle>related APIs</v-card-subtitle>
-    <v-col
-    cols="12"
-    sm="10"
-    md="8"
-      >
+      <v-card-subtitle>related APIs</v-card-subtitle>
       <v-sheet>
       <v-chip-group>
       <v-chip
-      v-for="d in activeQuestion.answer.ref.api"
+      v-for="d in activeQuestionAnswer.ref.api"
       :key="d.name"
       >
       <a :href="d.link" class="secondary--text">{{ d.name }}</a>
       </v-chip>
       </v-chip-group>
       </v-sheet>
-      </v-col>
-      </v-row>
+    
+    </v-row>
       
       
       
-      </v-container>
+    </v-container>
       </v-card>
-      <v-card v-else-if="activeQuestion && !activeQuestion.answer">
+      <v-card v-else-if="activeQuestion && !activeQuestionAnswer">
       No answer
       </v-card>
       
@@ -152,7 +140,11 @@ Vue.component(
           activeQuestion(){
             const activeQuestion = this.questions.filter(q => q.question === this.p_activeQuestion)
             return activeQuestion.length ? activeQuestion[0] : null
+          },
+          activeQuestionAnswer(){
+            return this.activeQuestion? this.activeQuestion.answer: null
           }
+          
         }
       
         
