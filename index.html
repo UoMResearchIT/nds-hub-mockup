@@ -23,9 +23,7 @@
   <div id="app-container" >
 
     <v-app id="app">
-      <v-app-bar  id="app-bar"
-                  class="secondary--text"
-                  clipped-left
+      <v-app-bar  clipped-left
                   color="primary"
                   dark
                   dense
@@ -34,19 +32,9 @@
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
         <v-toolbar-title>NERC Digital Solutions Hub</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn  class="secondary--text"
-                color="primary">
-          <v-icon>mdi-magnify</v-icon>
-           Search
-        </v-btn>
+        <search-btn></search-btn>
         <log-in-out-btn></log-in-out-btn>
-        
-
       </v-app-bar>
-
-
-      
-
 
       <!-- <v-navigation-drawer  id ="navigation-drawer"
                             app
@@ -81,32 +69,88 @@
 
         <!-- <div id="map"></div> -->
 
-        <v-carousel v-model="counter">
-          <v-carousel-item  v-for="(color, i) in colors"
-                            :key="color">
-            <v-sheet  :color="color"
+        <welcome-carousel v-show="currentAppState == 'welcome'"></welcome-carousel>
+
+        <!-- <v-carousel>
+          <v-carousel-item>
+            <v-sheet  color="light-green darken-2"
+                      height="100%"
+                      tile>
+              <v-row  class="fill-height"
+                      align="center"
+                      justify="center">
+                <div class="text-h1 white--text">
+                  NERC Digital Solutions Hub
+                </div>
+                <div class="text-h2 white--text">
+                  Question, Explore, Analyze, Petabytes of Geospatial Data
+                </div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+          <v-carousel-item>
+            <v-sheet  color="orange lighten-1"
+                      height="100%"
+                      tile>
+              <v-row  class="fill-height"
+                      align="center"
+                      justify="center">
+                <div class="text-h2 primary--text">
+                  Ask Questions
+                </div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+          <v-carousel-item>
+            <v-sheet  color="deep-purple darken-1"
+                      height="100%"
+                      tile>
+              <v-row  class="fill-height"
+                      align="center"
+                      justify="center">
+                <div class="text-h2 secondary--text">
+                  Explore, Mix, and Analyse Data
+                </div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+          <v-carousel-item>
+            <v-sheet  color="amber lighten-2"
                       height="100%"
                       tile>
               <v-row  class="fill-height"
                       align="center"
                       justify="center">
                 <div class="text-h2">
-                  Slide {{ i + 1 }}
+                  Build and Run models
                 </div>
               </v-row>
             </v-sheet>
           </v-carousel-item>
-        </v-carousel>
+          <v-carousel-item>
+            <v-sheet  color="light-green darken-3"
+                      height="100%"
+                      tile>
+              <v-row  class="fill-height"
+                      align="center"
+                      justify="center">
+                <div class="text-h2 white--text">
+                  Use our APIs
+                </div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+        </v-carousel> -->
 
       </v-main>
 
-      <v-footer  id="footer"
+      <!-- <v-footer  id="footer"
                  color="orange"
                  app>
 
         <p>This is the footer of the application. It can be removed.</p>
 
-      </v-footer>
+      </v-footer> -->
     </v-app>
 
   </div>
@@ -119,6 +163,8 @@
   <!-- <script type="text/javascript" src="data/app-data-map.js"></script> -->
 
   <script type="text/javascript" src="components/logInOutButton.js"></script>
+  <script type="text/javascript" src="components/welcomeCarousel.js"></script>
+  <script type="text/javascript" src="components/searchBtn.js"></script>
 
   <script type="text/javascript" src="js/index.js"></script>
 

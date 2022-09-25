@@ -155,15 +155,7 @@ let appViewModel = new Vue({
    */
   data: {
 
-    counter: 0,
 
-    colors: [
-      'primary',
-      'secondary',
-      'yellow darken-2',
-      'red',
-      'orange',
-    ],
     
 
 
@@ -196,7 +188,12 @@ let appViewModel = new Vue({
    */
   computed: {
 
-    
+    /**
+     * Gets the current state of the application.
+     */
+    currentAppState() {
+      return AppState.currentState;
+    },
 
   },
 
@@ -210,8 +207,7 @@ let appViewModel = new Vue({
      * Determines whether the user is logged in or not.
      * @returns {Boolean} - True if the user is logged in, false otherwise.
      */
-     isUserLoggedIn() {
-      //alert(AppState.isUserLoggedIn);
+    isUserLoggedIn() {
       return AppState.isUserLoggedIn;
     },
 
@@ -224,46 +220,10 @@ let appViewModel = new Vue({
     },
 
     /**
-     * Clears the login error.
+     * Gets the current state of the application.
      */
-    clearLoginError() {
-      this.login.isLoginError = false;
-    },
-
-    /**
-      * Performs user login.
-      */
-    userLogin() {
-
-      // Fake an error by not allowing the user to login if password has a length less than 8 characters long.
-      if (this.login.password.length < 8) {
-        this.login.isLoginError = true;
-        return;
-      }
-
-      // Make sure username/password are cleared from the dialog form.
-      this.login.username = "";
-      this.login.password = "";
-
-      // Change the application state.
-      AppState.isUserLoggedIn = !this.login.isLoginError;
-      
-      // Close the login dialog.
-      this.login.isLoginDialogOpen = !AppState.isUserLoggedIn;
-
-    },
-
-    /**
-     * Performs user logout.
-     */
-    userLogout() {
-
-      // Change the application state.
-      AppState.isUserLoggedIn = false;
-
-      // Close the login dialog.
-      this.login.isLoginDialogOpen = AppState.isUserLoggedIn;
-
+    getCurrentAppState() {
+      return AppState.currentState;
     },
 
     /**

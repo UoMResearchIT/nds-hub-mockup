@@ -13,7 +13,7 @@ Vue.component(
               value="true">
 
       <template v-slot:activator="{ on, attrs }">
-        <v-btn  class="secondary--text"
+        <v-btn  
                 color="primary"
                 v-bind="attrs"
                 v-on="on">
@@ -111,12 +111,12 @@ Vue.component(
         /**
          * The username.
          */
-        username: "",
+        username: "vasilis",
 
         /**
          * The password
          */
-        password: "",
+        password: "vasilisvasilis",
 
         /**
          * Indicates whether there is a login error or not.
@@ -172,6 +172,7 @@ Vue.component(
 
         // Change the application state.
         AppState.isUserLoggedIn = !this.isLoginError;
+        AppState.currentState = "initial";
         
         // Close the login dialog.
         this.isLoginDialogOpen = !AppState.isUserLoggedIn;
@@ -185,6 +186,7 @@ Vue.component(
 
         // Change the application state.
         AppState.isUserLoggedIn = false;
+        AppState.currentState = "welcome";
 
         // Close the login dialog.
         this.isLoginDialogOpen = AppState.isUserLoggedIn;
