@@ -3,67 +3,157 @@ Vue.component(
         template:
         /*html*/
         `
-        <v-container fluid>
-        <v-autocomplete
-        v-model="friends"
-        :disabled="isUpdating"
-        :items="people"
-        filled
-        chips
-        color="blue-grey lighten-2"
-        label="Select"
-        item-text="name"
-        item-value="name"
-        multiple
-      >
+        
+  <v-card
+    color="primary darken-1"
+    dark
+  >
+  <v-card-title>Ask a Question</v-card-title>
+      <v-container>
+          <v-autocomplete
+              v-model="p_activeQuestion"
+              :items="questions"
+              label="I want to know about..."
+              item-text="question"
+              item-value="question"
+              filled
+          ></v-autocomplete>
       </v-container>
+    
+    <v-divider></v-divider>
+    
+    <v-card-actions >
+    <v-spacer></v-spacer>
+    <v-btn
+    :disabled="!p_activeQuestion"
+    color="green darken-2"
+    @click=onSubmit
+    >
+    <v-icon left>
+    mdi-text-box-search
+    </v-icon>
+    Tell me!
+    </v-btn>
+    </v-card-actions>
+    <v-divider></v-divider>
+    
+
+    <v-card v-if="activeQuestion && activeQuestion.answer">
+    <v-card-title>Answer for your question</v-card-title>
+    <v-card-subtitle>{{activeQuestion.question}}</v-card-subtitle>
+    
+    <v-container>
+    
+    <p>Answer title: {{activeQuestion.answer.title}}</p>
+    <p>Data for Legend: {{activeQuestion.answer.data.name}}</p>
+    
+    <v-row justify="space-around">
+    <v-card-subtitle>related Data</v-card-subtitle>
+    
+    <v-col
+    cols="12"
+    sm="10"
+    md="8"
+    >
+    <v-sheet
+    
+    >
+    <v-chip-group>
+    <v-chip
+    v-for="d in activeQuestion.answer.ref.data"
+    :key="d.name"
+    >
+    <a :href="d.link" class="secondary--text">{{ d.name }}</a>
+    </v-chip>
+    </v-chip-group>
+    </v-sheet>
+    </v-col>
+    </v-row>
+    
+    <v-row justify="space-around">
+    <v-card-subtitle>related APIs</v-card-subtitle>
+    <v-col
+    cols="12"
+    sm="10"
+    md="8"
+      >
+      <v-sheet>
+      <v-chip-group>
+      <v-chip
+      v-for="d in activeQuestion.answer.ref.api"
+      :key="d.name"
+      >
+      <a :href="d.link" class="secondary--text">{{ d.name }}</a>
+      </v-chip>
+      </v-chip-group>
+      </v-sheet>
+      </v-col>
+      </v-row>
+      
+      
+      
+      </v-container>
+      </v-card>
+      <v-card v-else-if="activeQuestion && !activeQuestion.answer">
+      No answer
+      </v-card>
+      
+      
+  </v-card>
+      
+      
+      
+      
+
 
         `,
         data () {
-          const srcs = {
-            1: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            2: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-            3: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-            4: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-            5: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          }
-    
           return {
-            autoUpdate: true,
-            friends: ['Sandra Adams', 'Britta Holt'],
-            isUpdating: false,
-            name: 'Midnight Crew',
-            people: [
+            p_activeQuestion: null,          
+            submit:false,
+            
+            questions: [
               { header: 'Group 1' },
-              { name: 'Sandra Adams', group: 'Group 1', avatar: srcs[1] },
-              { name: 'Ali Connors', group: 'Group 1', avatar: srcs[2] },
-              { name: 'Trevor Hansen', group: 'Group 1', avatar: srcs[3] },
-              { name: 'Tucker Smith', group: 'Group 1', avatar: srcs[2] },
+              { 
+                question: 'How heathly is to live in my area/postcode', 
+                answer: {
+                  title: "Answer title",
+                  data: {name: 'Air Quality', url: 'https://www.airqualityengland.co.uk/'},  
+                  ref: {
+                    data: [
+                      {name:'DataSet 1', link:'https://vuetifyjs.com/en/'}, 
+                      {name:'DataSet 2', link:'https://vuetifyjs.com/en/'}, 
+                      {name:'DataSet 3', link:'https://vuetifyjs.com/en/'}
+                    ],
+                    api: [
+                      {name:'Api 1', link:'https://vuetifyjs.com/en/'}, 
+                      {name:'Api 2', link:'https://vuetifyjs.com/en/'}, 
+                      {name:'Api 3', link:'https://vuetifyjs.com/en/'}
+                    ]
+                  }, 
+                }
+              },
+              
               { divider: true },
+              
               { header: 'Group 2' },
-              { name: 'Britta Holt', group: 'Group 2', avatar: srcs[4] },
-              { name: 'Jane Smith ', group: 'Group 2', avatar: srcs[5] },
-              { name: 'John Smith', group: 'Group 2', avatar: srcs[1] },
-              { name: 'Sandra Williams', group: 'Group 2', avatar: srcs[3] },
+              { question: 'What is the carbon footprint of building in my area/postcode', answer: null},
             ],
-            title: 'The summer breeze',
           }
         },
-    
-        watch: {
-          isUpdating (val) {
-            if (val) {
-              setTimeout(() => (this.isUpdating = false), 3000)
-            }
-          },
-        },
-    
+  
         methods: {
-          remove (item) {
-            const index = this.friends.indexOf(item.name)
-            if (index >= 0) this.friends.splice(index, 1)
-          },
+          onSubmit(){
+            submit = true
+          }
         },
+
+        computed:{
+          activeQuestion(){
+            const activeQuestion = this.questions.filter(q => q.question === this.p_activeQuestion)
+            return activeQuestion.length ? activeQuestion[0] : null
+          }
+        }
       
         
       })
