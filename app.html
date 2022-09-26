@@ -45,7 +45,7 @@
                     color="primary"
                     v-bind="attrs"
                     v-on="on"
-                    v-show="applicationState.currentState === 'initial'">
+                    v-show="applicationState.isUserLoggedIn">
               Search
             </v-btn>
           </template>
