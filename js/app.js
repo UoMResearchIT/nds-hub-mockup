@@ -253,14 +253,13 @@ let appViewModel = new Vue({
         { state: 'askQuestion', title: 'Ask a Question', icon: 'mdi-head-question' },
         { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
         { state: 'runModel', title: 'Create a model', icon: 'mdi-chart-box' },
-      ],
-      layers: [],
-      selectedLayersIndex: []
-      
+      ]
     },
 
-
-
+    questionTab: {
+      selectedQuestion: null,
+      MockupData: AppData.mockUpQuestions,
+    },
 
     /**
      * The items used to create the treeview hierarchy.
@@ -290,6 +289,31 @@ let appViewModel = new Vue({
    * @return {object} - The reactive properties of the model of the application.
    */
   computed: {
+
+      /**
+       * questionTab active Question
+       * @return {object} - The active question.
+       */
+      questionTab_activeQuestion(){
+        if (!this.applicationState_isAskQuestion
+         || !this.questionTab.selectedQuestion) {
+          return null
+        }
+        return this.questionTab.MockupData.filter(q => q.displayedQuestion === this.questionTab.selectedQuestion)[0]
+      },
+
+      /**
+       * questionTab active question's answer
+       * @return {object} - The active question's answer.
+       */
+      questionTab_activeAnswer(){
+        if (!this.questionTab_activeQuestion) {
+          return null
+        }
+        return this.questionTab_activeQuestion.answer
+      },
+
+    
       /**
      * Gets the text of the login button.
      * @returns {String} - The text of the login button.

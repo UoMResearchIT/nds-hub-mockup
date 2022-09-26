@@ -262,9 +262,11 @@
           <v-card-title>Ask a Question</v-card-title>
           <v-container>
                 <v-autocomplete
+                    v-model="questionTab.selectedQuestion"
+                    :items="questionTab.MockupData"
                     label="I want to know about..."
-                    item-text="question"
-                    item-value="question"
+                    item-text="displayedQuestion"
+                    item-value="displayedQuestion"
                     filled
                 ></v-autocomplete>
           </v-container>
@@ -276,6 +278,44 @@
               Tell me!
             </v-btn>
           </v-card-actions>
+          </v-card>
+          
+          <v-card v-if="questionTab_activeQuestion" dark>
+            <v-card-title>Question Description</v-card-title>
+            <v-card-text>{{questionTab_activeQuestion.description}}</v-card-text>
+
+            <v-card-title>Answer</v-card-title>
+            <v-card-subtitle>{{questionTab_activeAnswer.displayedAnswer}}</v-card-subtitle>
+            
+            <v-card-title>Answer Dataset</v-card-title>
+            <v-card-subtitle>Just for illustration purpose: data can be accessed directly from the root.</v-card-subtitle>
+            <v-card-text>{{questionTab_activeAnswer.dataset}}</v-card-text>
+            
+            <v-card-title>Answer Reference</v-card-title>
+            
+             
+            <v-row justify="center">
+            <v-card-subtitle>Data</v-card-subtitle>
+            <v-chip-group>
+            <v-chip v-for="d in questionTab_activeAnswer.ref.data"
+            :key="d.name"
+            >
+            <a :href="d.link" class="secondary--text">{{ d.name }}</a>
+            </v-chip>
+            </v-chip-group>
+            </v-row>
+            
+            <v-row justify="center">
+            <v-card-subtitle>APIs</v-card-subtitle>
+            
+            <v-chip-group>
+            <v-chip v-for="d in questionTab_activeAnswer.ref.api"
+            :key="d.name"
+            >
+            <a :href="d.link" class="secondary--text">{{ d.name }}</a>
+            </v-chip>
+            </v-chip-group>
+            </v-row>
           </v-card>
         </v-container>
         <!--QuestionTabContent ends-->
