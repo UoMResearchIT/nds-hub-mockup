@@ -23,8 +23,8 @@
     <v-app id="app">
       <!-- TopBar starts -->
       <v-app-bar  
-                  clipped-left
                   color="primary"
+                  clipped-left
                   dark
                   dense
                   flat
@@ -251,8 +251,8 @@
         <!--QuestionTabContent starts-->
         <v-container v-if="applicationState_isAskQuestion"> 
           <v-card-title>
-            Current AppState: {{this.applicationState.currentState}}
-            isNavDrawerOpen: {{this.navigationTabs.isNavDrawerOpen}}
+            Current AppState: {{applicationState.currentState}}
+            isNavDrawerOpen: {{navigationTabs.isNavDrawerOpen}}
           </v-card-title>
           
           <v-card 
@@ -271,7 +271,7 @@
           
           <v-card-actions>
           <v-spacer></v-spacer>
-            <v-btn color="green darken-2">
+            <v-btn color="light-green darken-3">
               <v-icon left>mdi-text-box-search</v-icon>
               Tell me!
             </v-btn>
@@ -283,7 +283,7 @@
         <!-- DataTabContent starts -->
         <v-container v-if="applicationState_isExploreData">
           <v-card-title>
-            Current AppState: {{this.applicationState.currentState}}
+            Current AppState: {{applicationState.currentState}}
           </v-card-title>
         </v-container>
         <!-- DataTabContent ends -->
@@ -291,7 +291,7 @@
         <!-- ModelTabContent starts -->
         <v-container v-if="applicationState_isRunModel">
           <v-card-title>
-            Current AppState: {{this.applicationState.currentState}}
+            Current AppState: {{applicationState.currentState}}
           </v-card-title>
         </v-container>
         <!-- ModelTabContent ends -->
@@ -395,15 +395,8 @@
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.js"></script>
   <script type="text/javascript" src="libs/choropleth-1.0.0/choropleth.js"></script>
-  
   <script type="text/javascript" src="data/app-data.js"></script>
-  <!-- <script type="text/javascript" src="data/app-data-hub-apps.js"></script> -->
   <script type="text/javascript" src="data/app-data-metadata.js"></script>
-
-  <!-- <script type="text/javascript" src="components/logInOutButton.js"></script> -->
-  <!-- <script type="text/javascript" src="components/welcomeCarousel.js"></script> -->
-  <!-- <script type="text/javascript" src="components/searchBtn.js"></script> -->
-
   <script type="text/javascript" src="js/app.js"></script>
 
 </body>
