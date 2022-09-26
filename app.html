@@ -47,18 +47,15 @@
             </v-btn>
           </template>
           <v-card>
-            <v-toolbar  dark
-                        color="primary">
+            <v-toolbar  color="secondary">
               <v-btn  icon
-                      dark
                       @click="searchDialog.isSearchDialogOpen = false">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
               <v-toolbar-title>Search Data</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-toolbar-items>
-                <v-btn  dark
-                        text
+                <v-btn  text
                         @click="searchDialog.isSearchDialogOpen = false">
                   Close
                 </v-btn>
@@ -223,7 +220,42 @@
                             app
                             clipped
                             permanent
-                            v-if="applicationState.currentState === 'initial'">
+                            v-model="navigationTabs.drawer"
+                            v-if="applicationState.currentState === 'initial'"
+                            width="25%">
+
+        <v-container>
+          <v-row>
+            <v-tabs background-color="indigo"
+                    class="rounded-0"
+                    dark
+                    fixed
+                    fixed-tabs
+                    v-model="navigationTabs.selectedTabIndex"
+                    width="100%">
+              <v-tab v-for="(tab, index) in navigationTabs.tabs" :key="index">
+                <v-icon>{{tab.icon}}</v-icon>
+              </v-tab>
+            </v-tabs>
+          </v-row>
+        </v-container>
+
+        <v-container>
+          
+          <!-- 
+            Chris v-if / v-show seems identical, but they have a very big difference
+            v-if removes the element from the DOM
+            v-show hides the element from the DOM
+              -->
+          <!-- TODO: Decide if v-show should be used instead of v-if -->
+
+          <v-row>
+            <!-- <tab-question-content v-if="this.currentTabName === 'question'"></tab-question-content>
+            <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content>
+            <tab-model-content v-if="this.currentTabName === 'model'"></tab-model-content> -->
+          </v-row>
+          
+        </v-container>
 
 
 

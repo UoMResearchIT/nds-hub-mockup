@@ -42,32 +42,39 @@
                             v-model="drawer"
                             permanent
                             width="25%">
-        
-      <v-tabs background-color="indigo"
-              class="rounded-0"
-              dark
-              fixed
-              fixed-tabs
-              v-model="selectedTabIndex"
-              width="100%">
-        <v-tab v-for="(tab, index) in tabs" :key="index">
-          <v-icon>{{tab.icon}}</v-icon>
-        </v-tab>
-      </v-tabs>
-    
-      <v-container>
-        
-        <!-- 
-          Chris v-if / v-show seems identical, but they have a very big difference
-          v-if removes the element from the DOM
-          v-show hides the element from the DOM
-            -->
-        <!-- TODO: Decide if v-show should be used instead of v-if -->
-        <tab-question-content v-if="this.currentTabName === 'question'"></tab-question-content>
-        <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content>
-        <tab-model-content v-if="this.currentTabName === 'model'"></tab-model-content>
-        
-      </v-container>
+
+        <v-container>
+          <v-row>
+            <v-tabs background-color="indigo"
+                    class="rounded-0"
+                    dark
+                    fixed
+                    fixed-tabs
+                    v-model="selectedTabIndex"
+                    width="100%">
+              <v-tab v-for="(tab, index) in tabs" :key="index">
+                <v-icon>{{tab.icon}}</v-icon>
+              </v-tab>
+            </v-tabs>
+          </v-row>
+        </v-container>
+
+        <v-container>
+          
+          <!-- 
+            Chris v-if / v-show seems identical, but they have a very big difference
+            v-if removes the element from the DOM
+            v-show hides the element from the DOM
+              -->
+          <!-- TODO: Decide if v-show should be used instead of v-if -->
+
+          <v-row>
+            <tab-question-content v-if="this.currentTabName === 'question'"></tab-question-content>
+            <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content>
+            <tab-model-content v-if="this.currentTabName === 'model'"></tab-model-content>
+          </v-row>
+          
+        </v-container>
           
       </v-navigation-drawer>
 
