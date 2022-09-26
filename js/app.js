@@ -290,6 +290,13 @@ let appViewModel = new Vue({
    * @return {object} - The reactive properties of the model of the application.
    */
   computed: {
+    /**
+     * Gets the text of the login button.
+     * @returns {String} - The text of the login button.
+     */
+         applicationState_GetUserLoginButtonText() {
+          return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
+        },
 
   },
 
@@ -316,16 +323,6 @@ let appViewModel = new Vue({
 
     alertMessage: function (message) {
       alert(message);
-    },
-
-    
-
-    /**
-     * Gets the text of the login button.
-     * @returns {String} - The text of the login button.
-     */
-    applicationState_GetUserLoginButtonText() {
-      return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
     },
 
     /**
