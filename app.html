@@ -29,13 +29,14 @@
                   dense
                   flat
                   app>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon v-if="applicationState.isUserLoggedIn"></v-app-bar-nav-icon>
         <v-toolbar-title>NERC Digital Solutions Hub</v-toolbar-title>
         
         <v-spacer></v-spacer>
         
         <!-- SearchDialog starts -->
-        <v-dialog id="search-dialog"
+        <v-dialog v-if="applicationState.isUserLoggedIn"
+                  id="search-dialog"
                   v-model="searchDialog.isSearchDialogOpen"
                   fullscreen
                   hide-overlay
@@ -44,8 +45,7 @@
             <v-btn  id="search-button"
                     color="primary"
                     v-bind="attrs"
-                    v-on="on"
-                    v-show="applicationState.isUserLoggedIn">
+                    v-on="on">
               Search
             </v-btn>
           </template>
