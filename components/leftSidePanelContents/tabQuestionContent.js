@@ -3,7 +3,6 @@ Vue.component(
         template:
         /*html*/
         `
-        
   <v-card
     color="primary darken-1"
     dark
@@ -33,10 +32,7 @@ Vue.component(
     Tell me!
     </v-btn>
     </v-card-actions>
-    
     <v-divider></v-divider>
-    
-
     <v-card v-if="activeQuestion && activeQuestion.answer">
     
     <v-card-title>Answer for your question</v-card-title>
@@ -58,9 +54,7 @@ Vue.component(
     <a :href="d.link" class="secondary--text">{{ d.name }}</a>
     </v-chip>
     </v-chip-group>
-    
     </v-row>
-    
     <v-row justify="space-around">
       <v-card-subtitle>related APIs</v-card-subtitle>
       <v-sheet>
@@ -73,11 +67,7 @@ Vue.component(
       </v-chip>
       </v-chip-group>
       </v-sheet>
-    
     </v-row>
-      
-      
-      
     </v-container>
       </v-card>
       <v-card v-else-if="activeQuestion && !activeQuestionAnswer">
@@ -133,9 +123,6 @@ Vue.component(
           },
           activeQuestionAnswer(){
             return this.activeQuestion? this.activeQuestion.answer: null
-          }
-          
+          } 
         }
-      
-        
       })
