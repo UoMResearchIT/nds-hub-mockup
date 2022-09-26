@@ -34,6 +34,7 @@
         <v-spacer></v-spacer>
         <search-btn></search-btn>
         <log-in-out-btn></log-in-out-btn>
+        <v-btn v-on:click="state2='initial'">StateButton</v-btn>
       </v-app-bar>
 
       <!-- <v-navigation-drawer  id ="navigation-drawer"
@@ -69,7 +70,19 @@
 
         <!-- <div id="map"></div> -->
 
-        <welcome-carousel v-show="currentAppState == 'welcome'"></welcome-carousel>
+        <!-- <div v-on:state-changed="alertMessage('v-on:state-changed')">
+          <welcome-carousel v-show="currentAppState === 'welcome'"
+                            v-show:state-changed="currentAppState === 'welcome'"
+                            @state-changed="alertMessage('@state-changed')">
+          </welcome-carousel>
+        </div> -->
+
+        <div v-show="state2 === 'welcome'">this is a div</div>
+        
+        <!-- <welcome-carousel v-show="currentAppState === 'welcome'"
+                          v-show:state-changed="alertMessage('changed')">
+        </welcome-carousel> -->
+        <!-- <welcome-carousel></welcome-carousel> -->
 
         <!-- <v-carousel>
           <v-carousel-item>

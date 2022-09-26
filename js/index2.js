@@ -156,12 +156,92 @@ let appViewModel = new Vue({
   data: {
 
     /**
-     * The current state of the application.
+     * The application state.
      */
-    // currentAppState: appState.currentState,
-    //currentAppState: 'welcome',
+    applicationState: {
 
-    state2: "welcome",
+      /**
+       * The current state of the application.
+       */
+      currentState: 'welcome',
+
+      /**
+       * The possible states of the application in sequence.
+       */
+      states: [ "welcome", "initial", "askQuestions", "exploreData", "runModel" ],
+
+      /**
+       * Indicates whether the user is logged in or not.
+       */
+      isUserLoggedIn: false,
+      
+    },
+
+    /**
+     * The login dialog.
+     */
+    loginDialog: {
+
+      /**
+        * Indicates whether the login dialog is open or not.
+        */
+      isLoginDialogOpen: false,
+
+       /**
+        * The username.
+        */
+      username: "vasilis",
+
+       /**
+        * The password
+        */
+      password: "vasilisvasilis",
+
+       /**
+        * Indicates whether there is a login error or not.
+        */
+      isLoginError: false,
+
+    },
+
+    /**
+     * The search dialog.
+     */
+    searchDialog: {
+
+      isSearchDialogOpen: false,
+
+      notifications: false,
+      
+      sound: true,
+      
+      widgets: false,
+      
+      layers: null
+
+    },
+
+    /**
+     * The search bar.
+     */
+    searchBar: {
+
+      loading: false,
+
+      items: [],
+
+      searchResults: [],
+
+      selectedResults: [],
+
+      search: null,
+
+      select: null,
+
+      metadataTitles: AppData.metadata.getTitles()
+
+    },
+
 
     /**
      * The items used to create the treeview hierarchy.
@@ -192,37 +272,20 @@ let appViewModel = new Vue({
    */
   computed: {
 
-    // /**
-    //  * Gets the current state of the application.
-    //  */
-    // currentAppState() {
-    //   return AppState.currentState;
-    // },
+  },
+
+  /**
+   * 
+   */
+  watch: {
 
     /**
-     * The current state of the application.
+     * 
+     * @param {*} val 
      */
-    currentAppState: {
-
-      /**
-       * Gets the current state of the application.
-       * @returns {string} - The current state of the application.
-       */
-      get: function() {
-        return appState.currentState;
-      },
-      
-      // /**
-      //  * Sets the current state of the application.
-      //  * @param {String} value - The new value of the current state of the application.
-      //  */
-      // set: function(value) {
-      //   //
-      // }
-
-    }
-
-
+    searchBarSearch (val) {
+      val && val !== this.searchBar.select && this.searchBar_QuerySelections(val)
+    },
 
   },
 
@@ -237,28 +300,110 @@ let appViewModel = new Vue({
     },
 
     
-    // /**
-    //  * Determines whether the user is logged in or not.
-    //  * @returns {Boolean} - True if the user is logged in, false otherwise.
-    //  */
-    // isUserLoggedIn() {
-    //   return AppState.isUserLoggedIn;
-    // },
 
-    // /**
-    //  * Gets the text of the login button.
-    //  * @returns {String} - The text of the login button.
-    //  */
-    // getUserLoginButtonText() {
-    //   return AppState.isUserLoggedIn ? "Logout" : "Login";
-    // },
+    /**
+     * Gets the text of the login button.
+     * @returns {String} - The text of the login button.
+     */
+    applicationState_GetUserLoginButtonText() {
+      return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
+    },
 
-    // /**
-    //  * Gets the current state of the application.
-    //  */
-    // getCurrentAppState() {
-    //   return AppState.currentState;
-    // },
+    /**
+     * Clears the login error.
+     */
+    loginDialog_ClearLoginError() {
+      this.loginDialog.isLoginError = false;
+    },
+
+    /**
+     * Performs user login.
+     * @returns - When a login error occurs.
+     */
+    loginDialog_UserLogin() {
+
+      // Fake an error by not allowing the user to login if password has a length less than 8 characters long.
+      if (this.loginDialog.password.length < 8) {
+        this.loginDialog.isLoginError = true;
+        return;
+      }
+
+      // Make sure username/password are cleared from the dialog form.
+      this.loginDialog.username = "";
+      this.loginDialog.password = "";
+
+      // Change the application state.
+      this.applicationState.isUserLoggedIn = !this.loginDialog.isLoginError;
+      this.applicationState.currentState = "initial";
+      
+      // Close the login dialog.
+      this.loginDialog.isLoginDialogOpen = !this.applicationState.isUserLoggedIn;
+
+    },
+
+    /**
+     * Performs user logout.
+     */
+    loginDialog_UserLogout() {
+
+      // Change the application state.
+      this.applicationState.isUserLoggedIn = false;
+      this.applicationState.currentState = "welcome";
+
+      // Close the login dialog.
+      this.loginDialog.isLoginDialogOpen = this.applicationState.isUserLoggedIn;
+
+    },
+
+    /**
+     * Queries the selections.
+     * @param {*} v | The value of the selected items.
+     */
+    searchBar_QuerySelections(v) {
+      this.searchBar.loading = true
+      // Simulated ajax query
+      setTimeout(() => {
+        this.searchBar.items = this.searchBar.metadataTitles.filter(e => {
+          return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        })
+        this.searchBar.loading = false
+      }, 500)
+    },
+
+    /**
+     * 
+     * @returns {Array} - The array of the selected search results.
+     */
+    searchBar_OnEnter() {
+      if (this.searchBar.loading) return;
+      console.log("ENTER!!")
+      this.searchBar.searchResults = this.searchBar.items
+      console.log(this.searchBar.searchResults)
+    },
+    
+    /**
+     * Add the selected items on map.
+     */
+    searchBar_AddToMap() {
+      alert('add to map');
+      //this.$emit("add-to-map", this.searchBar.selectedResults.map( i => this.searchBar.searchResults[i]))
+    },
+
+    /**
+     * 
+     * @param {*} layers 
+     */
+    searchButton_OnAddToMap(layers) {
+      alert('OnAddToMap');
+      //this.$emit("add-to-map", layers)
+      this.loginDialog.isLoginDialogOpen = false
+    },
+
+
+
+
+
+
 
     /**
      * Updates the Map based on the active entry in the layers treeview.
@@ -282,7 +427,7 @@ let appViewModel = new Vue({
  * ================================================================================
  */
 
-appState.bindAppViewModel(appViewModel);
+
 
 
 

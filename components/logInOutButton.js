@@ -137,7 +137,7 @@ Vue.component(
        * @returns {Boolean} - True if the user is logged in, false otherwise.
        */
       isUserLoggedIn() {
-        return AppState.isUserLoggedIn;
+        return appState.isUserLoggedIn;
       },
 
       /**
@@ -145,7 +145,7 @@ Vue.component(
        * @returns {String} - The text of the login button.
        */
       getUserLoginButtonText() {
-        return AppState.isUserLoggedIn ? "Logout" : "Login";
+        return appState.isUserLoggedIn ? "Logout" : "Login";
       },
 
       /**
@@ -171,11 +171,14 @@ Vue.component(
         this.password = "";
 
         // Change the application state.
-        AppState.isUserLoggedIn = !this.isLoginError;
-        AppState.currentState = "initial";
+        appState.isUserLoggedIn = !this.isLoginError;
+        appState.currentState = "initial";
         
         // Close the login dialog.
-        this.isLoginDialogOpen = !AppState.isUserLoggedIn;
+        this.isLoginDialogOpen = !appState.isUserLoggedIn;
+
+        // Raise the state-changed event.
+        this.$emit('state-changed', appState.currentState);
 
       },
 
@@ -185,11 +188,11 @@ Vue.component(
       userLogout() {
 
         // Change the application state.
-        AppState.isUserLoggedIn = false;
-        AppState.currentState = "welcome";
+        appState.isUserLoggedIn = false;
+        appState.currentState = "welcome";
 
         // Close the login dialog.
-        this.isLoginDialogOpen = AppState.isUserLoggedIn;
+        this.isLoginDialogOpen = appState.isUserLoggedIn;
 
       },
       

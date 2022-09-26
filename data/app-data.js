@@ -6,8 +6,6 @@
 // Initialize the AppData object. Use the var keyword to make it visible globally.
 var AppData = AppData || {};
 
-
-
 /**
  * The dictionary of the fields of the layer to be used for rendereing the choropleth map.
  * Each field is an object with the following properties:
