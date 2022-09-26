@@ -21,7 +21,9 @@
   <div id="app-container" >
 
     <v-app id="app">
-      <v-app-bar  clipped-left
+      <!-- TopBar starts -->
+      <v-app-bar  
+                  clipped-left
                   color="primary"
                   dark
                   dense
@@ -32,6 +34,7 @@
         
         <v-spacer></v-spacer>
         
+        <!-- SearchDialog starts -->
         <v-dialog id="search-dialog"
                   v-model="searchDialog.isSearchDialogOpen"
                   fullscreen
@@ -125,7 +128,9 @@
             </v-list>
           </v-card>
         </v-dialog>
-
+        <!-- SearchDialog ends -->
+        
+        <!-- LoginDialog starts -->
         <v-dialog id="login-dialog"
                   v-model="loginDialog.isLoginDialogOpen"
                   persistent
@@ -213,17 +218,21 @@
           </v-card>
 
         </v-dialog>
-        
+        <!-- LoginDialog ends -->
+      
       </v-app-bar>
-
-      <v-navigation-drawer  id ="navigation-drawer"
+      <!-- TopBar ends -->
+      
+      <!--NavDrawer starts--> 
+      <v-navigation-drawer  v-if="applicationState.isUserLoggedIn"
+                            id ="navigation-drawer" 
+                            v-model="navigationTabs.drawer"
+                            width="25%"
                             app
                             clipped
-                            permanent
-                            v-model="navigationTabs.drawer"
-                            v-if="applicationState.isUserLoggedIn"
-                            width="25%">
+                            permanent>
                             
+        <!--TabBar starts-->
         <template v-slot:prepend>
           <v-tabs background-color="indigo"
                   class="rounded-0"
@@ -237,11 +246,14 @@
             </v-tab>
           </v-tabs>
         </template>
+        <!--TabsBar ends-->
         
-        <v-container>
+        <!--QuestionTabContent starts-->
+        <v-container v-if="applicationState_isAskQuestion"> 
           <v-card-title>
-            Debug: {{this.applicationState.currentState}}
+            Current AppState: {{this.applicationState.currentState}}
           </v-card-title>
+          
           <v-card 
            color="primary darken-1"
            dark>
@@ -264,16 +276,36 @@
           </v-btn>
           </v-card>
         </v-container>
+        <!--QuestionTabContent ends-->
+
+        <!-- DataTabContent starts -->
+        <v-container v-if="applicationState_isExploreData">
+          <v-card-title>
+            Current AppState: {{this.applicationState.currentState}}
+          </v-card-title>
+        </v-container>
+        <!-- DataTabContent ends -->
+
+        <!-- ModelTabContent starts -->
+        <v-container v-if="applicationState_isRunModel">
+          <v-card-title>
+            Current AppState: {{this.applicationState.currentState}}
+          </v-card-title>
+        </v-container>
+        <!-- ModelTabContent ends -->
+      
       </v-navigation-drawer>
+      <!--NavDrawer ends-->
 
-      <v-main id="main"
+      <!-- app-main starts -->
+      <v-main 
+              id="main"
               app>
-
         <!-- <div id="map"></div> -->
 
-
-        <v-carousel id="carousel"
-                    v-show="applicationState.currentState === 'welcome'">
+        <!-- Carousel starts -->
+        <v-carousel v-show="applicationState_isWelcome" 
+                    id="carousel">
           <v-carousel-item>
             <v-sheet  color="light-green darken-2"
                       height="100%"
@@ -343,13 +375,10 @@
             </v-sheet>
           </v-carousel-item>
         </v-carousel>
-        
-
-
-
-
-
+        <!-- Carousel ends -->
+      
       </v-main>
+      <!-- app-main ends -->
 
       <!-- <v-footer  id="footer"
                  color="orange"

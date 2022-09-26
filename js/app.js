@@ -304,6 +304,42 @@ let appViewModel = new Vue({
      */    
       navigationTabs_GetSelectedTab() {
         return this.navigationTabs.tabs[this.navigationTabs.selectedTabIndex];
+      },
+      
+
+      /**
+       * Indicates if currentState is the askQuestion or init.
+       * questionTab is default to be selected when the user is logged in.
+       * @returns {Boolean} - indicates if currentState is the askQuestion tab.
+       */
+      applicationState_isAskQuestion() {
+        return this.applicationState.currentState === 'askQuestion' || 
+              this.applicationState.currentState === 'initial';
+      },
+
+      /**
+       * Indicates if currentState is the exploreData.
+       * @returns {Boolean} - indicates if currentState is the exploreData tab.
+       *
+       */
+      applicationState_isExploreData() {
+        return applicationState.currentState === 'exploreData';
+      },
+
+      /**
+       * Indicates if currentState is the runModel.
+       * @returns {Boolean} - indicates if currentState is the runModel tab.
+       */
+      applicationState_isRunModel() {
+        return applicationState.currentState === 'runModel';
+      },
+
+      /**
+       * Indicates if currentState is the welcome.
+       * @returns {Boolean} - indicates if currentState is the welcome tab.
+       */
+      applicationState_isWelcome() {
+        return applicationState.currentState === 'welcome';
       }
     },
 
@@ -448,7 +484,8 @@ let appViewModel = new Vue({
 
   }
 
-})
+}
+);
 
 
 
