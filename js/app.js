@@ -253,7 +253,7 @@ let appViewModel = new Vue({
         { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
         { state: 'runModel', title: 'Create a model', icon: 'mdi-chart-box' },
       ],
-      drawer: false,
+      isNavDrawerOpen: false,
       layers: [],
       selectedLayersIndex: []
       

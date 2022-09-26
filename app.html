@@ -29,7 +29,7 @@
                   dense
                   flat
                   app>
-        <v-app-bar-nav-icon v-if="applicationState.isUserLoggedIn"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="navigationTabs.isNavDrawerOpen = !navigationTabs.isNavDrawerOpen" v-if="applicationState.isUserLoggedIn"></v-app-bar-nav-icon>
         <v-toolbar-title>NERC Digital Solutions Hub</v-toolbar-title>
         
         <v-spacer></v-spacer>
@@ -226,11 +226,11 @@
       <!--NavDrawer starts--> 
       <v-navigation-drawer  v-if="applicationState.isUserLoggedIn"
                             id ="navigation-drawer" 
-                            v-model="navigationTabs.drawer"
+                            v-model="navigationTabs.isNavDrawerOpen"
                             width="25%"
                             app
                             clipped
-                            permanent>
+                            >
                             
         <!--TabBar starts-->
         <template v-slot:prepend>
@@ -252,6 +252,7 @@
         <v-container v-if="applicationState_isAskQuestion"> 
           <v-card-title>
             Current AppState: {{this.applicationState.currentState}}
+            isNavDrawerOpen: {{this.navigationTabs.isNavDrawerOpen}}
           </v-card-title>
           
           <v-card 
