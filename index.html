@@ -36,28 +36,27 @@
         <search-btn></search-btn>
       </v-app-bar>
 
-      <!--overflow-hidden-->
       <v-navigation-drawer  app
                             clipped
                             v-model="drawer"
                             permanent
                             width="25%">
 
-        <v-container>
-          <v-row>
-            <v-tabs background-color="indigo"
-                    class="rounded-0"
-                    dark
-                    fixed
-                    fixed-tabs
-                    v-model="selectedTabIndex"
-                    width="100%">
-              <v-tab v-for="(tab, index) in tabs" :key="index">
-                <v-icon>{{tab.icon}}</v-icon>
-              </v-tab>
-            </v-tabs>
-          </v-row>
-        </v-container>
+        <!-- v-slot:prepend / used for a header -->
+        <!-- v-slot:append / used for a footer -->
+        <template v-slot:prepend>
+          <v-tabs background-color="indigo"
+                  class="rounded-0"
+                  dark
+                  fixed
+                  fixed-tabs
+                  v-model="selectedTabIndex"
+                  width="100%">
+            <v-tab v-for="(tab, index) in tabs" :key="index">
+              <v-icon>{{tab.icon}}</v-icon>
+            </v-tab>
+          </v-tabs>
+        </template>
 
         <v-container>
           

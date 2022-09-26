@@ -223,22 +223,20 @@
                             v-model="navigationTabs.drawer"
                             v-if="applicationState.currentState === 'initial'"
                             width="25%">
-
-        <v-container>
-          <v-row>
-            <v-tabs background-color="indigo"
-                    class="rounded-0"
-                    dark
-                    fixed
-                    fixed-tabs
-                    v-model="navigationTabs.selectedTabIndex"
-                    width="100%">
-              <v-tab v-for="(tab, index) in navigationTabs.tabs" :key="index">
-                <v-icon>{{tab.icon}}</v-icon>
-              </v-tab>
-            </v-tabs>
-          </v-row>
-        </v-container>
+                            
+        <template v-slot:prepend>
+          <v-tabs background-color="indigo"
+                  class="rounded-0"
+                  dark
+                  fixed
+                  fixed-tabs
+                  v-model="navigationTabs.selectedTabIndex"
+                  width="100%">
+            <v-tab v-for="(tab, index) in navigationTabs.tabs" :key="index">
+              <v-icon>{{tab.icon}}</v-icon>
+            </v-tab>
+          </v-tabs>
+        </template>
 
         <v-container>
           
