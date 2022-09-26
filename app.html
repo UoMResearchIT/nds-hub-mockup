@@ -237,12 +237,14 @@
             </v-tab>
           </v-tabs>
         </template>
-
+        
         <v-container>
+          <v-card-title>{{this.applicationState.currentState}}</v-card-title>
           <v-card
           color="primary darken-1"
           dark
         >
+
         <v-card-title>Ask a Question</v-card-title>
             <v-container>
                 <v-autocomplete

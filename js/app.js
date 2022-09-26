@@ -249,9 +249,9 @@ let appViewModel = new Vue({
 
       selectedTabIndex: 0,
       tabs: [
-        { name: 'question', title: 'Ask a Question', icon: 'mdi-head-question' },
-        { name: 'data', title: 'Do more with Data', icon: 'mdi-database-search' },
-        { name: 'model', title: 'Create a model', icon: 'mdi-chart-box' },
+        { state: 'askQuestion', title: 'Ask a Question', icon: 'mdi-head-question' },
+        { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
+        { state: 'runModel', title: 'Create a model', icon: 'mdi-chart-box' },
       ],
       drawer: false,
       layers: [],
@@ -297,8 +297,15 @@ let appViewModel = new Vue({
          applicationState_GetUserLoginButtonText() {
           return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
         },
-
-  },
+    
+    /**
+     * Get the object of the selected tab.
+     * @returns {Object} - The selected field object.
+     */    
+    navigationTabs_GetSelectedTab() {
+      return this.navigationTabs.tabs[this.navigationTabs.selectedTabIndex];
+    }
+    },
 
   /**
    * 
@@ -312,6 +319,17 @@ let appViewModel = new Vue({
     searchBarSearch (val) {
       val && val !== this.searchBar.select && this.searchBar_QuerySelections(val)
     },
+
+    
+  /**
+   * watch the changes selected tab in the navigation tabs
+   * set the current state of the application accordingly
+   */
+    navigationTabs_GetSelectedTab(){
+      console.log('navigationTabs_GetSelectedTab() changed!!!');
+      this.applicationState.currentState = this.navigationTabs_GetSelectedTab.state;
+      console.log(`current state: ${this.applicationState.currentState}`);
+    }
 
   },
 
