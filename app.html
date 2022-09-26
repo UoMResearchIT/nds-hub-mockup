@@ -239,74 +239,31 @@
         </template>
         
         <v-container>
-          <v-card-title>{{this.applicationState.currentState}}</v-card-title>
-          <v-card
-          color="primary darken-1"
-          dark
-        >
+          <v-card-title>
+            Debug: {{this.applicationState.currentState}}
+          </v-card-title>
+          <v-card 
+           color="primary darken-1"
+           dark>
 
-        <v-card-title>Ask a Question</v-card-title>
-            <v-container>
+          <v-card-title>Ask a Question</v-card-title>
+          <v-container>
                 <v-autocomplete
-                    
                     label="I want to know about..."
                     item-text="question"
                     item-value="question"
                     filled
                 ></v-autocomplete>
-            </v-container>
+          </v-container>
           
-          <v-card-actions >
           <v-spacer></v-spacer>
-          <v-btn
           
-          color="green darken-2"
-          
-          >
-          <v-icon left>
-          mdi-text-box-search
-          </v-icon>
-          Tell me!
+          <v-btn color="green darken-2">
+            <v-icon left>mdi-text-box-search</v-icon>
+            Tell me!
           </v-btn>
           </v-card>
-          <!-- 
-            Chris v-if / v-show seems identical, but they have a very big difference
-            v-if removes the element from the DOM
-            v-show hides the element from the DOM
-              -->
-          <!-- TODO: Decide if v-show should be used instead of v-if -->
-
-          <!-- <v-row> -->
-            
-            <!-- <tab-data-content v-if="this.currentTabName === 'data'"></tab-data-content> -->
-            <!-- <tab-model-content v-if="this.currentTabName === 'model'"></tab-model-content> -->
-          <!-- </v-row> -->
-          
         </v-container>
-
-
-
-
-        <!-- <v-treeview id="climate-just-treewview"
-                    activatable
-                    :active.sync="selectedField"
-                    dense
-                    hoverable
-                    :items="treeViewItems"
-                    :open.sync="openedFolders"
-                    open-on-click
-                    @update:active="updateMap()"
-                    v-show="false">
-          <template v-slot:prepend="{ item, active, open }">
-            <v-icon v-if="item.isFolder">
-              {{ open ? 'mdi-folder-open-outline' : 'mdi-folder-outline' }}
-            </v-icon>
-            <v-icon v-else>
-              {{ active ? 'mdi-radiobox-marked' : 'mdi-radiobox-blank' }}
-            </v-icon>
-          </template>
-        </v-treeview> -->
-
       </v-navigation-drawer>
 
       <v-main id="main"
