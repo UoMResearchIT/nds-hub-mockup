@@ -248,12 +248,12 @@ let appViewModel = new Vue({
     navigationTabs: {
 
       selectedTabIndex: 0,
+      isNavDrawerOpen: false,
       tabs: [
         { state: 'askQuestion', title: 'Ask a Question', icon: 'mdi-head-question' },
         { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
         { state: 'runModel', title: 'Create a model', icon: 'mdi-chart-box' },
       ],
-      isNavDrawerOpen: false,
       layers: [],
       selectedLayersIndex: []
       
@@ -467,11 +467,12 @@ let appViewModel = new Vue({
       this.loginDialog.isLoginDialogOpen = false
     },
 
-
-
-
-
-
+    /**
+     * Open or Close Navigation Drawer.
+     */
+    navigationTabs_OpenDrawer() {
+      this.navigationTabs.isNavDrawerOpen = !this.navigationTabs.isNavDrawerOpen;
+    },
 
     /**
      * Updates the Map based on the active entry in the layers treeview.

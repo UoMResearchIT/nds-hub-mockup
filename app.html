@@ -29,7 +29,7 @@
                   dense
                   flat
                   app>
-        <v-app-bar-nav-icon @click.stop="navigationTabs.isNavDrawerOpen = !navigationTabs.isNavDrawerOpen" v-if="applicationState.isUserLoggedIn"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="navigationTabs_OpenDrawer" v-if="applicationState.isUserLoggedIn"></v-app-bar-nav-icon>
         <v-toolbar-title>NERC Digital Solutions Hub</v-toolbar-title>
         
         <v-spacer></v-spacer>
