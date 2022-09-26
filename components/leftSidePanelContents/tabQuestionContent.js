@@ -20,8 +20,6 @@ Vue.component(
           ></v-autocomplete>
       </v-container>
     
-    <v-divider></v-divider>
-    
     <v-card-actions >
     <v-spacer></v-spacer>
     <v-btn
@@ -35,6 +33,7 @@ Vue.component(
     Tell me!
     </v-btn>
     </v-card-actions>
+    
     <v-divider></v-divider>
     
 
@@ -46,12 +45,11 @@ Vue.component(
     <v-container>
     
     <p>Answer title: {{activeQuestionAnswer.title}}</p>
-    <p>Data for Legend: {{activeQuestionAnswer.data.name}}</p>
+    <p>Data for Rendering: {{activeQuestionAnswer.data}}</p>
     
     <v-row justify="space-around">
     <v-card-subtitle>related Data</v-card-subtitle>
     
-    <v-sheet>
     <v-chip-group>
     <v-chip
     v-for="d in activeQuestionAnswer.ref.data"
@@ -60,7 +58,7 @@ Vue.component(
     <a :href="d.link" class="secondary--text">{{ d.name }}</a>
     </v-chip>
     </v-chip-group>
-    </v-sheet>
+    
     </v-row>
     
     <v-row justify="space-around">
@@ -85,15 +83,7 @@ Vue.component(
       <v-card v-else-if="activeQuestion && !activeQuestionAnswer">
       No answer
       </v-card>
-      
-      
   </v-card>
-      
-      
-      
-      
-
-
         `,
         data () {
           return {
