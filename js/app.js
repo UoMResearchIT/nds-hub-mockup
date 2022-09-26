@@ -290,21 +290,21 @@ let appViewModel = new Vue({
    * @return {object} - The reactive properties of the model of the application.
    */
   computed: {
-    /**
+      /**
      * Gets the text of the login button.
      * @returns {String} - The text of the login button.
      */
-         applicationState_GetUserLoginButtonText() {
-          return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
-        },
+      applicationState_GetUserLoginButtonText() {
+        return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
+      },
     
-    /**
+      /**
      * Get the object of the selected tab.
      * @returns {Object} - The selected field object.
      */    
-    navigationTabs_GetSelectedTab() {
-      return this.navigationTabs.tabs[this.navigationTabs.selectedTabIndex];
-    }
+      navigationTabs_GetSelectedTab() {
+        return this.navigationTabs.tabs[this.navigationTabs.selectedTabIndex];
+      }
     },
 
   /**
@@ -321,14 +321,12 @@ let appViewModel = new Vue({
     },
 
     
-  /**
-   * watch the changes selected tab in the navigation tabs
-   * set the current state of the application accordingly
-   */
+    /**
+      * watch the changes selected tab in the navigation tabs
+      * set the current state of the application accordingly
+      */
     navigationTabs_GetSelectedTab(){
-      console.log('navigationTabs_GetSelectedTab() changed!!!');
       this.applicationState.currentState = this.navigationTabs_GetSelectedTab.state;
-      console.log(`current state: ${this.applicationState.currentState}`);
     }
 
   },
