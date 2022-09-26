@@ -323,7 +323,7 @@ let appViewModel = new Vue({
        *
        */
       applicationState_isExploreData() {
-        return applicationState.currentState === 'exploreData';
+        return this.applicationState.currentState === 'exploreData';
       },
 
       /**
@@ -331,7 +331,7 @@ let appViewModel = new Vue({
        * @returns {Boolean} - indicates if currentState is the runModel tab.
        */
       applicationState_isRunModel() {
-        return applicationState.currentState === 'runModel';
+        return this.applicationState.currentState === 'runModel';
       },
 
       /**
@@ -339,7 +339,7 @@ let appViewModel = new Vue({
        * @returns {Boolean} - indicates if currentState is the welcome tab.
        */
       applicationState_isWelcome() {
-        return applicationState.currentState === 'welcome';
+        return this.applicationState.currentState === 'welcome';
       }
     },
 
