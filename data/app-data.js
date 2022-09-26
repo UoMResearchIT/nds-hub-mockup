@@ -24173,3 +24173,43 @@ AppData.heatExp2011FeatureCollection = {
     }
   ]
 };
+
+/**
+ * Questions and answers for the question tab
+ * 
+ * @type {Array}
+ */
+AppData.mockUpQuestions = [
+  { 
+    displayedQuestion: 'How heathly is to live in my area/postcode', 
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    answer: {
+      displayedAnswer: "Answer title",
+      dataset: {
+        name: 'Air Quality', 
+        url: 'https://www.airqualityengland.co.uk/',
+        layers: [
+          {name: 'layer1', data: 'layer1 data'},
+          {name: 'layer2', data: 'layer2 data'},
+          {name: 'layer3', data: 'layer3 data'},
+        ]
+      },  
+      ref: {
+        data: [
+          {name:'DataSet 1', link:'https://vuetifyjs.com/en/'}, 
+          {name:'DataSet 2', link:'https://vuetifyjs.com/en/'}, 
+          {name:'DataSet 3', link:'https://vuetifyjs.com/en/'},
+          {name:'DataSet 4', link:'https://vuetifyjs.com/en/'},
+          {name:'DataSet 5', link:'https://vuetifyjs.com/en/'},
+          {name:'DataSet 6', link:'https://vuetifyjs.com/en/'}
+        ],
+        api: [
+          {name:'Api 1', link:'https://vuetifyjs.com/en/'}, 
+          {name:'Api 2', link:'https://vuetifyjs.com/en/'}, 
+          {name:'Api 3', link:'https://vuetifyjs.com/en/'}
+        ]
+      }, 
+    }
+  },  
+  { displayedQuestion: 'What is the carbon footprint of building in my area/postcode', answer: null},
+]
