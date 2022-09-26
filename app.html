@@ -221,7 +221,7 @@
                             clipped
                             permanent
                             v-model="navigationTabs.drawer"
-                            v-if="applicationState.currentState === 'initial'"
+                            v-if="applicationState.isUserLoggedIn"
                             width="25%">
                             
         <template v-slot:prepend>
@@ -239,16 +239,14 @@
         </template>
 
         <v-container>
-          <v-card 
-          
+          <v-card
           color="primary darken-1"
           dark
         >
         <v-card-title>Ask a Question</v-card-title>
             <v-container>
                 <v-autocomplete
-                    v-model="p_activeQuestion"
-                    :items="questions"
+                    
                     label="I want to know about..."
                     item-text="question"
                     item-value="question"
@@ -259,57 +257,15 @@
           <v-card-actions >
           <v-spacer></v-spacer>
           <v-btn
-          :disabled="!p_activeQuestion"
+          
           color="green darken-2"
-          @click=onSubmit
+          
           >
           <v-icon left>
           mdi-text-box-search
           </v-icon>
           Tell me!
           </v-btn>
-          </v-card-actions>
-          <v-divider></v-divider>
-          <v-card v-if="activeQuestion && activeQuestion.answer">
-          
-          <v-card-title>Answer for your question</v-card-title>
-          <v-card-subtitle>{{activeQuestion.question}}</v-card-subtitle>
-          
-          <v-container>
-          
-          <p>Answer title: {{activeQuestionAnswer.title}}</p>
-          <p>Data for Rendering: {{activeQuestionAnswer.data}}</p>
-          
-          <v-row justify="space-around">
-          <v-card-subtitle>related Data</v-card-subtitle>
-          
-          <v-chip-group>
-          <v-chip
-          v-for="d in activeQuestionAnswer.ref.data"
-          :key="d.name"
-          >
-          <a :href="d.link" class="secondary--text">{{ d.name }}</a>
-          </v-chip>
-          </v-chip-group>
-          </v-row>
-          <v-row justify="space-around">
-            <v-card-subtitle>related APIs</v-card-subtitle>
-            <v-sheet>
-            <v-chip-group>
-            <v-chip
-            v-for="d in activeQuestionAnswer.ref.api"
-            :key="d.name"
-            >
-            <a :href="d.link" class="secondary--text">{{ d.name }}</a>
-            </v-chip>
-            </v-chip-group>
-            </v-sheet>
-          </v-row>
-          </v-container>
-            </v-card>
-            <v-card v-else-if="activeQuestion && !activeQuestionAnswer">
-            No answer
-            </v-card>
           </v-card>
           <!-- 
             Chris v-if / v-show seems identical, but they have a very big difference
