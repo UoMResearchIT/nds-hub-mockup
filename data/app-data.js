@@ -24190,9 +24190,30 @@ AppData.mockUpQuestions = [
         name: 'Air Quality', 
         url: 'https://www.airqualityengland.co.uk/',
         layers: [
-          {name: 'layer1', data: 'layer1 data'},
-          {name: 'layer2', data: 'layer2 data'},
-          {name: 'layer3', data: 'layer3 data'},
+          {
+            name: 'Flooding', 
+            description: "Vulnerability due to health", 
+            data: 'Flooding data', 
+            show: true, 
+            visibility: 1,
+            info: 'Flooding data info'
+          },
+          {
+            name: 'Disability', 
+            description: "People in ill-health", 
+            data: 'Disability data', 
+            show: true, 
+            visibility: 1,
+            info: 'Disability data info'
+          },
+          {
+            name: 'Air Pullution', 
+            description: "Air Pullution", 
+            data: 'Air data', 
+            show: true, 
+            visibility: 1,
+            info: 'Air quality data info'
+          },
         ]
       },  
       ref: {
