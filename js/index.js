@@ -47,9 +47,9 @@ const appViewModel = new Vue({
   data: {
     selectedTabIndex: 0,
     tabs: [
-      { name: 'question', title: 'Ask a Question', icon: 'mdi-head-question' },
-      { name: 'data', title: 'Do more with Data', icon: 'mdi-database-search' },
-      { name: 'model', title: 'Create a model', icon: 'mdi-chart-box' },
+      { name: 'question', title: 'Ask a Question',    icon: 'mdi-head-question' },
+      { name: 'data',     title: 'Do more with Data', icon: 'mdi-database-search' },
+      { name: 'model',    title: 'Create a model',    icon: 'mdi-chart-box' },
     ],
     drawer: false,
     layers: [],
