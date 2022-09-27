@@ -291,6 +291,16 @@ let appViewModel = new Vue({
   computed: {
 
       /**
+       * questionTab active answer layers
+       * @return {Array} - The array of the active answer layers.
+       */
+      questionTab_activeLayers(){
+        if (!this.questionTab_activeAnswer) return [];
+        // not yet finish..
+      },
+
+
+      /**
        * questionTab active Question
        * @return {object} - The active question.
        */
