@@ -250,10 +250,12 @@
         
         <!--QuestionTabContent starts-->
         <v-container v-if="applicationState_isAskQuestion"> 
+          <!-- Debug starts -->
           <v-card-title>
             Current AppState: {{applicationState.currentState}}
             isNavDrawerOpen: {{navigationTabs.isNavDrawerOpen}}
           </v-card-title>
+          <!-- Debug ends -->
           
           <v-card 
            color="primary darken-1"
