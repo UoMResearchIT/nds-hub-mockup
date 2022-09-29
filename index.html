@@ -403,6 +403,14 @@
             </v-sheet>
           </v-carousel-item>
         </v-carousel>
+        <v-container fill-height>
+          <v-row id="btn-row" v-show="applicationState.currentState === 'welcome'"
+          pa-2 justify="space-between">
+          <v-btn>Enter</v-btn>
+          <v-btn>Login</v-btn>
+          <v-btn>Register</v-btn>
+        </v-row>
+        <v-container>
         
 
 
