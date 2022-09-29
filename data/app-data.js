@@ -12,6 +12,7 @@ var AppData = AppData || {};
  * id: The id of the field.
  * fieldName: The name of the field.
  * name: The user friendly name that is rendered on the HTML page.
+ * @type {Object}
  */
 AppData.heatExp2011Fields = {
   '101': { id: 101, fieldName: "AbsH10Day", name: "AbsH10Day-Description" },
@@ -90,7 +91,6 @@ AppData.heatExp2011Fields = {
 
 /**
  * The items used to display the contents of the treeview.
- * 
  * @type {Array}
  */
 AppData.treeViewItems = [{
@@ -199,6 +199,7 @@ AppData.treeViewItems = [{
  * Always make sure a semicolon (;) is added at the end of the assignment.
  * This way, you do not need to parse the JSON object, but instead you
  * directly convert it in to a JavaScript variable, ready to be used in the script.
+ * @type {Object}
  */
 AppData.heatExp2011FeatureCollection = {
   "type": "FeatureCollection",
@@ -24175,67 +24176,65 @@ AppData.heatExp2011FeatureCollection = {
 };
 
 /**
- * Questions and answers for the question tab
- * 
+ * The questions that are displayed on the 'Ask a Question' tab page.
  * @type {Array}
  */
-AppData.mockUpQuestions = [
-  { 
-    displayedQuestion: 'How heathly is to live in my area/postcode', 
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    answer: {
-      displayedAnswer: "Answer title",
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      dataset: {
-        name: 'Air Quality', 
-        url: 'https://www.airqualityengland.co.uk/',
-        layers: [
-          {
-            name: 'Flooding', 
-            description: "Vulnerability due to health", 
-            data: 'Flooding data', 
-            show: true, 
-            visibility: 1,
-            info: 'Flooding data info'
-          },
-          {
-            name: 'Disability', 
-            description: "People in ill-health", 
-            data: 'Disability data', 
-            show: true, 
-            visibility: 1,
-            info: 'Disability data info'
-          },
-          {
-            name: 'Air Pullution', 
-            description: "Air Pullution", 
-            data: 'Air data', 
-            show: true, 
-            visibility: 1,
-            info: 'Air quality data info'
-          },
-        ]
-      },  
-      ref: {
-        data: [
-          {name:'DataSet 1', link:'https://vuetifyjs.com/en/'}, 
-          {name:'DataSet 2', link:'https://vuetifyjs.com/en/'}, 
-          {name:'DataSet 3', link:'https://vuetifyjs.com/en/'},
-          {name:'DataSet 4', link:'https://vuetifyjs.com/en/'},
-          {name:'DataSet 5', link:'https://vuetifyjs.com/en/'},
-          {name:'DataSet 6', link:'https://vuetifyjs.com/en/'}
-        ],
-        api: [
-          {name:'Api 1', link:'https://vuetifyjs.com/en/'}, 
-          {name:'Api 2', link:'https://vuetifyjs.com/en/'}, 
-          {name:'Api 3', link:'https://vuetifyjs.com/en/'},
-          {name:'Api 4', link:'https://vuetifyjs.com/en/'},
-          {name:'Api 5', link:'https://vuetifyjs.com/en/'},
-          {name:'Api 6', link:'https://vuetifyjs.com/en/'},
-          {name:'Api 7', link:'https://vuetifyjs.com/en/'}
-        ]
-      }, 
-    }
-  },  
-  { displayedQuestion: 'What is the carbon footprint of building in my area/postcode', answer: null},
-]
+ AppData.questions = [{
+  id: 1,
+  name: 'PersonalExposureEstimate',
+  displayedQuestion: 'What is my personal exposure estimate according to my location?',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  icon: '',
+  widgets: [ 'postcodeWidget', 'timeSeriesWidget' ],
+  layers:  [
+    { name: 'Air Quality time series data by location', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '428', serviceId: 1 },
+    { name: 'Pre-existing conditions by area (by age groups)', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '', serviceId: 2 }
+  ]}, {
+  id: 2,
+  name: 'CarbonFootprintOfBuildings',
+  displayedQuestion: 'What is the carbon footprint of buildings in my area/postcode.',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  icon: '',
+  widgets: [],
+  layers: [
+    
+  ]}
+];
+
+AppData.questions.getComboboxItems = () => {
+  return AppData.questions.map((q) => { return { value: q.id, text: q.displayedQuestion }; });
+};
+
+getTitles: () => AppData.metadata.records.map(e => e.title)
+
+/**
+ * https://ukair.maps.staging.rcdo.co.uk/ukairserver/rest/services/Hosted?f=pjson
+ * https://ukair.maps.staging.rcdo.co.uk/ukairserver/rest/services/pcm_2021
+ * https://ukair.maps.staging.rcdo.co.uk/ukairserver/rest/services/Hosted
+ * https://ukair.maps.staging.rcdo.co.uk/ukairserver/rest/services/ 
+ * https://ukairmaps.ricardo-aea.com/server/rest/services/
+ * 
+ * https://ukairmaps.ricardo-aea.com/server/rest/services/General/NI_basemap/MapServer/export?dpi=96&transparent=true&format=png8&bbox=-883456.6361988236%2C-459420.26178430935%2C2386799.9043142577%2C1450875.225473332&bboxSR=27700&imageSR=27700&size=1236%2C722&f=image
+ * https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/NO2/MapServer/export?dpi=96&transparent=true&format=png8&layers=show%3A1&bbox=-883456.6361988236%2C-459420.26178430935%2C2386799.9043142577%2C1450875.225473332&bboxSR=27700&imageSR=27700&size=1236%2C722&f=image
+ * https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/NOx/MapServer/export?dpi=96&transparent=true&format=png8&layers=show%3A1&bbox=-883456.6361988236%2C-459420.26178430935%2C2386799.9043142577%2C1450875.225473332&bboxSR=27700&imageSR=27700&size=1236%2C722&f=image
+ * 
+ * 
+ * 
+ * Nitrogen Dioxide annual mean
+ * https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/NO2/MapServer/
+ * 
+ * NOx (as NO2) annual mean
+ * PM10 annual mean
+ * PM 2.5 annual mean
+ * Benzene annual mean
+ * Carbon Monoxide annual mean
+ * Carbon Monoxide max-8hr mean
+ * Ozone (Days greater than 120 μg m-3)
+ * Sulphur Dioxide annual mean
+ * Arsenic annual mean
+ * Benzo[a]Pyrene annual mean
+ * Cadmium annual mean
+ * Lead annual mean
+ * Nickel annual mean
+ * 
+ */
