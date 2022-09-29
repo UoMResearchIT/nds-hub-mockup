@@ -352,17 +352,20 @@ let appViewModel = new Vue({
    * @type {Object} - The object that encapsulates all ViewModel methods.
    */
   methods: {
+    
     /**
-     * @return {void}
-     * @param {String} state 
+     * action after regisration form's submit button.
      */
-
     registerDialog_onSubmit: function() {
       alert("Regisration success.");
       this.registerDialog.isRegisterDialogOpen = false;
-      console.log("!!!!")
     },
 
+    /**
+     * Switches the application state.
+     * @return {void}
+     * @param {String} state 
+     */
     applicationState_toState: function(state){
       if (this.applicationState.states.includes(state)){
         this.applicationState.currentState = state;
