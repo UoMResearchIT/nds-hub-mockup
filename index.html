@@ -404,10 +404,14 @@
           </v-carousel-item>
         </v-carousel>
         
-        <v-container fill-height>
+        
+        <v-container fill-height fuild>
           <v-row id="btn-row" v-show="applicationState.currentState === 'welcome'"
-          pa-2 justify="space-between">
-          <v-btn @click="applicationState_toState('askQuestions')" dark color="light-green darken-2">Enter</v-btn>
+          pa-2 justify="space-around">
+          <v-btn  x-large @click="applicationState_toState('askQuestions')" dark color="light-green darken-2">
+            <v-icon>mdi-play</v-icon>
+            Enter
+          </v-btn>
                   
 
           <v-dialog id="login-dialog2"
@@ -421,7 +425,8 @@
             <v-btn  id="login-button"
                     color="primary"
                     v-bind="attrs"
-                    v-on="on">
+                    v-on="on"
+                    x-large>
               <v-icon>mdi-login</v-icon>
               {{ applicationState_GetUserLoginButtonText() }}
             </v-btn>
@@ -511,8 +516,9 @@
                     dark
                     v-bind="attrs"
                     v-on="on"
+                    x-large
                   >
-                    Register
+                  <v-icon>mdi-file-sign </v-icon>Register
                   </v-btn>
                 </template>
                 <v-card>
