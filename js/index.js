@@ -203,6 +203,12 @@ let appViewModel = new Vue({
       isLoginError: false,
 
     },
+    /**
+     * The login dialog.
+     */
+    registerDialog: {
+      isRegisterDialogOpen: false
+    },
 
     /**
      * The search dialog.
@@ -346,6 +352,28 @@ let appViewModel = new Vue({
    * @type {Object} - The object that encapsulates all ViewModel methods.
    */
   methods: {
+    /**
+     * @return {void}
+     * @param {String} state 
+     */
+
+    registerDialog_onSubmit: function() {
+      alert("Regisration success.");
+      this.registerDialog.isRegisterDialogOpen = false;
+      console.log("!!!!")
+    },
+
+    applicationState_toState: function(state){
+      if (this.applicationState.states.includes(state)){
+        this.applicationState.currentState = state;
+      } else {
+        throw new Error(`
+          state "${state}" does not exist.
+          available states are: [${this.applicationState.states}]
+        `);
+      }
+
+    },
 
     alertMessage: function (message) {
       alert(message);
