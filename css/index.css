@@ -7,17 +7,25 @@ body {
   overflow-y: hidden;
 }
 
-#app-container {
+/* #app-container {
   height: 100%;
-}
+} */
 
-#app {
+/* #app {
   height: 100%;
-}
+} */
 
-#map {
+/*check the documentation of leaflet*/
+/* #map {
+  margin: 40px;
   width: 100%;
   height: 100%;
   z-index: 1;
-  /*check the documentation of leaflet*/
+} */
+
+#arcgisMap {
+  background-color: chocolate;
+  padding: 0;
+  margin: 20px;
+  height: 100%;
 }

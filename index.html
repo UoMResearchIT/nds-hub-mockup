@@ -8,13 +8,16 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css">
 
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.css">
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.css"> -->
   <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/4.24/esri/themes/light/main.css">
   
   <link rel="stylesheet" type="text/css" href="css/index.css">
-
+  
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+  <script type="text/javascript" src="libs/require-2.3.6/require.js"></script>
+  <script src="https://js.arcgis.com/4.24/"></script>
 </head>
 
 <body>
@@ -329,11 +332,10 @@
       <v-main id="main"
               app>
 
-        <!-- <div id="map"></div> -->
-
+        
 
         <v-carousel id="carousel"
-                    v-show="applicationState.currentState === 'welcome'">
+                    v-if="applicationState.currentState === 'welcome'">
           <v-carousel-item>
             <v-sheet  color="light-green darken-2"
                       height="100%"
@@ -403,7 +405,27 @@
             </v-sheet>
           </v-carousel-item>
         </v-carousel>
-        
+
+
+        <!-- <div id="map"
+             v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
+             >
+        </div> -->
+
+        <div  id="arcgisMap"
+              v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
+              >
+          
+        </div>
+
+        <!-- <v-container height="800">
+          
+        </v-container> -->
+
+        <!-- <v-card v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'">
+                   
+
+        </v-card> -->
 
 
 
@@ -422,9 +444,13 @@
 
   </div>
 
+
+
+  <!-- <script type="text/javascript" src="libs/require-2.3.6/require.js"></script> -->
+
   <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.js"></script> -->
   <!-- <script type="text/javascript" src="libs/choropleth-1.0.0/choropleth.js"></script> -->
-  <script type="text/javascript" src="https://js.arcgis.com/4.24/"></script>
+  
   
   <script type="text/javascript" src="data/app-data.js"></script>
   <!-- <script type="text/javascript" src="data/app-data-hub-apps.js"></script> -->
@@ -435,6 +461,7 @@
   <!-- <script type="text/javascript" src="components/searchBtn.js"></script> -->
 
   <script type="text/javascript" src="js/index.js"></script>
+  <!-- <script type="module" src="js/index.js"></script> -->
 
 </body>
 </html>

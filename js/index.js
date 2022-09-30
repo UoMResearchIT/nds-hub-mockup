@@ -1,4 +1,42 @@
 
+/**
+ * Imports.
+ */
+// import esriConfig from "arcgis/core/config";
+// import Map from "arcgis/core/Map";
+// import MapView from "arcgis/core/views/MapView";
+
+let esriConfig = null;
+let Map2 = null;
+let MapView2 = null;
+
+require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
+// require(["libs/arcgis-4.24/esri/config", "libs/arcgis-4.24/esri/Map", "libs/arcgis-4.24/esri/views/MapView"], function (esriConfig, Map, MapView) {
+  // alert("Hello World!");
+  esriConfig2 = esriConfig;
+  Map2 = Map;
+  MapView2 = MapView;
+});
+
+// require([
+//   "https://js.arcgis.com/4.24/esri/config",
+//   "https://js.arcgis.com/4.24/esri/Map",
+//   "https://js.arcgis.com/4.24/esri/views/MapView"
+// ], function (esriConfig, Map, MapView) {
+//   // alert("Hello World!");
+//   esriConfig2 = esriConfig;
+//   Map2 = Map;
+//   MapView2 = MapView;
+// });
+
+
+// require module arcgis javascript 4.24 modu
+
+// const esriConfig = require("esri/config");
+// const Map = require("esri/Map");
+// const MapView = require("esri/views/MapView");
+
+
 
 /**
  * The Spatial class is used as a static container of Spatial Information.
@@ -57,9 +95,8 @@ class Spatial {
 
     // Create the map and set its view.
     Spatial.map = L.map('map').setView([Spatial.initialLat, Spatial.initialLon], Spatial.initialZoom)
-
-    // Add the basemap layer.
-    Spatial.basemapLayer = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+    
+    Spatial.basemapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: Spatial.maxZoom,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
@@ -113,6 +150,80 @@ class Spatial {
 };
 
 /**
+ * The ArcSpatial class is used as a static container for all geospatial logic of the application.
+ */
+class ArcSpatial {
+
+  /**
+   * The constructor of the class which makes sure that the class
+   * acts as a static one and can not be instantiated.
+   */
+  constructor() {
+    if (this instanceof ArcSpatial) {
+      throw Error('arcSpatial class is static and cannot be instantiated.');
+    }
+  }
+
+  
+
+  /**
+   * The initial map latitude.
+   */
+  static initialLat = 54;
+
+  /**
+   * The initial map longitude.
+   */
+  static initialLon = -4;
+
+  /**
+   * The initial map zoom level.
+   */
+  static initialZoom = 6;
+
+  /**
+   * The maximum zoom level of the background layer which holds the maximum zoom level of them.
+   */
+  static maxZoom = 18;
+  
+  /**
+   * The ArcGIS map.
+   */
+  static map = null;
+
+  /**
+   * The ArcGIS map view.
+   */
+  static mapView = null;
+
+
+
+  /**
+   * Initializes the map.
+   */
+  static initializeMap() {
+
+    esriConfig2.apiKey = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
+    ArcSpatial.map = new Map2({
+      basemap: "arcgis-topographic" // Basemap layer service
+    });
+
+    ArcSpatial.mapView = new MapView2({
+      map: ArcSpatial.map,
+      center: [ArcSpatial.initialLon, ArcSpatial.initialLat],
+      zoom: ArcSpatial.initialZoom,
+      container: "arcgisMap",
+    });
+
+
+
+  }
+
+}
+
+
+
+/**
  * ================================================================================
  *   ViewModels.
  * ================================================================================
@@ -163,7 +274,7 @@ let appViewModel = new Vue({
       /**
        * The current state of the application.
        */
-      currentState: 'askQuestions', // TODO: Change to 'initial' to 'welcome' when the application is ready.
+      currentState: 'welcome', // TODO: Change to 'initial' to 'welcome' when the application is ready.
 
       /**
        * The possible states of the application in sequence.
@@ -173,7 +284,7 @@ let appViewModel = new Vue({
       /**
        * Indicates whether the user is logged in or not.
        */
-      isUserLoggedIn: true, // TODO: Change to false when the application is ready.
+      isUserLoggedIn: false, // TODO: Change to false when the application is ready.
       
     },
 
@@ -391,6 +502,20 @@ let appViewModel = new Vue({
       // Close the login dialog.
       this.loginDialog.isLoginDialogOpen = !this.applicationState.isUserLoggedIn;
 
+      // Make sure the DOM has been updated before calling the map initialization method.
+      this.$nextTick(function() {
+        // Spatial.initializeMap();
+        
+        // if (document.getElementById("arcgisMap").innerHTML !== null || document.getElementById("arcgisMap").innerHTML !== "") {
+        //   alert(document.getElementById("arcgisMap").innerHTML);
+        // }
+
+        ArcSpatial.initializeMap();
+
+      })
+
+      // DOM element innerHTML
+      
     },
 
     /**
@@ -498,7 +623,17 @@ let appViewModel = new Vue({
  * ================================================================================
  */
 
+// Vue.nextTick(function() {
+//   // DOM updated
+//   //alert('DOM updated');
+//   //console.log('DOM updated');
+//   //console.log(appViewModel);
+//   //console.log(appViewModel.askQuestionsTab.questionItems);
 
+// });
+
+
+// Vue.nextTick is called after an element has been created and inserted into the DOM.
 
 
 
