@@ -24187,7 +24187,7 @@ AppData.heatExp2011FeatureCollection = {
   icon: '',
   widgets: [ 'postcodeWidget', 'timeSeriesWidget' ],
   layers:  [
-    { name: 'Air Quality time series data by location', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '428', serviceId: 1 },
+    { name: 'Air Quality time series data by location', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '428', serviceIds: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
     { name: 'Pre-existing conditions by area (by age groups)', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '', serviceId: 2 }
   ]}, {
   id: 2,

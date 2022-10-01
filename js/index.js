@@ -10,8 +10,8 @@ let esriConfig = null;
 let Map2 = null;
 let MapView2 = null;
 
-require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
-// require(["libs/arcgis-4.24/esri/config", "libs/arcgis-4.24/esri/Map", "libs/arcgis-4.24/esri/views/MapView"], function (esriConfig, Map, MapView) {
+//require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
+require(["libs/arcgis-4.24/esri/config", "libs/arcgis-4.24/esri/Map", "libs/arcgis-4.24/esri/views/MapView"], function (esriConfig, Map, MapView) {
   // alert("Hello World!");
   esriConfig2 = esriConfig;
   Map2 = Map;
