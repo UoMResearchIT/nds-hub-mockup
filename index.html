@@ -405,13 +405,13 @@
         </v-carousel>
         
         
-        <v-container fill-height fuild style="max-width: 500px;">
+        <v-container>
           <v-row 
           id="btn-row" 
           v-show="applicationState.currentState === 'welcome'"
-          justify="space-around">
+          justify="center">
           
-          <v-btn x-large @click="applicationState_toState('askQuestions')" dark color="light-green darken-2">
+          <v-btn class="pa-10 ma-10" x-large @click="applicationState_toState('askQuestions')" dark color="light-green darken-2">
             <v-icon>mdi-play</v-icon>
             Enter
           </v-btn>
@@ -426,6 +426,7 @@
 
           <template v-slot:activator="{ on, attrs }">
             <v-btn  id="login-button"
+            class="pa-10 ma-10"
                     color="primary"
                     v-bind="attrs"
                     v-on="on"
@@ -514,6 +515,7 @@
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
+                  class="pa-10 ma-10"
                     color="secondary"
                     dark
                     v-bind="attrs"
