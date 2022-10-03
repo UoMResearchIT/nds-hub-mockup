@@ -314,11 +314,17 @@ let appViewModel = new Vue({
       isLoginError: false,
 
     },
+
     /**
-     * The login dialog.
+     * The register dialog.
      */
     registerDialog: {
+
+      /**
+       * Indicates whether the register dialog is open or not.
+       */
       isRegisterDialogOpen: false
+
     },
 
     /**
@@ -465,22 +471,24 @@ let appViewModel = new Vue({
   methods: {
     
     /**
-     * action after regisration form's submit button.
+     * Submits the registration information.
      */
     registerDialog_onSubmit: function() {
-      alert("Regisration success.");
       this.registerDialog.isRegisterDialogOpen = false;
     },
 
     /**
      * Switches the application state.
-     * @return {void}
      * @param {String} state 
+     * @return {void}
      */
-    applicationState_toState: function(state){
+    applicationState_toState: function(state) {
+
       if (this.applicationState.states.includes(state)){
         this.applicationState.currentState = state;
-      } else {
+      }
+      else {
+        // TODO: that pattern is a bit strange. Needs discussion.
         throw new Error(`
           state "${state}" does not exist.
           available states are: [${this.applicationState.states}]
@@ -541,9 +549,13 @@ let appViewModel = new Vue({
         //   alert(document.getElementById("arcgisMap").innerHTML);
         // }
 
+        //TODO: The next tick unfortunately is to remove from the DOM the container with the three buttons.
+        //      This causes the issue of the map not being displayed.
+
         ArcSpatial.initializeMap();
 
-      })
+      });
+      
 
       // DOM element innerHTML
       
@@ -583,10 +595,13 @@ let appViewModel = new Vue({
      * @returns {Array} - The array of the selected search results.
      */
     searchBar_OnEnter() {
-      if (this.searchBar.loading) return;
-      console.log("ENTER!!")
+
+      if (this.searchBar.loading) {
+        return;
+      }
+      
       this.searchBar.searchResults = this.searchBar.items
-      console.log(this.searchBar.searchResults)
+
     },
     
     /**
