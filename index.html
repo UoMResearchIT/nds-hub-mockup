@@ -405,10 +405,13 @@
         </v-carousel>
         
         
-        <v-container fill-height fuild>
-          <v-row id="btn-row" v-show="applicationState.currentState === 'welcome'"
-          pa-2 justify="space-around">
-          <v-btn  x-large @click="applicationState_toState('askQuestions')" dark color="light-green darken-2">
+        <v-container fill-height fuild style="max-width: 500px;">
+          <v-row 
+          id="btn-row" 
+          v-show="applicationState.currentState === 'welcome'"
+          justify="space-around">
+          
+          <v-btn x-large @click="applicationState_toState('askQuestions')" dark color="light-green darken-2">
             <v-icon>mdi-play</v-icon>
             Enter
           </v-btn>
@@ -504,7 +507,6 @@
 
           </v-dialog>
 
-          
           <v-dialog
                 v-model="registerDialog.isRegisterDialogOpen"
                 persistent
@@ -595,8 +597,7 @@
                   </v-card-actions>
                 </v-card>
           </v-dialog>
-          
-          
+                  
         </v-row>
         <v-container>
         
