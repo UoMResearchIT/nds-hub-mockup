@@ -332,8 +332,6 @@
       <v-main id="main"
               app>
 
-        
-
         <v-carousel id="carousel"
                     v-if="applicationState.currentState === 'welcome'">
           <v-carousel-item>
@@ -429,8 +427,10 @@
         
 
         <v-container fill-height>
-          <v-row id="btn-row" v-show="applicationState.currentState === 'welcome'"
-          pa-2 justify="space-between">
+          <v-row  id="btn-row"
+                  justify="space-between"
+                  pa-2
+                  v-show="applicationState.currentState === 'welcome'">
           <v-btn>Enter</v-btn>
           <v-btn>Login</v-btn>
           <v-btn>Register</v-btn>
