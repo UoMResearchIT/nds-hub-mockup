@@ -328,11 +328,10 @@
         </v-treeview> -->
 
       </v-navigation-drawer>
-      
+
       <v-main id="main"
-      app>
-      
-      <v-container v-show="applicationState.currentState === 'welcome'">
+              app>
+
         <v-carousel id="carousel">
           <v-carousel-item>
             <v-sheet  color="light-green darken-2"
@@ -403,9 +402,9 @@
             </v-sheet>
           </v-carousel-item>
         </v-carousel>
-
-          <div 
-          id="btn-row" 
+        
+        <v-container v-show="applicationState.currentState === 'welcome'">
+          <div id="btn-row" 
           class="d-flex justify-space-around"
           >
           
@@ -423,8 +422,8 @@
                   value="true">
 
           <template v-slot:activator="{ on, attrs }">
-            <v-btn  id="login-button"
-            class="pa-10 ma-10"
+            <v-btn id="login-button"
+                    class="pa-10 ma-10"
                     color="primary"
                     v-bind="attrs"
                     v-on="on"
@@ -520,7 +519,7 @@
                     v-on="on"
                     x-large
                   >
-                  <v-icon>mdi-file-sign </v-icon>Register
+                    <v-icon>mdi-file-sign</v-icon>Register
                   </v-btn>
                 </template>
                 <v-card>
@@ -597,20 +596,19 @@
                   </v-card-actions>
                 </v-card>
           </v-dialog>
-                  
         </div>
-      </v-container>
+        </v-container>
 
         <!-- <div id="map"
              v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
              >
         </div> -->
 
-      <div id="arcgisMap"
+        <div  id="arcgisMap"
               v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
               >
           
-      </div>
+        </div>
 
         <!-- <v-container height="800">
           
@@ -620,6 +618,8 @@
                    
 
         </v-card> -->
+
+        
 
       </v-main>
 
@@ -633,7 +633,9 @@
     </v-app>
 
   </div>
-  
+
+
+
   <!-- <script type="text/javascript" src="libs/require-2.3.6/require.js"></script> -->
 
   <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.js"></script> -->
