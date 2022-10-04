@@ -328,12 +328,12 @@
         </v-treeview> -->
 
       </v-navigation-drawer>
-
+      
       <v-main id="main"
-              app>
-
-        <v-carousel id="carousel"
-                    v-if="applicationState.currentState === 'welcome'">
+      app>
+      
+      <v-container v-show="applicationState.currentState === 'welcome'">
+        <v-carousel id="carousel">
           <v-carousel-item>
             <v-sheet  color="light-green darken-2"
                       height="100%"
@@ -404,7 +404,6 @@
           </v-carousel-item>
         </v-carousel>
 
-        <v-container v-show="applicationState.currentState === 'welcome'">
           <div 
           id="btn-row" 
           class="d-flex justify-space-around"
@@ -600,18 +599,18 @@
           </v-dialog>
                   
         </div>
-        </v-container>
+      </v-container>
 
         <!-- <div id="map"
              v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
              >
         </div> -->
 
-        <div  id="arcgisMap"
+      <div id="arcgisMap"
               v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
               >
           
-        </div>
+      </div>
 
         <!-- <v-container height="800">
           
