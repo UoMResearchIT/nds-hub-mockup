@@ -6,6 +6,8 @@
 // import Map from "arcgis/core/Map";
 // import MapView from "arcgis/core/views/MapView";
 
+const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
+
 // let esriConfig = null;
 // let Map2 = null;
 // let MapView2 = null;
@@ -46,12 +48,12 @@ class Spatial {
   /**
    * The initial map latitude.
    */
-  static initialLat = 54;
+  static initialLat = 55;
 
   /**
    * The initial map longitude.
    */
-  static initialLon = -4;
+  static initialLon = 2;
 
   /**
    * The initial map zoom level.
@@ -79,6 +81,37 @@ class Spatial {
   static basemapLayer = null;
 
   /**
+   * The base map layers that could be used on the map.
+   */
+  static basemapLayers = {
+    'Streets':           L.esri.Vector.vectorBasemapLayer("ArcGIS:Streets",          { apiKey: API_KEY }),
+    'Navigation':        L.esri.Vector.vectorBasemapLayer("ArcGIS:Navigation",       { apiKey: API_KEY }),
+    'Topographic':       L.esri.Vector.vectorBasemapLayer("ArcGIS:Topographic",      { apiKey: API_KEY }),
+    'Light Gray':        L.esri.Vector.vectorBasemapLayer("ArcGIS:LightGray",        { apiKey: API_KEY }),
+    'Dark Gray':         L.esri.Vector.vectorBasemapLayer("ArcGIS:DarkGray",         { apiKey: API_KEY }),
+    'Streets Relief':    L.esri.Vector.vectorBasemapLayer("ArcGIS:StreetsRelief",    { apiKey: API_KEY }),
+    'Imagery':           L.esri.Vector.vectorBasemapLayer("ArcGIS:Imagery",          { apiKey: API_KEY }),
+    'Charted Territory': L.esri.Vector.vectorBasemapLayer("ArcGIS:ChartedTerritory", { apiKey: API_KEY }),
+    'Colored Pencil':    L.esri.Vector.vectorBasemapLayer("ArcGIS:ColoredPencil",    { apiKey: API_KEY }),
+    'Nova':              L.esri.Vector.vectorBasemapLayer("ArcGIS:Nova",             { apiKey: API_KEY }),
+    'Midcentury':        L.esri.Vector.vectorBasemapLayer("ArcGIS:Midcentury",       { apiKey: API_KEY }),
+    'OSM:Standard':      L.esri.Vector.vectorBasemapLayer("OSM:Standard",            { apiKey: API_KEY }),
+    'OSM:Streets':       L.esri.Vector.vectorBasemapLayer("OSM:Streets",             { apiKey: API_KEY }),
+
+    'OSM': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: Spatial.maxZoom,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    })
+
+    // 'Streets':           L.esri.Vector.vectorBasemapLayer("ArcGIS:Streets",          { apiKey: API_KEY }),
+
+
+
+
+
+  };
+
+  /**
    * The constructor of the class which makes sure that the class
    * acts as a static one and can not be instantiated.
    */
@@ -96,10 +129,11 @@ class Spatial {
     // Create the map and set its view.
     Spatial.map = L.map('map').setView([Spatial.initialLat, Spatial.initialLon], Spatial.initialZoom)
     
-    Spatial.basemapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: Spatial.maxZoom,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
+    // Spatial.basemapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   maxZoom: Spatial.maxZoom,
+    //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    // });
+    Spatial.basemapLayer = Spatial.basemapLayers['OSM'];
     Spatial.basemapLayer.addTo(Spatial.map);
 
   }
@@ -169,12 +203,12 @@ class ArcSpatial {
   /**
    * The initial map latitude.
    */
-  static initialLat = 54;
+  static initialLat = 55;
 
   /**
    * The initial map longitude.
    */
-  static initialLon = -4;
+  static initialLon = 2;
 
   /**
    * The initial map zoom level.
@@ -203,7 +237,7 @@ class ArcSpatial {
    */
   static initializeMap() {
 
-    esriConfig2.apiKey = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
+    esriConfig2.apiKey = API_KEY;
     ArcSpatial.map = new Map2({
       basemap: "arcgis-topographic" // Basemap layer service
     });
