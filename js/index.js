@@ -6,17 +6,17 @@
 // import Map from "arcgis/core/Map";
 // import MapView from "arcgis/core/views/MapView";
 
-let esriConfig = null;
-let Map2 = null;
-let MapView2 = null;
+// let esriConfig = null;
+// let Map2 = null;
+// let MapView2 = null;
 
-//require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
-require(["libs/arcgis-4.24/esri/config", "libs/arcgis-4.24/esri/Map", "libs/arcgis-4.24/esri/views/MapView"], function (esriConfig, Map, MapView) {
-  // alert("Hello World!");
-  esriConfig2 = esriConfig;
-  Map2 = Map;
-  MapView2 = MapView;
-});
+// //require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
+// require(["libs/arcgis-4.24/esri/config", "libs/arcgis-4.24/esri/Map", "libs/arcgis-4.24/esri/views/MapView"], function (esriConfig, Map, MapView) {
+//   // alert("Hello World!");
+//   esriConfig2 = esriConfig;
+//   Map2 = Map;
+//   MapView2 = MapView;
+// });
 
 // require([
 //   "https://js.arcgis.com/4.24/esri/config",
@@ -543,7 +543,7 @@ let appViewModel = new Vue({
 
       // Make sure the DOM has been updated before calling the map initialization method.
       this.$nextTick(function() {
-        // Spatial.initializeMap();
+        
         
         // if (document.getElementById("arcgisMap").innerHTML !== null || document.getElementById("arcgisMap").innerHTML !== "") {
         //   alert(document.getElementById("arcgisMap").innerHTML);
@@ -552,7 +552,8 @@ let appViewModel = new Vue({
         //TODO: The next tick unfortunately is to remove from the DOM the container with the three buttons.
         //      This causes the issue of the map not being displayed.
 
-        ArcSpatial.initializeMap();
+        Spatial.initializeMap();
+        //ArcSpatial.initializeMap();
 
       });
       
