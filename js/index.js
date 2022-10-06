@@ -38,7 +38,6 @@
 // const Map = require("esri/Map");
 // const MapView = require("esri/views/MapView");
 
-// check again
 
 
 /**
@@ -467,12 +466,10 @@ class Spatial {
    */
   static initializeMap() {
     if (Spatial.map) {
+      // Release the ref if there is an initialized map. If you do not do this then leaflet fails to create a new map.
+      // See: https://stackoverflow.com/questions/23753886/destroy-leaflet-map-trouble
       Spatial.map.remove(); 
-      // release the ref if there is an initialized map
-      // see: https://stackoverflow.com/questions/23753886/destroy-leaflet-map-trouble
     }
-
-    console.log('initialize map start');
 
     // Create the map and set its view.
     
@@ -489,9 +486,7 @@ class Spatial {
 
     Spatial.basemapLayer = Spatial.basemapLayers['OSM'];
     Spatial.basemapLayer.addTo(Spatial.map);
-
-    console.log('initialize map end');
-
+    
   }
 
   /**`
@@ -940,7 +935,6 @@ const appViewModel = new Vue({
         //TODO: The next tick unfortunately is to remove from the DOM the container with the three buttons.
         //      This causes the issue of the map not being displayed.
 
-        console.log('nextTick');
         Spatial.initializeMap();
         //ArcSpatial.initializeMap();
 
