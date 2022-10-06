@@ -466,6 +466,13 @@ class Spatial {
    * Initializes the map.
    */
   static initializeMap() {
+    if (Spatial.map) {
+      Spatial.map.remove(); 
+      // release the ref if there is an initialized map
+      // see: https://stackoverflow.com/questions/23753886/destroy-leaflet-map-trouble
+    }
+
+    console.log('initialize map start');
 
     // Create the map and set its view.
     
@@ -482,6 +489,8 @@ class Spatial {
 
     Spatial.basemapLayer = Spatial.basemapLayers['OSM'];
     Spatial.basemapLayer.addTo(Spatial.map);
+
+    console.log('initialize map end');
 
   }
 
@@ -579,6 +588,7 @@ class ArcSpatial {
    * Initializes the map.
    */
   static initializeMap() {
+    
 
     esriConfig2.apiKey = API_KEY;
     ArcSpatial.map = new Map2({
@@ -608,7 +618,7 @@ class ArcSpatial {
  * The application ViewModel.
  * @type {Vue} = A Vue.js ViewModel.
  */
-let appViewModel = new Vue({
+const appViewModel = new Vue({
 
   /**
    * The name of the HTML component (the view) that this ViewModel
@@ -639,180 +649,182 @@ let appViewModel = new Vue({
    * This is the model in the MVVM pattern.
    * @return {object} - The model of the application.
    */
-  data: {
-
-    /**
-     * The application state.
-     */
-    applicationState: {
+  data(){
+    return {
 
       /**
-       * The current state of the application.
+       * The application state.
        */
-      currentState: 'welcome', // TODO: Change to 'initial' to 'welcome' when the application is ready.
-
+      applicationState: {
+  
+        /**
+         * The current state of the application.
+         */
+        currentState: 'welcome', // TODO: Change to 'initial' to 'welcome' when the application is ready.
+  
+        /**
+         * The possible states of the application in sequence.
+         */
+        states: [ "welcome", "initial", "askQuestions", "exploreData", "runModels" ],
+  
+        /**
+         * Indicates whether the user is logged in or not.
+         */
+        isUserLoggedIn: false, // TODO: Change to false when the application is ready.
+        
+      },
+  
       /**
-       * The possible states of the application in sequence.
+       * The login dialog.
        */
-      states: [ "welcome", "initial", "askQuestions", "exploreData", "runModels" ],
-
+      loginDialog: {
+  
+        /**
+          * Indicates whether the login dialog is open or not.
+          */
+        isLoginDialogOpen: false,
+  
+         /**
+          * The username.
+          */
+        username: "vasilis",
+  
+         /**
+          * The password
+          */
+        password: "vasilisvasilis",
+  
+         /**
+          * Indicates whether there is a login error or not.
+          */
+        isLoginError: false,
+  
+      },
+  
       /**
-       * Indicates whether the user is logged in or not.
+       * The register dialog.
        */
-      isUserLoggedIn: false, // TODO: Change to false when the application is ready.
-      
-    },
-
-    /**
-     * The login dialog.
-     */
-    loginDialog: {
-
+      registerDialog: {
+  
+        /**
+         * Indicates whether the register dialog is open or not.
+         */
+        isRegisterDialogOpen: false
+  
+      },
+  
       /**
-        * Indicates whether the login dialog is open or not.
-        */
-      isLoginDialogOpen: false,
-
-       /**
-        * The username.
-        */
-      username: "vasilis",
-
-       /**
-        * The password
-        */
-      password: "vasilisvasilis",
-
-       /**
-        * Indicates whether there is a login error or not.
-        */
-      isLoginError: false,
-
-    },
-
-    /**
-     * The register dialog.
-     */
-    registerDialog: {
-
-      /**
-       * Indicates whether the register dialog is open or not.
+       * The search dialog.
        */
-      isRegisterDialogOpen: false
-
-    },
-
-    /**
-     * The search dialog.
-     */
-    searchDialog: {
-
+      searchDialog: {
+  
+        /**
+         * Indicates whether the search dialog is open or not.
+         */
+        isSearchDialogOpen: false,
+  
+        // TODO: Documentation
+        notifications: false,
+        
+        /**
+         * Indicates whether the search dialog produces sound or not.
+         */
+        sound: true,
+        
+        // TODO: Documentation
+        widgets: false,
+        
+        /**
+         * The layers filtered by the search dialog.
+         */
+        layers: null
+  
+      },
+  
       /**
-       * Indicates whether the search dialog is open or not.
+       * The search bar.
        */
-      isSearchDialogOpen: false,
-
-      // TODO: Documentation
-      notifications: false,
-      
-      /**
-       * Indicates whether the search dialog produces sound or not.
-       */
-      sound: true,
-      
-      // TODO: Documentation
-      widgets: false,
-      
-      /**
-       * The layers filtered by the search dialog.
-       */
-      layers: null
-
-    },
-
-    /**
-     * The search bar.
-     */
-    searchBar: {
-
-      loading: false,
-
-      items: [],
-
-      searchResults: [],
-
-      selectedResults: [],
-
-      search: null,
-
-      select: null,
-
-      metadataTitles: AppData.metadata.getTitles()
-
-    },
-
-    /**
-     * The tabs of the application.
-     */
-    navigationTabs: {
-
-      /**
-       * The index of the selected tab.
-       */
-       selectedTabIndex: 0,
-
-      /**
-       * Indicates whether the navigation drawer is visible or not.
-       */
-      isNavDrawerOpen: false,
-
+      searchBar: {
+  
+        loading: false,
+  
+        items: [],
+  
+        searchResults: [],
+  
+        selectedResults: [],
+  
+        search: null,
+  
+        select: null,
+  
+        metadataTitles: AppData.metadata.getTitles()
+  
+      },
+  
       /**
        * The tabs of the application.
        */
-       tabs: [
-        { state: 'askQuestions', title: 'Ask a Question', icon: 'mdi-head-question' },
-        { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
-        { state: 'runModels', title: 'Create or Run a model', icon: 'mdi-chart-box' },
-      ],
-
+      navigationTabs: {
+  
+        /**
+         * The index of the selected tab.
+         */
+         selectedTabIndex: 0,
+  
+        /**
+         * Indicates whether the navigation drawer is visible or not.
+         */
+        isNavDrawerOpen: false,
+  
+        /**
+         * The tabs of the application.
+         */
+         tabs: [
+          { state: 'askQuestions', title: 'Ask a Question', icon: 'mdi-head-question' },
+          { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
+          { state: 'runModels', title: 'Create or Run a model', icon: 'mdi-chart-box' },
+        ],
+  
+        /**
+         * The ask questions tab.
+         */
+        askQuestionsTab: {
+  
+          selectedQuestion: null,
+  
+          questionItems: AppData.questions.getComboboxItems(),
+  
+        }
+  
+  
+  
+      },
+  
+      // questionItems: AppData.questions.getComboboxItems(),
+  
+  
       /**
-       * The ask questions tab.
+       * The items used to create the treeview hierarchy.
+       * @type {Array} - The array of treeview items.
        */
-      askQuestionsTab: {
-
-        selectedQuestion: null,
-
-        questionItems: AppData.questions.getComboboxItems(),
-
-      }
-
-
-
-    },
-
-    // questionItems: AppData.questions.getComboboxItems(),
-
-
-    /**
-     * The items used to create the treeview hierarchy.
-     * @type {Array} - The array of treeview items.
-     */
-    treeViewItems: AppData.treeViewItems,
-
-    /**
-     * The ids of the opened folders.
-     * @type {Array} - The array of the ids of the opened folders.
-     */
-    openedFolders: [100],
-
-    /**
-     * The selected field.
-     * Since only one field would be visible, the array must have only one item
-     * which holds the value of the id of the treeview item.
-     * @type {Array} - The array of the ids of the selected fields.
-     */
-    selectedField: [101],
-
+      treeViewItems: AppData.treeViewItems,
+  
+      /**
+       * The ids of the opened folders.
+       * @type {Array} - The array of the ids of the opened folders.
+       */
+      openedFolders: [100],
+  
+      /**
+       * The selected field.
+       * Since only one field would be visible, the array must have only one item
+       * which holds the value of the id of the treeview item.
+       * @type {Array} - The array of the ids of the selected fields.
+       */
+      selectedField: [101],
+  
+    }
   },
 
   /**
@@ -907,8 +919,8 @@ let appViewModel = new Vue({
       }
 
       // Make sure username/password are cleared from the dialog form.
-      this.loginDialog.username = "";
-      this.loginDialog.password = "";
+      // this.loginDialog.username = "";   // Chris: do not clear the username, then after logout you still have the login credentials.
+      // this.loginDialog.password = "";   // TODO: if you agree, then remove the these lines.
 
       // Change the application state.
       this.applicationState.isUserLoggedIn = !this.loginDialog.isLoginError;
@@ -928,6 +940,7 @@ let appViewModel = new Vue({
         //TODO: The next tick unfortunately is to remove from the DOM the container with the three buttons.
         //      This causes the issue of the map not being displayed.
 
+        console.log('nextTick');
         Spatial.initializeMap();
         //ArcSpatial.initializeMap();
 
@@ -1065,5 +1078,29 @@ let appViewModel = new Vue({
 
 
 //Spatial.initializeMap();
-
+//the presentation of douglas crockford I sent you has some discussion related to null and undefined in javascript
 //appViewModel.updateMap();
+// let foundMap = false
+// window.onload=function(){//from   ww  w .  ja v  a  2  s . c om
+//   var container = document.getElementById('main');
+//   container.addEventListener('DOMSubtreeModified', function (event) {
+//     console.log('SUBTREE MODIFIED')
+//     console.log(event.target)
+//   });
+
+//   container.addEventListener('DOMNodeInserted', function (event) {
+//       console.log('A node was inserted into #main');
+//       if(event.target.id === 'map') {
+//        console.log(event.target.id);
+//        foundMap = true
+//       }
+//       if (foundMap) {
+//         if (event.target.id !== 'map') {
+//           console.log(event.target);
+//         }
+//       }
+      
+//   }
+  
+//   )
+// }
