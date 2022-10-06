@@ -119,7 +119,9 @@ class Spatial {
    */
   static initializeMap() {
     if (Spatial.map) {
-      Spatial.map.remove(); // release the ref if there is an initialized map
+      Spatial.map.remove(); 
+      // release the ref if there is an initialized map
+      // see: https://stackoverflow.com/questions/23753886/destroy-leaflet-map-trouble
     }
 
     console.log('initialize map start');
