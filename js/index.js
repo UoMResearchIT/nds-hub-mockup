@@ -102,13 +102,6 @@ class Spatial {
       maxZoom: Spatial.maxZoom,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     })
-
-    // 'Streets':           L.esri.Vector.vectorBasemapLayer("ArcGIS:Streets",          { apiKey: API_KEY }),
-
-
-
-
-
   };
 
   /**
@@ -127,18 +120,24 @@ class Spatial {
   static initializeMap() {
 
     // Create the map and set its view.
-    Spatial.map = L.map('map').setView([Spatial.initialLat, Spatial.initialLon], Spatial.initialZoom)
+    
+    Spatial.map = L.map('map').setView([Spatial.initialLat, Spatial.initialLon], Spatial.initialZoom);
+    // Spatial.map = L.map('map', { center: [Spatial.initialLat, Spatial.initialLon], zoom: Spatial.initialZoom});
     
     // Spatial.basemapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     //   maxZoom: Spatial.maxZoom,
     //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     // });
+    if (Spatial.basemapLayer != null) {
+      Spatial.map.removeLayer(Spatial.basemapLayer);
+    }
+
     Spatial.basemapLayer = Spatial.basemapLayers['OSM'];
     Spatial.basemapLayer.addTo(Spatial.map);
 
   }
 
-  /**
+  /**`
    * Updates the Map based on the active entry in the layers treeview.
    *
    * @param {object} selectedField - The field that has been selected in the treeview.
@@ -687,6 +686,10 @@ let appViewModel = new Vue({
 
       alert(this.navigationTabs.askQuestionsTab.selectedQuestion.text);
 
+    },
+
+    temp_initializeMap() {
+      Spatial.initializeMap();
     }
 
     
