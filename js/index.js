@@ -6,7 +6,7 @@
 // import Map from "arcgis/core/Map";
 // import MapView from "arcgis/core/views/MapView";
 
-const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
+//const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
 
 // let esriConfig = null;
 // let Map2 = null;
@@ -37,6 +37,354 @@ const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvq
 // const esriConfig = require("esri/config");
 // const Map = require("esri/Map");
 // const MapView = require("esri/views/MapView");
+
+
+
+
+/**
+ * The BaseMapLayers object provides properties and methods related to basemap layers.
+ */
+ let BaseMapLayers = {
+
+  /**
+   * All the names of the basemap layers that are defined by the leaflet providers plugin.
+   */
+  leafletProviderBaseLayers: {
+    OpenStreetMap: {
+      Mapnik: {},
+      DE: {},
+      CH: {},
+      France: {},
+      HOT: {},
+      BZH: {},
+    },
+    MapTilesAPI: {
+      OSMEnglish: { apikey: '' },
+      OSMFrancais: { apikey: '' },
+      OSMEspagnol: { apikey: '' },
+    },
+    Stadia: {
+      AlidadeSmooth: {},
+      AlidadeSmoothDark: {},
+      OSMBright: {},
+      Outdoors: {},
+    },
+    Thunderforest: {
+      OpenCycleMap: { apikey: '' },
+      Transport: { apikey: '' },
+      TransportDark: { apikey: '' },
+      SpinalMap: { apikey: '' },
+      Landscape: { apikey: '' },
+      Outdoors: { apikey: '' },
+      Pioneer: { apikey: '' },
+      MobileAtlas: { apikey: '' },
+      Neighbourhood: { apikey: '' },
+    },
+    Jawg: {
+      Streets: { accessToken: ''},
+      Terrain: { accessToken: ''},
+      Sunny: { accessToken: ''},
+      Dark: { accessToken: ''},
+      Light: { accessToken: ''},
+      Matrix: { accessToken: ''},
+    },
+    Stamen: {
+      Toner: {},
+      TonerBackground: {},
+      TonerLite: {},
+      Watercolor: {},
+      Terrain: {},
+      TerrainBackground: {},
+      TerrainLabels: {},
+      TopOSMRelief: {},
+    },
+    TomTom: {
+      Basic: { apikey: '' },
+      Hybrid: { apikey: '' },
+      Labels: { apikey: '' },
+    },
+    Esri: {
+      WorldStreetMap: {},
+      DeLorme: {},
+      WorldTopoMap: {},
+      WorldImagery: {},
+      WorldTerrain: {},
+      WorldShadedRelief: {},
+      WorldPhysical: {},
+      OceanBasemap: {},
+      NatGeoWorldMap: {},
+      WorldGrayCanvas: {},
+    },
+    Carto : {
+      Positron: {},
+      PositronNoLabels: {},
+      PositronOnlyLabels: {},
+      DarkMatter: {},
+      DarkMatterNoLabels: {},
+      DarkMatterOnlyLabels: {},
+      Voyager: {},
+      VoyagerNoLabels: {},
+      VoyagerOnlyLabels: {},
+      VoyagerLabelsUnder: {},
+    },
+    HikeBike: {
+      HikeBike: {},
+      HillShading: {},
+    },
+    BasemapAT: {
+      basemap: {},
+      grau: {},
+      overlay: {},
+      terrain: {},
+      surface: {},
+      highdpi: {},
+      orthophoto: {},
+    },
+    nlmaps: {
+      standaard: {},
+      pastel: {},
+      grijs: {},
+      water: {},
+      luchtfoto: {},
+    },
+    NASAGIBS: {
+      ModisTerraTrueColorCR: { }, 
+      ModisTerraBands367CR: { }, 
+      ViirsEarthAtNight2012: { }, 
+    },
+    GeoportailFrance: {
+      plan: { disabled: true },
+      parcels: { disabled: true },
+      orthos: { disabled: true },
+    },
+    OneMapSG: {
+      Default: { disabled: true },
+      Night: { disabled: true },
+      Original: { disabled: true },
+      Grey: { disabled: true },
+      LandLot: { disabled: true },
+    },
+    USGS: {
+      USTopo: {},
+      USImagery: {},
+      USImageryTopo: {},
+    },
+    AzureMaps: {
+      MicrosoftImagery: { subscriptionKey: '' },
+      MicrosoftBaseDarkGrey: { subscriptionKey: '' },
+      MicrosoftBaseRoad: { subscriptionKey: '' },
+      MicrosoftBaseHybridRoad: { subscriptionKey: '' },
+      MicrosoftTerraMain: { subscriptionKey: '' },
+      MicrosoftWeatherInfraredMain: { subscriptionKey: '' },
+      MicrosoftWeatherRadarMain: { subscriptionKey: '' },
+    },
+    SwissFederalGeoportal: {
+      NationalMapColor: { disabled: true },
+      NationalMapGrey: { disabled: true },
+      SWISSIMAGE: { disabled: true },
+    },
+    X: {
+      OPNVKarte: {},
+      OpenTopoMap: {},
+      CyclOSM: {},
+      FreeMapSK: { disabled: true },
+      MtbMap: {},
+      NLS: {},
+    }
+    
+  },
+
+  /**
+   * All the names of the overlay layers that are defined by the leaflet providers plugin.
+   */
+  leafletProviderOverlayLayers: {
+    OpenInfraMap: {
+      Power: ['OpenInfraMap.Power', undefined],
+      Telecom: ['OpenInfraMap.Telecom', undefined],
+      Petroleum: ['OpenInfraMap.Petroleum', undefined],
+      Water: ['OpenInfraMap.Water', undefined]
+    },
+    OpenSeaMap: ['OpenSeaMap', undefined],
+    OpenPtMap: ['OpenPtMap', undefined],
+    OpenRailwayMap: ['OpenRailwayMap', undefined],
+    OpenFireMap: ['OpenFireMap', undefined],
+    SafeCast: ['SafeCast', undefined],
+    OpenMapSurfer: {
+      AdminBounds: ['OpenMapSurfer.AdminBounds', undefined]
+    },
+    Hydda: {
+      RoadsAndLabels: ['Hydda.RoadsAndLabels', undefined]
+    },
+    Stamen: {
+      TonerHybrid: ['Stamen.TonerHybrid', undefined],
+      TonerLines: ['Stamen.TonerLines', undefined],
+      TonerLabels: ['Stamen.TonerLabels', undefined],
+      TopOSMFeatures: ['Stamen.TopOSMFeatures', undefined]
+    },
+    OpenWeatherMap: {
+      Clouds: ['OpenWeatherMap.Clouds', undefined],
+      Pressure: ['OpenWeatherMap.Pressure', undefined],
+      Wind: ['OpenWeatherMap.Wind', undefined]
+    },
+    NASAGIBS: {
+      ModisTerraLSTDay: ['NASAGIBS.ModisTerraLSTDay', undefined],
+      ModisTerraSnowCover: ['NASAGIBS.ModisTerraSnowCover', undefined],
+      ModisTerraAOD: ['NASAGIBS.ModisTerraAOD', undefined],
+      ModisTerraChlorophyll: ['NASAGIBS.ModisTerraChlorophyll', undefined]
+    },
+    JusticeMap: {
+      income: ['JusticeMap.income', undefined],
+      americanIndian: ['JusticeMap.americanIndian', undefined],
+      asian: ['JusticeMap.asian', undefined],
+      black: ['JusticeMap.black', undefined],
+      hispanic: ['JusticeMap.hispanic', undefined],
+      multi: ['JusticeMap.multi', undefined],
+      nonWhite: ['JusticeMap.nonWhite', undefined],
+      white: ['JusticeMap.white', undefined],
+      plurality: ['JusticeMap.plurality', undefined]
+    }
+  },
+
+  /**
+   * The named base map layers.
+   */
+  namedBasemapLayers: {
+
+    /**
+     * The basemap layer named Light.
+     */
+    light: {
+      name: 'Light',
+      leafletProvider: null,
+      mapLayer: null
+    },
+
+    /**
+     * The basemap layer named Dark.
+     */
+    dark: {
+      name: 'Dark',
+      leafletProvider: null,
+      mapLayer: null
+    },
+
+    /**
+     * The basemap layer named Roads.
+     */
+    roads: {
+      name: 'Roads',
+      leafletProvider: null,
+      mapLayer: null
+    },
+
+    /**
+     * The basemap layer named Physical.
+     */
+    physical: {
+      name: 'Physical',
+      leafletProvider: null,
+      mapLayer: null
+    },
+
+    /**
+     * The basemap layer named Terrain.
+     */
+    terrain: {
+      name: 'Terrain',
+      leafletProvider: null,
+      mapLayer: null
+    },
+
+    /**
+     * The basemap layer named Satellite.
+     */
+    satellite: {
+      name: 'Satellite',
+      leafletProvider: null,
+      mapLayer: null
+    }
+
+  },
+
+  /**
+   * Sets the the named base map layers.
+   */
+  setNamedBasemapLayers: function() {
+
+    // Light
+    //this.namedBasemapLayers.light.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.OpenStreetMap.BlackAndWhite;
+    //this.namedBasemapLayers.light.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.OpenMapSurfer.Grayscale;
+    //this.namedBasemapLayers.light.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Stamen.Toner;
+    // this.namedBasemapLayers.light.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Stamen.TonerBackground;
+    this.namedBasemapLayers.light.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.CartoDB.Positron;
+    // this.namedBasemapLayers.light.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.CartoDB.PositronNoLabels;
+    // this.namedBasemapLayers.light.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.CartoDB.PositronOnlyLabels;
+    // this.namedBasemapLayers.light.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Esri.WorldGrayCanvas;
+
+    // Dark
+    this.namedBasemapLayers.dark.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.CartoDB.DarkMatter;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.CartoDB.DarkMatterOnlyLabels;
+
+    // Roads
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.OpenStreetMap.Mapnik
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.OpenStreetMap.HOT;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.OpenMapSurfer.Roads;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Hydda.Full;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Hydda.RoadsAndLabels;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Stamen.TonerLite;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Esri.WorldStreetMap;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Esri.WorldGrayCanvas;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.HikeBike.HikeBike;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Hydda.RoadsAndLabels;
+    this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Wikimedia;
+
+    // Physical
+    this.namedBasemapLayers.physical.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Hydda.Base;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Esri.WorldPhysical;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Esri.WorldTopoMap;
+
+    // Terrain
+    this.namedBasemapLayers.terrain.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Stamen.Terrain;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Stamen.TerrainBackground;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Esri.WorldTerrain;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Esri.WorldShadedRelief;
+    //this.namedBasemapLayers.roads.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.HikeBike.HillShading;
+
+    // Satellite
+    this.namedBasemapLayers.satellite.leafletProvider = BaseMapLayers.leafletProviderBaseLayers.Esri.WorldImagery;
+
+  },
+
+  /**
+   * Creates the BaseMap layers.
+   */
+  createBaseMapLayers: function() {
+
+    // Loop through all the named basemap layers and instantiate them.
+    for (let namedLayer in this.namedBasemapLayers) {
+      if (this.namedBasemapLayers.hasOwnProperty(namedLayer)) {
+
+        const nameIndex = 0;
+        const optionsIndex = 1;
+
+        let baseLayer = this.namedBasemapLayers[namedLayer];
+
+        if (baseLayer.leafletProvider[optionsIndex] === undefined) {
+          baseLayer.mapLayer = L.tileLayer.provider(baseLayer.leafletProvider[nameIndex]);
+        }
+        else {
+          baseLayer.mapLayer = L.tileLayer.provider(
+            baseLayer.leafletProvider[nameIndex],
+            baseLayer.leafletProvider[optionsIndex]
+          );
+        }
+
+      }
+    }
+
+  }
+
+};
 
 
 
@@ -188,18 +536,6 @@ class Spatial {
 class ArcSpatial {
 
   /**
-   * The constructor of the class which makes sure that the class
-   * acts as a static one and can not be instantiated.
-   */
-  constructor() {
-    if (this instanceof ArcSpatial) {
-      throw Error('arcSpatial class is static and cannot be instantiated.');
-    }
-  }
-
-  
-
-  /**
    * The initial map latitude.
    */
   static initialLat = 55;
@@ -229,7 +565,15 @@ class ArcSpatial {
    */
   static mapView = null;
 
-
+  /**
+   * The constructor of the class which makes sure that the class
+   * acts as a static one and can not be instantiated.
+   */
+   constructor() {
+    if (this instanceof ArcSpatial) {
+      throw Error('arcSpatial class is static and cannot be instantiated.');
+    }
+  }
 
   /**
    * Initializes the map.
@@ -247,8 +591,6 @@ class ArcSpatial {
       zoom: ArcSpatial.initialZoom,
       container: "arcgisMap",
     });
-
-
 
   }
 
@@ -529,6 +871,7 @@ let appViewModel = new Vue({
       }
 
     },
+
 
     alertMessage: function (message) {
       alert(message);

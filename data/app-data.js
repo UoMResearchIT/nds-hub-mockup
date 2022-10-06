@@ -24180,25 +24180,57 @@ AppData.heatExp2011FeatureCollection = {
  * @type {Array}
  */
  AppData.questions = [{
-  id: 1,
-  name: 'PersonalExposureEstimate',
-  displayedQuestion: 'What is my personal exposure estimate according to my location?',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  icon: '',
-  widgets: [ 'postcodeWidget', 'timeSeriesWidget' ],
-  layers:  [
-    { name: 'Air Quality time series data by location', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '428', serviceIds: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
-    { name: 'Pre-existing conditions by area (by age groups)', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '', serviceId: 2 }
-  ]}, {
-  id: 2,
-  name: 'CarbonFootprintOfBuildings',
-  displayedQuestion: 'What is the carbon footprint of buildings in my area/postcode.',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  icon: '',
-  widgets: [],
-  layers: [
-    
-  ]}
+    id: 1,
+    name: 'PersonalExposureEstimate',
+    displayedQuestion: 'What is my personal exposure estimate according to my location?',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    icon: '',
+    widgets: ['postcodeWidget', 'timeSelectionWidget'],
+    layers:  [
+      { name: 'Air Quality time series data by location', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '428', serviceIds: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
+      { name: 'Pre-existing conditions by area (by age groups)', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '', serviceId: 2 }
+    ]
+  }, {
+    id: 2,
+    name: 'PolutionLevelsOverTime',
+    displayedQuestion: 'What are the air polution levels at my location over time?',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    icon: '',
+    widgets: ['postcodeWidget'],
+    layers: []
+  }, {
+    id: 3,
+    name: 'RiskOfFlooding',
+    displayedQuestion: 'What is the risk of flooding according to my location?',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    icon: '',
+    widgets: ['postcodeWidget'],
+    layers: []
+  }, {
+    id: 4,
+    name: '',
+    displayedQuestion: 'How much hotter will it get in the UK due to climate change?',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    icon: '',
+    widgets: ['postcodeWidget'],
+    layers: []
+  }, {
+    id: 5,
+    name: '',
+    displayedQuestion: 'How much will sea level rise around the coast of the UK due to climate Change?',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    icon: '',
+    widgets: ['postcodeWidget'],
+    layers: []
+  }, {
+    id: 6,
+    name: 'CarbonFootprintOfBuildings',
+    displayedQuestion: 'What is the carbon footprint of buildings in my area/postcode.',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    icon: '',
+    widgets: ['postcodeWidget'],
+    layers: []
+  }
 ];
 
 AppData.questions.getComboboxItems = () => {

@@ -31,8 +31,6 @@ This document is for documenting the mockup data structures in files:
 |`sublayerItem.name`| `name`| the name of the sublayer. |
 |`sublayerItem.url`| `url`| the name of the sublayer. |
 
-
-
 ### app-data-metadata.js Example
 
 ```js
