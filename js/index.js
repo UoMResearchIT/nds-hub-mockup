@@ -235,7 +235,7 @@ class ArcSpatial {
    * Initializes the map.
    */
   static initializeMap() {
-    console.log("ArcSpatial.initializeMap()");
+    
 
     esriConfig2.apiKey = API_KEY;
     ArcSpatial.map = new Map2({
