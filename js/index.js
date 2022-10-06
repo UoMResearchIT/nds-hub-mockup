@@ -6,7 +6,7 @@
 // import Map from "arcgis/core/Map";
 // import MapView from "arcgis/core/views/MapView";
 
-//const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
+const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
 
 // let esriConfig = null;
 // let Map2 = null;
@@ -473,24 +473,145 @@ class Spatial {
     }
 
     // Create the map and set its view.
-    
     Spatial.map = L.map('map').setView([Spatial.initialLat, Spatial.initialLon], Spatial.initialZoom);
-    // Spatial.map = L.map('map', { center: [Spatial.initialLat, Spatial.initialLon], zoom: Spatial.initialZoom});
     
-    // Spatial.basemapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //   maxZoom: Spatial.maxZoom,
-    //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    // });
     if (Spatial.basemapLayer != null) {
       Spatial.map.removeLayer(Spatial.basemapLayer);
     }
 
-    Spatial.basemapLayer = Spatial.basemapLayers['OSM'];
+    Spatial.basemapLayer = Spatial.basemapLayers['OSM']; // Set the default basemap layer.
     Spatial.basemapLayer.addTo(Spatial.map);
+
+  }
+
+  /**
+   * Creates the layers associated with a question map.
+   * @param {Number} questionId - The question id.
+   */
+  static createQuestionMapLayers(questionId) {
+
+    // Get the question.
+    let questions = AppData.questions.filter((q) => q.id === questionId);
+    if (questions.length === 0) {
+      throw Error(`Question with id ${questionId} not found.`);
+    }
+
+    let question = questions[0];
+
+    for(let i = 0; i < question.layers.length; i++) {
+      let layer = question.layers[i];
+
+      // Create the layer.
+      Spatial.createLayer(layer);
+    }
+
+  }
+
+
+  static createLayer(layer) {
+
+    if (layer === undefined) {
+      throw Error('Layer is undefined.');
+    }
+
+    if (layer.metadataIdentifier === undefined || layer.metadataIdentifier === '') {
+      throw Error('Layer metadata identifier not found.');
+    }
+
+    let records = AppData.metadata.records.filter((r) => r.identifier === layer.metadataIdentifier);
+
+    if (records.length === 0) {
+      throw Error(`Metadata record with identifier ${layer.metadataIdentifier} not found.`);
+    }
+
+    let record = records[0];
+
+    // Decide which type of layer to create.
+    if (record.recordType === 'dataTable') {
+      if (record.src === 'timeseriesDataset') {
+        Spatial.createDatatableTimeseriesDatasetLayer(layer, record);
+      } else if (record.src === 'dataset') {
+        Spatial.createDatatableDatasetLayer(layer, record);
+      } else if (record.src === 'service') {
+        Spatial.createDatatableServiceLayer(layer, record);
+      } else {
+        throw Error(`Unsupported source type ${record.src}.`);
+      }
+    } else if (record.recordType === 'field') {
+      if (record.src === 'timeseriesDataset') {
+        Spatial.createFieldTimeseriesDatasetLayer(layer, record);
+      } else if (record.src === 'dataset') {
+        Spatial.createFieldDatasetLayer(layer, record);
+      } else if (record.src === 'service') {
+        Spatial.createFieldServiceLayer(layer, record);
+      } else {
+        throw Error(`Unsupported source type ${record.src}.`);
+      }
+    } else {
+      throw Error(`Unsupported record type ${record.recordType}.`);
+    }
+
+
+  }
+
+
+  static createDatatableTimeseriesDatasetLayer(layer, record) {
+  }
+
+  static createDatatableDatasetLayer(layer, record) {
+
+  }
+
+  static createDatatableServiceLayer(layer, record) {
+
+  }
+
+  static createFieldTimeseriesDatasetLayer(layer, record) {
+
+  }
+
+  static createFieldDatasetLayer(layer, record) {
+
+  }
+
+  static createFieldServiceLayer(layer, record) {
     
   }
 
-  /**`
+
+
+
+  // if (record.recordType === 'dataTable') {
+  //   if (record.src === 'timeseriesDataset') {
+  //     Spatial.;
+  //   } else if (record.src === 'dataset') {
+  //     Spatial.
+  //   } else if (record.src === 'service') {
+  //     
+  //   } else {
+  //     throw Error(`Unsupported source type ${record.src}.`);
+  //   }
+  // } else if (record.recordType === 'field') {
+  //   if (record.src === 'timeseriesDataset') {
+  //     
+  //   } else if (record.src === 'dataset') {
+  //     
+  //   } else if (record.src === 'service') {
+  //     
+  //   } else {
+  //     throw Error(`Unsupported source type ${record.src}.`);
+  //   }
+  // } else {
+  //   throw Error(`Unsupported record type ${record.recordType}.`);
+  // }
+
+
+
+
+
+
+
+  /**
    * Updates the Map based on the active entry in the layers treeview.
    *
    * @param {object} selectedField - The field that has been selected in the treeview.
@@ -532,6 +653,8 @@ class Spatial {
     }
 
   }
+
+
 
 };
 
@@ -643,184 +766,182 @@ const appViewModel = new Vue({
   /**
    * The model associated with the view.
    * This is the model in the MVVM pattern.
-   * @return {object} - The model of the application.
    */
-  data(){
-    return {
+  data: {
+
+    /**
+     * The application state.
+     */
+    applicationState: {
+  
+      /**
+       * The current state of the application.
+       */
+      currentState: 'welcome', // TODO: Change to 'initial' to 'welcome' when the application is ready.
+      
+      /**
+       * The possible states of the application in sequence.
+       */
+      states: [ "welcome", "initial", "askQuestions", "exploreData", "runModels" ],
 
       /**
-       * The application state.
+       * Indicates whether the user is logged in or not.
        */
-      applicationState: {
-  
-        /**
-         * The current state of the application.
-         */
-        currentState: 'welcome', // TODO: Change to 'initial' to 'welcome' when the application is ready.
-  
-        /**
-         * The possible states of the application in sequence.
-         */
-        states: [ "welcome", "initial", "askQuestions", "exploreData", "runModels" ],
-  
-        /**
-         * Indicates whether the user is logged in or not.
-         */
-        isUserLoggedIn: false, // TODO: Change to false when the application is ready.
-        
-      },
-  
+      isUserLoggedIn: false, // TODO: Change to false when the application is ready.
+      
+    },
+
+    /**
+     * The login dialog.
+     */
+    loginDialog: {
+
       /**
-       * The login dialog.
-       */
-      loginDialog: {
-  
+        * Indicates whether the login dialog is open or not.
+        */
+      isLoginDialogOpen: false,
+
         /**
-          * Indicates whether the login dialog is open or not.
-          */
-        isLoginDialogOpen: false,
-  
-         /**
-          * The username.
-          */
-        username: "vasilis",
-  
-         /**
-          * The password
-          */
-        password: "vasilisvasilis",
-  
-         /**
-          * Indicates whether there is a login error or not.
-          */
-        isLoginError: false,
-  
-      },
-  
+        * The username.
+        */
+      username: "vasilis",
+
+        /**
+        * The password
+        */
+      password: "vasilisvasilis",
+
+        /**
+        * Indicates whether there is a login error or not.
+        */
+      isLoginError: false,
+
+    },
+      
+    /**
+     * The register dialog.
+     */
+    registerDialog: {
+
       /**
-       * The register dialog.
+       * Indicates whether the register dialog is open or not.
        */
-      registerDialog: {
-  
-        /**
-         * Indicates whether the register dialog is open or not.
-         */
-        isRegisterDialogOpen: false
-  
-      },
-  
+      isRegisterDialogOpen: false
+
+    },
+      
+    /**
+     * The search dialog.
+     */
+    searchDialog: {
+
       /**
-       * The search dialog.
+       * Indicates whether the search dialog is open or not.
        */
-      searchDialog: {
-  
-        /**
-         * Indicates whether the search dialog is open or not.
-         */
-        isSearchDialogOpen: false,
-  
-        // TODO: Documentation
-        notifications: false,
-        
-        /**
-         * Indicates whether the search dialog produces sound or not.
-         */
-        sound: true,
-        
-        // TODO: Documentation
-        widgets: false,
-        
-        /**
-         * The layers filtered by the search dialog.
-         */
-        layers: null
-  
-      },
-  
+      isSearchDialogOpen: false,
+
+      // TODO: Documentation
+      notifications: false,
+      
       /**
-       * The search bar.
+       * Indicates whether the search dialog produces sound or not.
        */
-      searchBar: {
-  
-        loading: false,
-  
-        items: [],
-  
-        searchResults: [],
-  
-        selectedResults: [],
-  
-        search: null,
-  
-        select: null,
-  
-        metadataTitles: AppData.metadata.getTitles()
-  
-      },
-  
+      sound: true,
+      
+      // TODO: Documentation
+      widgets: false,
+      
+      /**
+       * The layers filtered by the search dialog.
+       */
+      layers: null
+
+    },
+      
+    /**
+     * The search bar.
+     */
+    searchBar: {
+
+      loading: false,
+
+      items: [],
+
+      searchResults: [],
+
+      selectedResults: [],
+
+      search: null,
+
+      select: null,
+
+      metadataTitles: AppData.metadata.getTitles()
+
+    },
+      
+    /**
+     * The tabs of the application.
+     */
+    navigationTabs: {
+
+      /**
+       * The index of the selected tab.
+       */
+      selectedTabIndex: 0,
+
+      /**
+       * Indicates whether the navigation drawer is visible or not.
+       */
+      isNavDrawerOpen: false,
+
       /**
        * The tabs of the application.
        */
-      navigationTabs: {
-  
-        /**
-         * The index of the selected tab.
-         */
-         selectedTabIndex: 0,
-  
-        /**
-         * Indicates whether the navigation drawer is visible or not.
-         */
-        isNavDrawerOpen: false,
-  
-        /**
-         * The tabs of the application.
-         */
-         tabs: [
-          { state: 'askQuestions', title: 'Ask a Question', icon: 'mdi-head-question' },
-          { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
-          { state: 'runModels', title: 'Create or Run a model', icon: 'mdi-chart-box' },
-        ],
-  
-        /**
-         * The ask questions tab.
-         */
-        askQuestionsTab: {
-  
-          selectedQuestion: null,
-  
-          questionItems: AppData.questions.getComboboxItems(),
-  
-        }
-  
-  
-  
-      },
-  
-      // questionItems: AppData.questions.getComboboxItems(),
-  
-  
+      tabs: [
+        { state: 'askQuestions', title: 'Ask a Question', icon: 'mdi-head-question' },
+        { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
+        { state: 'runModels', title: 'Create or Run a model', icon: 'mdi-chart-box' },
+      ],
+
       /**
-       * The items used to create the treeview hierarchy.
-       * @type {Array} - The array of treeview items.
+       * The ask questions tab.
        */
-      treeViewItems: AppData.treeViewItems,
-  
-      /**
-       * The ids of the opened folders.
-       * @type {Array} - The array of the ids of the opened folders.
-       */
-      openedFolders: [100],
-  
-      /**
-       * The selected field.
-       * Since only one field would be visible, the array must have only one item
-       * which holds the value of the id of the treeview item.
-       * @type {Array} - The array of the ids of the selected fields.
-       */
-      selectedField: [101],
-  
-    }
+      askQuestionsTab: {
+
+        selectedQuestion: undefined,
+
+        questionItems: AppData.questions.getComboboxItems(),
+
+      }
+
+
+
+    },
+    
+
+    // questionItems: AppData.questions.getComboboxItems(),
+      
+      
+    /**
+     * The items used to create the treeview hierarchy.
+     * @type {Array} - The array of treeview items.
+     */
+    treeViewItems: AppData.treeViewItems,
+    
+    /**
+     * The ids of the opened folders.
+     * @type {Array} - The array of the ids of the opened folders.
+     */
+    openedFolders: [100],
+    
+    /**
+     * The selected field.
+     * Since only one field would be visible, the array must have only one item
+     * which holds the value of the id of the treeview item.
+     * @type {Array} - The array of the ids of the selected fields.
+     */
+    selectedField: [101],
+
   },
 
   /**
@@ -1011,9 +1132,7 @@ const appViewModel = new Vue({
      * Executes when the selected question changes.
      */
     askQuestions_OnSelectedQuestionChanged() {
-
       this.composeQuestionMap();
-
     },
 
 
@@ -1034,9 +1153,7 @@ const appViewModel = new Vue({
      * Composes the map associated with the current question.
      */
     composeQuestionMap() {
-
-      alert(this.navigationTabs.askQuestionsTab.selectedQuestion.text);
-
+      Spatial.createQuestionMapLayers(this.navigationTabs.askQuestionsTab.selectedQuestion.value);
     },
 
     temp_initializeMap() {

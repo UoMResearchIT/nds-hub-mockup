@@ -13,7 +13,7 @@ This document is for documenting the mockup data structures in files:
 |`name` | `String` | the name of the resource/dataset/service documented in the fake metadata record. |
 |`title` | `String` | a human readable descriptive name of the metadata entry. |
 |`abstract` | `String` | a short paragraph for the dataset/service/resource documented in the fake metadata entry. |
-|`type` | `Enum String` | the type of the record. `Enum`: `field`, `dataTable` |
+|`recordType` | `Enum String` | the type of the record. `Enum`: `field`, `dataTable` |
 |`src` | `Enum String` | the source of the record. `Enum`: `dataset`, `timeseriesDataset`, `service` |
 |`url` | `Enum String` | the url pointing to the resource for downloading. |
 |`services` | `Array [serviceItem]` | the available services for this resource. |

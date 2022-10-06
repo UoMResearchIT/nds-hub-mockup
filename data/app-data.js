@@ -24187,8 +24187,22 @@ AppData.heatExp2011FeatureCollection = {
     icon: '',
     widgets: ['postcodeWidget', 'timeSelectionWidget'],
     layers:  [
-      { name: 'Air Quality time series data by location', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '428', serviceIds: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
-      { name: 'Pre-existing conditions by area (by age groups)', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '', serviceId: 2 }
+      { name: 'Nitrogen Dioxide annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '428', serviceIds: [1] },
+      { name: 'NOx (as NO2) annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '429', serviceIds: [1] },
+      { name: 'PM10 annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '430', serviceIds: [1] },
+      { name: 'PM25 annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '431', serviceIds: [1] },
+      { name: 'Benzene annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '432', serviceIds: [1] },
+      { name: 'Carbon Monoxide annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '433', serviceIds: [1] },
+      { name: 'Carbon Monoxide max-8hr mean', description: '', visible: true, opacity: 1, metadataIdentifier: '434', serviceIds: [1] },
+      { name: 'Ozone (Days greater than 120 µg m3)', description: '', visible: true, opacity: 1, metadataIdentifier: '435', serviceIds: [1] },
+      { name: 'Sulphur Dioxide annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '436', serviceIds: [1] },
+      { name: 'Arsenic annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '437', serviceIds: [1] },
+      { name: 'Benzo[a]Pyrene annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '438', serviceIds: [1] },
+      { name: 'Cadmium annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '439', serviceIds: [1] },
+      { name: 'Lead annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '440', serviceIds: [1] },
+      { name: 'LeadNickel annual mean', description: '', visible: true, opacity: 1, metadataIdentifier: '441', serviceIds: [1] },
+      
+      { name: 'Pre-existing conditions by area (by age groups)', description: 'The description of the layer', visible: true, opacity: 1, metadataIdentifier: '', serviceId: 1 }
     ]
   }, {
     id: 2,
@@ -24233,11 +24247,15 @@ AppData.heatExp2011FeatureCollection = {
   }
 ];
 
+/**
+ * Gets all the questions transformed in items that will be displayed in a combobox.
+ * The combomox expects (value, text) pairs.
+ * @returns {Array} An array of (value, text) pairs.
+ */
 AppData.questions.getComboboxItems = () => {
   return AppData.questions.map((q) => { return { value: q.id, text: q.displayedQuestion }; });
 };
 
-getTitles: () => AppData.metadata.records.map(e => e.title)
 
 /**
  * https://ukair.maps.staging.rcdo.co.uk/ukairserver/rest/services/Hosted?f=pjson

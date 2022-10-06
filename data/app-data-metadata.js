@@ -438,7 +438,7 @@ AppData.metadata = {
       ]
     },
     {
-      identifier: '428', name: "PCM_2020/NO2_MapServer", title: "PCM_2020/NO2 (MapServer)", abstract: "Nitrogen Dioxide annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '428', name: "PCM_2020/NO2_MapServer", title: "PCM_2020/NO2 (MapServer)", abstract: "Nitrogen Dioxide annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{
         id: 1, name: "PCM_2020/NO2 (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/NO2/MapServer",
         sublayers: [
@@ -467,7 +467,7 @@ AppData.metadata = {
       },]
     },
     {
-      identifier: '429', name: "PCM_2020/NOx_MapServer", title: "PCM_2020/NOx (MapServer)", abstract: "NOx (as NO2) annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '429', name: "PCM_2020/NOx_MapServer", title: "PCM_2020/NOx (MapServer)", abstract: "NOx (as NO2) annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/NOx (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/NOx/MapServer",
         sublayers: [
@@ -496,7 +496,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '430', name: "PCM_2020/PM10_MapServer", title: "PCM_2020/PM10 (MapServer)", abstract: "Nitrogen Dioxide annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '430', name: "PCM_2020/PM10_MapServer", title: "PCM_2020/PM10 (MapServer)", abstract: "Nitrogen Dioxide annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/PM10 (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/PM10/MapServer",
         sublayers: [
@@ -525,7 +525,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '431', name: "PCM_2020/PM25_MapServer", title: "PCM_2020/PM25 (MapServer)", abstract: "PM25 annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '431', name: "PCM_2020/PM25_MapServer", title: "PCM_2020/PM25 (MapServer)", abstract: "PM25 annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/PM2.5 (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/PM25/MapServer",
         sublayers: [
@@ -554,7 +554,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '432', name: "PCM_2020/Benzene_MapServer", title: "PCM_2020/Benzene (MapServer)", abstract: "Benzene annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '432', name: "PCM_2020/Benzene_MapServer", title: "PCM_2020/Benzene (MapServer)", abstract: "Benzene annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/Benzene (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/Benzene/MapServer",
         sublayers: [
@@ -581,11 +581,11 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '433', name: "PCM_2020/CO_MapServer", title: "PCM_2020/CO (MapServer)", abstract: "Carbon Monoxide annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '433', name: "PCM_2020/CO_MapServer", title: "PCM_2020/CO (MapServer)", abstract: "Carbon Monoxide annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/CO (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/CO/MapServer",
         sublayers: [
-          { name: " Carbon Monoxide annual mean", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/CO/MapServer/0" },
+          { name: "Carbon Monoxide annual mean", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/CO/MapServer/0" },
           { name: "2010", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/CO/MapServer/1" },
           { name: "2009", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/CO/MapServer/2" },
           { name: "2008", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/CO/MapServer/3" },
@@ -599,7 +599,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '434', name: "PCM_2020/CO8hr_MapServer", title: "PCM_2020/CO8hr (MapServer)", abstract: "Carbon Monoxide max-8hr mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '434', name: "PCM_2020/CO8hr_MapServer", title: "PCM_2020/CO8hr (MapServer)", abstract: "Carbon Monoxide max-8hr mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/CO8hr (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/CO8hr/MapServer",
         sublayers: [
@@ -617,7 +617,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '434', name: "PCM_2020/Ozone_MapServer", title: "PCM_2020/Ozone (MapServer)", abstract: "Ozone (Days greater than 120 µg m<sup>-3</sup>)", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '435', name: "PCM_2020/Ozone_MapServer", title: "PCM_2020/Ozone (MapServer)", abstract: "Ozone (Days greater than 120 µg m<sup>-3</sup>)", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/Ozone (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/Ozone/MapServer",
         sublayers: [
@@ -644,7 +644,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '435', name: "PCM_2020/SO2_MapServer", title: "PCM_2020/SO2 (MapServer)", abstract: "Sulphur Dioxide annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '436', name: "PCM_2020/SO2_MapServer", title: "PCM_2020/SO2 (MapServer)", abstract: "Sulphur Dioxide annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/SO2 (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/SO2/MapServer",
         sublayers: [
@@ -672,7 +672,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '436', name: "PCM_2020/Arsenic_MapServer", title: "PCM_2020/Arsenic (MapServer)", abstract: "Arsenic annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '437', name: "PCM_2020/Arsenic_MapServer", title: "PCM_2020/Arsenic (MapServer)", abstract: "Arsenic annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/Arsenic (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/Arsenic/MapServer",
         sublayers: [
@@ -694,7 +694,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '437', name: "PCM_2020/BaP_MapServer", title: "PCM_2020/BaP (MapServer)", abstract: "Benzo[a]Pyrene annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '438', name: "PCM_2020/BaP_MapServer", title: "PCM_2020/BaP (MapServer)", abstract: "Benzo[a]Pyrene annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/BaP (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/BaP/MapServer",
         sublayers: [
@@ -716,7 +716,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '438', name: "PCM_2020/Cadmium_MapServer", title: "PCM_2020/Cadmium (MapServer)", abstract: "Cadmium annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '439', name: "PCM_2020/Cadmium_MapServer", title: "PCM_2020/Cadmium (MapServer)", abstract: "Cadmium annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/Cadmium (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/Cadmium/MapServer",
         sublayers: [
@@ -738,7 +738,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '439', name: "PCM_2020/Lead_MapServer", title: "PCM_2020/Lead (MapServer)", abstract: "Lead annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '440', name: "PCM_2020/Lead_MapServer", title: "PCM_2020/Lead (MapServer)", abstract: "Lead annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/Lead (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/Lead/MapServer",
         sublayers: [
@@ -760,7 +760,7 @@ AppData.metadata = {
       }]     
     },
     {
-      identifier: '440', name: "PCM_2020/Nickel_MapServer", title: "PCM_2020/Nickel (MapServer)", abstract: "Nickel annual mean", recordType: "dataTable", src: "dataset", url: "",
+      identifier: '441', name: "PCM_2020/Nickel_MapServer", title: "PCM_2020/Nickel (MapServer)", abstract: "Nickel annual mean", recordType: "dataTable", src: "timeseriesDataset", url: "",
       services: [{ 
         id: 1, name: "PCM_2020/Nickel (MapServer)", type: "arcgisMapService", url: "https://ukairmaps.ricardo-aea.com/server/rest/services/PCM_2020/Nickel/MapServer",
         sublayers: [
