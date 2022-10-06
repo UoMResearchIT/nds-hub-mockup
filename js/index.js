@@ -468,6 +468,7 @@ class Spatial {
     if (Spatial.map) {
       // Release the ref if there is an initialized map. If you do not do this then leaflet fails to create a new map.
       // See: https://stackoverflow.com/questions/23753886/destroy-leaflet-map-trouble
+      // see: https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized
       Spatial.map.remove(); 
     }
 
