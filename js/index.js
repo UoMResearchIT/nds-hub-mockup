@@ -515,7 +515,10 @@ class Spatial {
     }
 
     if (layer.metadataIdentifier === undefined || layer.metadataIdentifier === '') {
-      throw Error('Layer metadata identifier not found.');
+      //throw Error('Layer metadata identifier not found.');
+      // Swallow the error for now.
+      // TODO: check if this needs removal.
+      return;
     }
 
     let records = AppData.metadata.records.filter((r) => r.identifier === layer.metadataIdentifier);
