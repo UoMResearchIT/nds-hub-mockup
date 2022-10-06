@@ -118,6 +118,13 @@ class Spatial {
    * Initializes the map.
    */
   static initializeMap() {
+    if (Spatial.map) {
+      Spatial.map.remove();
+      Spatial.map = undefined;
+      
+    }
+
+    console.log('initialize map start');
 
     // Create the map and set its view.
     
@@ -134,6 +141,8 @@ class Spatial {
 
     Spatial.basemapLayer = Spatial.basemapLayers['OSM'];
     Spatial.basemapLayer.addTo(Spatial.map);
+
+    console.log('initialize map end');
 
   }
 
@@ -588,6 +597,7 @@ const appViewModel = new Vue({
         //TODO: The next tick unfortunately is to remove from the DOM the container with the three buttons.
         //      This causes the issue of the map not being displayed.
 
+        console.log('nextTick');
         Spatial.initializeMap();
         //ArcSpatial.initializeMap();
 
@@ -725,5 +735,29 @@ const appViewModel = new Vue({
 
 
 //Spatial.initializeMap();
-
+//the presentation of douglas crockford I sent you has some discussion related to null and undefined in javascript
 //appViewModel.updateMap();
+// let foundMap = false
+// window.onload=function(){//from   ww  w .  ja v  a  2  s . c om
+//   var container = document.getElementById('main');
+//   container.addEventListener('DOMSubtreeModified', function (event) {
+//     console.log('SUBTREE MODIFIED')
+//     console.log(event.target)
+//   });
+
+//   container.addEventListener('DOMNodeInserted', function (event) {
+//       console.log('A node was inserted into #main');
+//       if(event.target.id === 'map') {
+//        console.log(event.target.id);
+//        foundMap = true
+//       }
+//       if (foundMap) {
+//         if (event.target.id !== 'map') {
+//           console.log(event.target);
+//         }
+//       }
+      
+//   }
+  
+//   )
+// }
