@@ -119,9 +119,7 @@ class Spatial {
    */
   static initializeMap() {
     if (Spatial.map) {
-      Spatial.map.remove();
-      Spatial.map = undefined;
-      
+      Spatial.map.remove(); // release the ref if there is an initialized map
     }
 
     console.log('initialize map start');
