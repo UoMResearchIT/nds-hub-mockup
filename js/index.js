@@ -32,7 +32,7 @@
 // });
 
 
-// require module arcgis javascript 4.24 modu
+// require module arcgis javascript 4.24 modules
 
 // const esriConfig = require("esri/config");
 // const Map = require("esri/Map");
