@@ -2,7 +2,9 @@
 
 This project's purpose is to learn to use Pinia to build a Todo App. It follows [The Net Ninja Pinia Crash course](https://www.youtube.com/watch?v=u0B9dysw29A&list=PL4cUxeGkcC9hp28dYyYBy3xoOdoeNw-hD), see the respective [Github repo](https://github.com/iamshaunjp/Pinia-with-Vue-3)
 
-While #1 - #5 is free, the [full course](https://netninja.dev/p/pinia-crash-course) costs $2.
+While #1 - #5 is free, the [full course](https://netninja.dev/p/pinia-crash-course) costs $2. It would not cover the Pinia's `action` feature. the supplimentary crash course could be [Vue State Management with Pinia - Pinia Crash Course](https://www.youtube.com/watch?v=YG1Q3bT0X6o&t=665s)
+
+
 
 ## What is Pinia
 
@@ -31,7 +33,7 @@ npm run dev
 [Pinia Crash Course #4 - Accessing Store State]: https://www.youtube.com/watch?v=9ug3DaR1sHY&list=PL4cUxeGkcC9hp28dYyYBy3xoOdoeNw-hD&index=4
 [Pinia Crash Course #5 - Getters]: https://www.youtube.com/watch?v=FQIGu-w7xZ4&list=PL4cUxeGkcC9hp28dYyYBy3xoOdoeNw-hD&index=5
 
-## VScode extensions
+## `VScode` extensions
 
 The project is developed with VScode, the following is the list of used extensions for improving the development process
 
@@ -39,6 +41,8 @@ The project is developed with VScode, the following is the list of used extensio
 - [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-## Note in Pinia Store
+## Notes
 
-1. any changes (e.g. changing the state value, adding a getting function, adding a state variable ... etc) after `setup()` **does not** do any rendering unless restarting the app.
+1. Any changes (e.g. changing the state value, adding a getting function, adding a state variable ... etc) after `setup()` **does not** do any rendering unless restarting the app.
+2. [data() and setup()](https://stackoverflow.com/questions/64105088/vue-3-composition-api-data-function)
+3. [watch in Vue3](https://www.youtube.com/watch?v=mM-P7S2sXQ4)
