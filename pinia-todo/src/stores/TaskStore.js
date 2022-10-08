@@ -12,5 +12,11 @@ export const useTaskStore = defineStore("taskStore", {
     favs() {
       return this.tasks.filter((task) => task.isFav);
     },
+    favCount() {
+      return this.favs.length;
+    },
+    totalCount() {
+      return this.tasks.length;
+    },
   }
 });
