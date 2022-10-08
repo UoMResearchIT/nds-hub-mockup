@@ -8,7 +8,7 @@
 
 const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
 
-// let esriConfig = null;
+// let esriConfig2 = null;
 // let Map2 = null;
 // let MapView2 = null;
 
@@ -43,7 +43,7 @@ const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvq
 /**
  * The BaseMapLayers object provides properties and methods related to basemap layers.
  */
- let BaseMapLayers = {
+let BaseMapLayers = {
 
   /**
    * All the names of the basemap layers that are defined by the leaflet providers plugin.
@@ -465,10 +465,11 @@ class Spatial {
    * Initializes the map.
    */
   static initializeMap() {
+
+    // Release the ref if there is an initialized map. If you do not do this then leaflet fails to create a new map.
+    // See: https://stackoverflow.com/questions/23753886/destroy-leaflet-map-trouble
+    // see: https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized
     if (Spatial.map) {
-      // Release the ref if there is an initialized map. If you do not do this then leaflet fails to create a new map.
-      // See: https://stackoverflow.com/questions/23753886/destroy-leaflet-map-trouble
-      // see: https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized
       Spatial.map.remove(); 
     }
 
@@ -515,7 +516,7 @@ class Spatial {
     }
 
     if (layer.metadataIdentifier === undefined || layer.metadataIdentifier === '') {
-      //throw Error('Layer metadata identifier not found.');
+      // throw Error('Layer metadata identifier not found.');
       // Swallow the error for now.
       // TODO: check if this needs removal.
       return;
@@ -530,7 +531,7 @@ class Spatial {
     let record = records[0];
 
     // Decide which type of layer to create.
-    if (record.recordType === 'dataTable') {
+    if (record.type === 'dataTable') {
       if (record.src === 'timeseriesDataset') {
         Spatial.createDatatableTimeseriesDatasetLayer(layer, record);
       } else if (record.src === 'dataset') {
@@ -540,7 +541,7 @@ class Spatial {
       } else {
         throw Error(`Unsupported source type ${record.src}.`);
       }
-    } else if (record.recordType === 'field') {
+    } else if (record.type === 'field') {
       if (record.src === 'timeseriesDataset') {
         Spatial.createFieldTimeseriesDatasetLayer(layer, record);
       } else if (record.src === 'dataset') {
@@ -611,9 +612,6 @@ class Spatial {
 
 
 
-
-
-
   /**
    * Updates the Map based on the active entry in the layers treeview.
    *
@@ -660,75 +658,6 @@ class Spatial {
 
 
 };
-
-/**
- * The ArcSpatial class is used as a static container for all geospatial logic of the application.
- */
-class ArcSpatial {
-
-  /**
-   * The initial map latitude.
-   */
-  static initialLat = 55;
-
-  /**
-   * The initial map longitude.
-   */
-  static initialLon = 2;
-
-  /**
-   * The initial map zoom level.
-   */
-  static initialZoom = 6;
-
-  /**
-   * The maximum zoom level of the background layer which holds the maximum zoom level of them.
-   */
-  static maxZoom = 18;
-  
-  /**
-   * The ArcGIS map.
-   */
-  static map = null;
-
-  /**
-   * The ArcGIS map view.
-   */
-  static mapView = null;
-
-  /**
-   * The constructor of the class which makes sure that the class
-   * acts as a static one and can not be instantiated.
-   */
-   constructor() {
-    if (this instanceof ArcSpatial) {
-      throw Error('arcSpatial class is static and cannot be instantiated.');
-    }
-  }
-
-  /**
-   * Initializes the map.
-   */
-  static initializeMap() {
-    
-
-    esriConfig2.apiKey = API_KEY;
-    ArcSpatial.map = new Map2({
-      basemap: "arcgis-topographic" // Basemap layer service
-    });
-
-    ArcSpatial.mapView = new MapView2({
-      map: ArcSpatial.map,
-      center: [ArcSpatial.initialLon, ArcSpatial.initialLat],
-      zoom: ArcSpatial.initialZoom,
-      container: "arcgisMap",
-    });
-
-  }
-
-}
-
-
 
 /**
  * ================================================================================
@@ -1061,7 +990,7 @@ const appViewModel = new Vue({
         //      This causes the issue of the map not being displayed.
 
         Spatial.initializeMap();
-        //ArcSpatial.initializeMap();
+        // ArcSpatial.initializeMap();
 
       });
       

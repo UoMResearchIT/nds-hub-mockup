@@ -9,27 +9,27 @@ This document is for documenting the mockup data structures in files:
 
 |field|type|description|
 |:--|:--|:--|
-|`identifier` | `String` | a unique metadata record identifier. |
-|`name` | `String` | the name of the resource/dataset/service documented in the fake metadata record. |
-|`title` | `String` | a human readable descriptive name of the metadata entry. |
-|`abstract` | `String` | a short paragraph for the dataset/service/resource documented in the fake metadata entry. |
-|`recordType` | `Enum String` | the type of the record. `Enum`: `field`, `dataTable` |
-|`src` | `Enum String` | the source of the record. `Enum`: `dataset`, `timeseriesDataset`, `service` |
-|`url` | `Enum String` | the url pointing to the resource for downloading. |
-|`services` | `Array [serviceItem]` | the available services for this resource. |
+|`identifier` | `String` | A unique metadata record identifier. |
+|`name` | `String` | The name of the resource/dataset/service documented in the fake metadata record. |
+|`title` | `String` | A human readable descriptive name of the metadata entry. |
+|`abstract` | `String` | A short paragraph for the dataset/service/resource documented in the fake metadata entry. |
+|`type` | `Enum String` | The type of the record. `Enum`: `field`, `dataTable` |
+|`src` | `Enum String` | The source of the record. `Enum`: `dataset`, `timeseriesDataset`, `service` |
+|`url` | `Enum String` | The url pointing to the resource for downloading. |
+|`services` | `Array [serviceItem]` | The available services for this resource. |
 | | | |
-|`serviceItem` | `Object` | service items. |
+|`serviceItem` | `Object` | Service items. |
 | | | |
-|`serviceItem.id` | `String` | the id of the service. |
-|`serviceItem.name` | `String` | the name of the service. |
-|`serviceItem.type` | `{Enum String}` | the type of the service.  `Enum`: `wms`, `wfs`, `arcgisMapService`,`arcgisFeatureService` |
-|`serviceItem.url` | `{Enum String}` | the url to access the service. |
-|`serviceItem.sublayers` | `Array [sublayerItem]` | the sublayers of the default layer of the service. |
+|`serviceItem.id` | `String` | The id of the service. |
+|`serviceItem.name` | `String` | The name of the service. |
+|`serviceItem.type` | `{Enum String}` | The type of the service.  `Enum`: `wms`, `wfs`, `arcgisMapService`,`arcgisFeatureService` |
+|`serviceItem.url` | `{Enum String}` | The url to access the service. |
+|`serviceItem.sublayers` | `Array [sublayerItem]` | The sublayers of the default layer of the service. |
 | | | |
-|`sublayerItem`| `Object`| a sublayer of the default layer of the service. |
+|`sublayerItem`| `Object`| A sublayer of the default layer of the service. |
 | | | |
-|`sublayerItem.name`| `name`| the name of the sublayer. |
-|`sublayerItem.url`| `url`| the name of the sublayer. |
+|`sublayerItem.name`| `name`| The name of the sublayer. |
+|`sublayerItem.url`| `url`| The name of the sublayer. |
 
 ### app-data-metadata.js Example
 

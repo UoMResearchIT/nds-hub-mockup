@@ -15,11 +15,9 @@ body {
   height: 100%;
 } */
 
-/*check the documentation of leaflet*/
-#map {
-  /* margin: 40px; */
-  width: 100%;
+#arcgisMap {
+  /* background-color: chocolate; */
+  padding: 0;
+  /* margin: 20px; */
   height: 100%;
-  z-index: 1;
 }
-
