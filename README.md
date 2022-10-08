@@ -21,3 +21,7 @@ The proejct is developed with VScode, the following is the list of used extensio
 - [Vue VSCode Snippets](https://marketplace.visualstudio.com/items?itemName=sdras.vue-vscode-snippets)
 - [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+## Note in Pinia
+
+1. changing the state directly after `setup()` does not do any rendering unless restarting the app.
