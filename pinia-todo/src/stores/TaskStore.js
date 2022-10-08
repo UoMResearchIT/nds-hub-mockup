@@ -8,4 +8,9 @@ export const useTaskStore = defineStore("taskStore", {
     ],
     name: "UserName",
   }),
+  getters: {
+    favs() {
+      return this.tasks.filter((task) => task.isFav);
+    },
+  }
 });
