@@ -8,35 +8,26 @@
 
 const API_KEY = "AAPK145053262bd6467ca1964310f4fa5dcbkBC4UJkiXHLfDU5QBdgqQiRIMvqYdlD4sxk5nECzG_HtbwDniS4FuUGs5BQoHDnm";
 
-let esriConfig2 = null;
-let Map2 = null;
-let MapView2 = null;
+const ESRI = {
+  esriConfig: undefined,
+  Map: undefined,
+  MapView: undefined,
+  BasemapLayerList: undefined,
+}
 
 //require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
-require(["libs/arcgis-4.24/esri/config", "libs/arcgis-4.24/esri/Map", "libs/arcgis-4.24/esri/views/MapView"], function (esriConfig, Map, MapView) {
-  // alert("Hello World!");
-  esriConfig2 = esriConfig;
-  Map2 = Map;
-  MapView2 = MapView;
+require([
+  "libs/arcgis-4.24/esri/config",
+  "libs/arcgis-4.24/esri/Map",
+  "libs/arcgis-4.24/esri/views/MapView",
+  "libs/arcgis-4.24/esri/widgets/BasemapLayerList",
+],
+function (esriConfig, Map, MapView, BasemapLayerList) {
+  ESRI.esriConfig = esriConfig;
+  ESRI.Map = Map;
+  ESRI.MapView = MapView;
+  ESRI.BasemapLayerList = BasemapLayerList;
 });
-
-// require([
-//   "https://js.arcgis.com/4.24/esri/config",
-//   "https://js.arcgis.com/4.24/esri/Map",
-//   "https://js.arcgis.com/4.24/esri/views/MapView"
-// ], function (esriConfig, Map, MapView) {
-//   // alert("Hello World!");
-//   esriConfig2 = esriConfig;
-//   Map2 = Map;
-//   MapView2 = MapView;
-// });
-
-
-// require module arcgis javascript 4.24 modules
-
-// const esriConfig = require("esri/config");
-// const Map = require("esri/Map");
-// const MapView = require("esri/views/MapView");
 
 let BaseMaps = {
 
@@ -109,8 +100,6 @@ let BaseMaps = {
 
 }
 
-
-
 /**
  * The ArcSpatial class is used as a static container for all geospatial logic of the application.
  */
@@ -139,12 +128,14 @@ class ArcSpatial {
   /**
    * The ArcGIS map.
    */
-  static map = null;
+  static map = undefined;
 
   /**
    * The ArcGIS map view.
    */
-  static mapView = null;
+  static mapView = undefined;
+
+  static baseMapLayerList = undefined;
 
   /**
    * The constructor of the class which makes sure that the class
@@ -161,19 +152,25 @@ class ArcSpatial {
    */
   static initializeMap() {
     
-    esriConfig2.apiKey = API_KEY;
+    ESRI.esriConfig.apiKey = API_KEY;
     
-    ArcSpatial.map = new Map2({
+    ArcSpatial.map = new ESRI.Map({
       basemap: "arcgis-light-gray" // Basemap named layer service.
     });
     
-    ArcSpatial.mapView = new MapView2({
+    ArcSpatial.mapView = new ESRI.MapView({
       map: ArcSpatial.map,
       center: [ArcSpatial.initialLon, ArcSpatial.initialLat],
       zoom: ArcSpatial.initialZoom,
       container: "arcgisMap",
     });
 
+    ArcSpatial.baseMapLayerList =  new ESRI.BasemapLayerList({
+      view: ArcSpatial.mapView,
+      container: "baseMapListContainer"
+    });
+
+    
   }
 
 }
@@ -488,6 +485,7 @@ const appViewModel = new Vue({
         return;
       }
 
+      // TODO: Clearing username/password has been disabled for testing purposes.
       // Make sure username/password are cleared from the dialog form.
       // this.loginDialog.username = "";   // Chris: do not clear the username, then after logout you still have the login credentials.
       // this.loginDialog.password = "";   // TODO: if you agree, then remove the these lines.
