@@ -16,6 +16,13 @@ const ESRI = {
   BasemapLayerList: undefined,
 }
 
+// TODO: Do something regarding require. currently works only when the entire ESRI library is isntalled locally,
+// So, the individuals files need to be referenced using theier local paths.
+// TODO: Regarding Require, it is impossible to assign to individual variables without the need of a function.
+// This has the implication that the entire js logic should be wrapped inside a require function, which maked the code
+// less readable. To avoid this a local ESRI object is used to assign the required modules. Then this object is used
+// to instantiate the ESRI objects further down the code.
+
 //require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
 require([
   "libs/arcgis-4.24/esri/config",
@@ -106,82 +113,59 @@ const BaseMaps = {
 /**
  * Holds the widgets of the application.
  */
-class Widgets {
+const Widgets = {
 
   /**
    * The widget showing a gallery of basemaps available to the user.
    */
-  static basemapGallery = undefined;
+  basemapGallery: undefined,
 
   /**
    * The widget showing the list of basemap layers.
    */
-  static askQuestionsBaseMapLayerList = undefined;
-
-  /**
-   * The constructor of the class which makes sure that the class
-   * acts as a static one and can not be instantiated.
-   */
-  constructor() {
-    if (this instanceof Widgets) {
-      throw Error('Widgets class is static and cannot be instantiated.');
-    }
-  }
+  askQuestionsBaseMapLayerList: undefined,
 
 }
 
 /**
  * The ArcSpatial class is used as a static container for all geospatial logic of the application.
  */
-class ArcSpatial {
+const ArcSpatial = {
 
   /**
    * The initial map latitude.
    */
-  static initialLat = 54.5;
+  initialLat: 54.5,
 
   /**
    * The initial map longitude.
    */
-  static initialLon = -2;
+  initialLon: -2,
 
   /**
    * The initial map zoom level.
    */
-  static initialZoom = 6;
+  initialZoom: 6,
 
   /**
    * The maximum zoom level of the background layer which holds the maximum zoom level of them.
    */
-  static maxZoom = 18;
+  maxZoom: 18,
   
   /**
    * The ArcGIS map.
    */
-  static map = undefined;
+  map: undefined,
 
   /**
    * The ArcGIS map view.
    */
-  static mapView = undefined;
-
-
-  
-
-  /**
-   * The constructor of the class which makes sure that the class
-   * acts as a static one and can not be instantiated.
-   */
-   constructor() {
-    if (this instanceof ArcSpatial) {
-      throw Error('ArcSpatial class is static and cannot be instantiated.');
-    }
-  }
+  mapView: undefined,
 
   /**
    * Initializes the map.
    */
-  static initializeMap() {
+  initializeMap() {
     
     ESRI.esriConfig.apiKey = API_KEY;
     
@@ -213,9 +197,9 @@ class ArcSpatial {
       position: "top-right",
     });
 
-  }
+  },
 
-  static updateAskQuestionsMapLegend() {
+  updateAskQuestionsMapLegend() {
 
     // TODO: Add logic depending on current tab.
     Widgets.askQuestionsBaseMapLayerList =  new ESRI.BasemapLayerList({
