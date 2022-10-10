@@ -103,6 +103,9 @@ const BaseMaps = {
 
 }
 
+/**
+ * Holds the widgets of the application.
+ */
 class Widgets {
 
   /**
@@ -113,7 +116,7 @@ class Widgets {
   /**
    * The widget showing the list of basemap layers.
    */
-  static baseMapLayerList = undefined;
+  static askQuestionsBaseMapLayerList = undefined;
 
   /**
    * The constructor of the class which makes sure that the class
@@ -194,12 +197,13 @@ class ArcSpatial {
     });
 
     // TODO: Add logic depending on current tab.
-    Widgets.baseMapLayerList =  new ESRI.BasemapLayerList({
+    Widgets.askQuestionsBaseMapLayerList =  new ESRI.BasemapLayerList({
+      container: "askQuestionsBaseMapListContainer",
       view: ArcSpatial.mapView,
-      container: "baseMapListContainer"
     });
 
     Widgets.basemapGallery = new ESRI.BasemapGallery({
+      // container: "askQuestionsBaseMapGalleryContainer",
       view: ArcSpatial.mapView,
       visible: true
     });
@@ -209,8 +213,16 @@ class ArcSpatial {
       position: "top-right",
     });
 
+  }
 
-    
+  static updateAskQuestionsMapLegend() {
+
+    // TODO: Add logic depending on current tab.
+    Widgets.askQuestionsBaseMapLayerList =  new ESRI.BasemapLayerList({
+      container: "askQuestionsBaseMapListContainer",
+      view: ArcSpatial.mapView,
+    });
+
   }
 
 }
@@ -373,11 +385,6 @@ const appViewModel = new Vue({
     navigationTabs: {
 
       /**
-       * The index of the selected tab.
-       */
-      selectedTabIndex: 0,
-
-      /**
        * Indicates whether the navigation drawer is visible or not.
        */
       isNavDrawerOpen: false,
@@ -386,9 +393,9 @@ const appViewModel = new Vue({
        * The tabs of the application.
        */
       tabs: [
-        { state: 'askQuestions', title: 'Ask a Question', icon: 'mdi-head-question' },
-        { state: 'exploreData', title: 'Do more with Data', icon: 'mdi-database-search' },
-        { state: 'runModels', title: 'Create or Run a model', icon: 'mdi-chart-box' },
+        { state: 'askQuestions', title: 'Ask a Question',        icon: 'mdi-head-question' },
+        { state: 'exploreData',  title: 'Do more with Data',     icon: 'mdi-database-search' },
+        { state: 'runModels',    title: 'Create or Run a model', icon: 'mdi-chart-box' },
       ],
 
       /**
@@ -405,6 +412,17 @@ const appViewModel = new Vue({
 
 
     },
+
+    /**
+     * The map legend for a time series group of layers.
+     */
+    timeSeriesMapLegend: {
+
+
+    },
+
+
+
     
 
     // questionItems: AppData.questions.getComboboxItems(),
@@ -461,6 +479,41 @@ const appViewModel = new Vue({
    * @type {Object} - The object that encapsulates all ViewModel methods.
    */
   methods: {
+
+    /**
+     * Changes the state of the application to the given state.
+     * @param {String} state - The new state of the application.
+     */
+    applicationState_ChangeState(state) {
+      this.applicationState.currentState = state;
+      alert('applicationState_ChangeState: ' + state);
+      this.applicationState_OnStateChanged();
+    },
+
+    /**
+     * Raised when the state of the application has been changed.
+     */
+    applicationState_OnStateChanged() {
+
+      if (this.applicationState.currentState === 'askQuestions') {
+        
+        this.$nextTick(function() {
+        
+          //TODO: The next tick unfortunately is to remove from the DOM the container with the three buttons.
+          //      This causes the issue of the map not being displayed.
+  
+          //ArcSpatial.initializeMap();
+          alert('applicationState_OnStateChanged - next tick: ' + this.applicationState.currentState);
+
+          ArcSpatial.updateAskQuestionsMapLegend();
+
+
+        });
+
+
+      }
+
+    },
     
     /**
      * Submits the registration information.
@@ -492,6 +545,10 @@ const appViewModel = new Vue({
 
     alertMessage: function (message) {
       alert(message);
+    },
+
+    alertMessage2: function () {
+      alert(this.navigationTabs.selectedTabIndex);
     },
 
     
@@ -544,9 +601,6 @@ const appViewModel = new Vue({
         ArcSpatial.initializeMap();
 
       });
-      
-
-      // DOM element innerHTML
       
     },
 
@@ -609,6 +663,15 @@ const appViewModel = new Vue({
       alert('OnAddToMap');
       //this.$emit("add-to-map", layers)
       this.loginDialog.isLoginDialogOpen = false
+    },
+
+    /**
+     * Executed when the tab is selected.
+     * @param {String} state - The state of the application.
+     */
+    navigationTabs_onTabSelected: function (state) {
+      this.applicationState_ChangeState(state);
+      alert('navigationTabs_onTabSelected: ' + this.applicationState.currentState);
     },
 
     /**

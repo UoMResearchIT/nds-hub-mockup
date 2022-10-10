@@ -4,8 +4,11 @@
   <title>NERC Digital Solutions Hub</title>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
+  <link rel="icon" type="image/x-icon" href="images/icons/favicon-cubes-purple.ico">
+
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css">
+  <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" >
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css">
 
   <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/4.24/esri/themes/light/main.css">
@@ -226,7 +229,7 @@
                             app
                             clipped
                             permanent
-                            v-if="applicationState.currentState === 'askQuestions'"
+                            v-if="applicationState.currentState !== 'welcome'"
                             width="550">
 
         <template v-slot:prepend>
@@ -234,23 +237,20 @@
                   dark
                   fixed
                   fixed-tabs
-                  v-model="navigationTabs.selectedTabIndex"
                   width="100%">
-            <v-tab v-for="(tab, index) in navigationTabs.tabs" :key="index">
+            <v-tab  v-for="(tab, index) in navigationTabs.tabs" :key="tab.state"
+                    v-on:change="navigationTabs_onTabSelected(tab.state);">
               <v-icon>{{ tab.icon }}</v-icon>
             </v-tab>
           </v-tabs>
         </template>
 
         
-        <v-container v-if="applicationState.currentState === 'askQuestions'">
-          <!-- <v-text>Ask a Question</v-text>
-          <v-combobox :items="navigationTabs.askQuestionsTab.questionItems"
-                      v-model="navigationTabs.askQuestionsTab.selectedQuestion"
-                      v-on:Change="askQuestions_OnSelectedQuestionChanged">
-          </v-combobox> -->
+        <v-container  id="askQuestionsContainer"
+                      v-if="applicationState.currentState === 'askQuestions'">
 
-          <v-card id="askQuestionsCard">
+          <v-card id="askQuestionsCard"
+                  tile>
             <v-card-title>Ask a Question</v-card-title>
             <v-combobox :items="navigationTabs.askQuestionsTab.questionItems"
                         v-model="navigationTabs.askQuestionsTab.selectedQuestion"
@@ -259,30 +259,36 @@
           </v-card>
 
           <v-card id="timeSeriesMapLegend"
+                  tile
                   v-if="true">
-            <v-card-title>Map Legend</v-card-title>
+            <v-card-actions>
+              <!-- v-model="value" -->
+              <v-btn-toggle multiple
+                            >
+                <v-btn  id="timeSeriesMapLegend-ToggleBaseMapGallery"
+                        value="">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  
+                        value="">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  
+                        value="">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  
+                        value="">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+              </v-btn-toggle>
+            </v-card-actions>
 
-            <div id="baseMapListContainer"></div>
 
-            <!-- <v-treeview id="climate-just-treewview"
-                        activatable
-                        :active.sync="selectedField"
-                        dense
-                        hoverable
-                        :items="treeViewItems"
-                        :open.sync="openedFolders"
-                        open-on-click
-                        @update:active="updateMap()"
-                        v-show="false">
-              <template v-slot:prepend="{ item, active, open }">
-                <v-icon v-if="item.isFolder">
-                  {{ open ? 'mdi-folder-open-outline' : 'mdi-folder-outline' }}
-                </v-icon>
-                <v-icon v-else>
-                  {{ active ? 'mdi-radiobox-marked' : 'mdi-radiobox-blank' }}
-                </v-icon>
-              </template>
-            </v-treeview> -->
+            
+            <div id="askQuestionsBaseMapListContainer"></div>
+            <br>
+            <!-- <div id="askQuestionsBaseMapGalleryContainer"></div> -->
 
 
           </v-card>
@@ -306,8 +312,36 @@
           </v-card> -->
         </v-container>
 
+        <v-container  id="exploreDataContainer"
+                      v-if="applicationState.currentState === 'exploreData'">
+          <p>Explore Data</p>
+        </v-container>
+
+        <v-container  id="runModelsContainer"
+                      v-if="applicationState.currentState === 'runModels'">
+          <p>Run Models</p>
+        </v-container>
 
 
+        <!-- <v-treeview id="climate-just-treewview"
+                        activatable
+                        :active.sync="selectedField"
+                        dense
+                        hoverable
+                        :items="treeViewItems"
+                        :open.sync="openedFolders"
+                        open-on-click
+                        @update:active="updateMap()"
+                        v-show="false">
+          <template v-slot:prepend="{ item, active, open }">
+            <v-icon v-if="item.isFolder">
+              {{ open ? 'mdi-folder-open-outline' : 'mdi-folder-outline' }}
+            </v-icon>
+            <v-icon v-else>
+              {{ active ? 'mdi-radiobox-marked' : 'mdi-radiobox-blank' }}
+            </v-icon>
+          </template>
+        </v-treeview> -->
 
         <!-- <v-treeview id="climate-just-treewview"
                     activatable
