@@ -150,12 +150,30 @@ const Legends = {
    */
   exploreData: {
 
+    /**
+     * Updates the exploreData basemap legend.
+     */
+    updateBasemapLegend: function() {
+
+      alert('exploreData.updateBasemapLegend() not implemented yet.')
+
+    }
+
   },
 
   /**
    * Legends associated with the runModels tab.
    */
   runModels: {
+
+    /**
+     * Updates the exploreData basemap legend.
+     */
+    updateBasemapLegend: function() {
+
+      alert('runModels.updateBasemapLegend() not implemented yet.')
+
+    }
   
   },
 
