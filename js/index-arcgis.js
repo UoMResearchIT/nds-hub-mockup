@@ -111,9 +111,9 @@ const BaseMaps = {
 }
 
 /**
- * Holds the widgets of the application.
+ * The legends of the application.
  */
-const Widgets = {
+const Legends = {
 
   /**
    * The widget showing a gallery of basemaps available to the user.
@@ -121,9 +121,50 @@ const Widgets = {
   basemapGallery: undefined,
 
   /**
+   * Legends associated with the questions tab.
+   */
+  questions: {
+
+    /**
+     * The 
+     */
+    baseMapLayerList: undefined,
+
+    /**
+     * Updates the questions basemap legend.
+     */
+    updateBasemapLegend: function() {
+
+      // TODO: Add logic depending on current tab.
+      Legends.questions.baseMapLayerList =  new ESRI.BasemapLayerList({
+        container: "questions-basemapListContainer",
+        view: ArcSpatial.mapView,
+      });
+
+    }
+
+  },
+
+  /**
+   * Legends associated with the exploreData tab.
+   */
+  exploreData: {
+
+  },
+
+  /**
+   * Legends associated with the runModels tab.
+   */
+  runModels: {
+  
+  },
+
+
+
+  /**
    * The widget showing the list of basemap layers.
    */
-  askQuestionsBaseMapLayerList: undefined,
+  questionsBaseMapLayerList: undefined,
 
 }
 
@@ -180,34 +221,39 @@ const ArcSpatial = {
       container: "arcgisMap",
     });
 
-    // TODO: Add logic depending on current tab.
-    Widgets.askQuestionsBaseMapLayerList =  new ESRI.BasemapLayerList({
-      container: "askQuestionsBaseMapListContainer",
-      view: ArcSpatial.mapView,
-    });
-
-    Widgets.basemapGallery = new ESRI.BasemapGallery({
-      // container: "askQuestionsBaseMapGalleryContainer",
+    Legends.basemapGallery = new ESRI.BasemapGallery({
+      // container: "questionsBaseMapGalleryContainer",
       view: ArcSpatial.mapView,
       visible: true
     });
 
     // Add basemap gallery widget to the top right corner of the view.
-    ArcSpatial.mapView.ui.add(Widgets.basemapGallery, {
+    ArcSpatial.mapView.ui.add(Legends.basemapGallery, {
       position: "top-right",
     });
 
+    // TODO: Add logic depending on current tab.
+    // Legends.questionsBaseMapLayerList =  new ESRI.BasemapLayerList({
+    //   container: "questionsBaseMapListContainer",
+    //   view: ArcSpatial.mapView,
+    // });
+
+    Legends[appViewModel.applicationState.currentState].updateBasemapLegend();
+
   },
 
-  updateAskQuestionsMapLegend() {
+  /**
+   * Updates the questions map legend.
+   */
+  // updateQuestionsMapLegend() {
 
-    // TODO: Add logic depending on current tab.
-    Widgets.askQuestionsBaseMapLayerList =  new ESRI.BasemapLayerList({
-      container: "askQuestionsBaseMapListContainer",
-      view: ArcSpatial.mapView,
-    });
+  //   // TODO: Add logic depending on current tab.
+  //   Legends.questionsBaseMapLayerList =  new ESRI.BasemapLayerList({
+  //     container: "questionsBaseMapListContainer",
+  //     view: ArcSpatial.mapView,
+  //   });
 
-  }
+  // }
 
 }
 
@@ -246,7 +292,7 @@ const appViewModel = new Vue({
       },
     },
   }),
-
+  
   /**
    * The model associated with the view.
    * This is the model in the MVVM pattern.
@@ -266,7 +312,7 @@ const appViewModel = new Vue({
       /**
        * The possible states of the application in sequence.
        */
-      states: [ "welcome", "initial", "askQuestions", "exploreData", "runModels" ],
+      states: [ "welcome", "initial", "questions", "exploreData", "runModels" ],
 
       /**
        * Indicates whether the user is logged in or not.
@@ -281,23 +327,23 @@ const appViewModel = new Vue({
     loginDialog: {
 
       /**
-        * Indicates whether the login dialog is open or not.
-        */
+       * Indicates whether the login dialog is open or not.
+       */
       isLoginDialogOpen: false,
 
-        /**
-        * The username.
-        */
+      /**
+       * The username.
+       */
       username: "vasilis",
 
-        /**
-        * The password
-        */
+      /**
+       * The password
+       */
       password: "vasilisvasilis",
 
-        /**
-        * Indicates whether there is a login error or not.
-        */
+      /**
+       * Indicates whether there is a login error or not.
+       */
       isLoginError: false,
 
     },
@@ -377,19 +423,32 @@ const appViewModel = new Vue({
        * The tabs of the application.
        */
       tabs: [
-        { state: 'askQuestions', title: 'Ask a Question',        icon: 'mdi-head-question' },
+        { state: 'questions', title: 'Ask a Question',        icon: 'mdi-head-question' },
         { state: 'exploreData',  title: 'Do more with Data',     icon: 'mdi-database-search' },
         { state: 'runModels',    title: 'Create or Run a model', icon: 'mdi-chart-box' },
       ],
 
       /**
-       * The ask questions tab.
+       * The questions tab.
        */
-      askQuestionsTab: {
+      questions: {
+
+        toggleButtonIndexes: [0],
+
+        toggleButtonClicked: undefined,
+
+        toggleButtonFunctions: [
+          { name: 'questions_ToggleBaseMapGallery' },
+          { name: 'questions_1' },
+          { name: 'questions_2' },
+          { name: 'questions_3' },
+        ],
 
         selectedQuestion: undefined,
 
         questionItems: AppData.questions.getComboboxItems(),
+
+        
 
       }
 
@@ -464,6 +523,14 @@ const appViewModel = new Vue({
    */
   methods: {
 
+    alertMessage: function (message) {
+      alert(message);
+    },
+
+    alertMessage2: function () {
+      alert(this.navigationTabs.selectedTabIndex);
+    },
+
     /**
      * Changes the state of the application to the given state.
      * @param {String} state - The new state of the application.
@@ -479,31 +546,19 @@ const appViewModel = new Vue({
      */
     applicationState_OnStateChanged() {
 
-      if (this.applicationState.currentState === 'askQuestions') {
-        
-        this.$nextTick(function() {
-        
-          //TODO: The next tick unfortunately is to remove from the DOM the container with the three buttons.
-          //      This causes the issue of the map not being displayed.
-  
-          //ArcSpatial.initializeMap();
-          alert('applicationState_OnStateChanged - next tick: ' + this.applicationState.currentState);
-
-          ArcSpatial.updateAskQuestionsMapLegend();
-
-
-        });
-
-
-      }
+      this.$nextTick(function() {
+        alert('applicationState_OnStateChanged - next tick: ' + this.applicationState.currentState);
+        Legends[this.applicationState.currentState].updateBasemapLegend();
+      });
 
     },
-    
+
     /**
-     * Submits the registration information.
+     * Gets the text of the login button.
+     * @returns {String} - The text of the login button.
      */
-    registerDialog_onSubmit: function() {
-      this.registerDialog.isRegisterDialogOpen = false;
+    applicationState_GetUserLoginButtonText() {
+      return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
     },
 
     /**
@@ -511,7 +566,7 @@ const appViewModel = new Vue({
      * @param {String} state 
      * @return {void}
      */
-    applicationState_toState: function(state) {
+     applicationState_toState: function(state) {
 
       if (this.applicationState.states.includes(state)){
         this.applicationState.currentState = state;
@@ -524,25 +579,6 @@ const appViewModel = new Vue({
         `);
       }
 
-    },
-
-
-    alertMessage: function (message) {
-      alert(message);
-    },
-
-    alertMessage2: function () {
-      alert(this.navigationTabs.selectedTabIndex);
-    },
-
-    
-
-    /**
-     * Gets the text of the login button.
-     * @returns {String} - The text of the login button.
-     */
-    applicationState_GetUserLoginButtonText() {
-      return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
     },
 
     /**
@@ -571,7 +607,7 @@ const appViewModel = new Vue({
 
       // Change the application state.
       this.applicationState.isUserLoggedIn = !this.loginDialog.isLoginError;
-      this.applicationState.currentState = "askQuestions"; // TODO: Change to "initial" if a page is needed in between login and navdrawer and when the application is ready.
+      this.applicationState.currentState = "questions"; // TODO: Change to "initial" if a page is needed in between login and navdrawer and when the application is ready.
       
       // Close the login dialog.
       this.loginDialog.isLoginDialogOpen = !this.applicationState.isUserLoggedIn;
@@ -600,6 +636,13 @@ const appViewModel = new Vue({
       // Close the login dialog.
       this.loginDialog.isLoginDialogOpen = this.applicationState.isUserLoggedIn;
 
+    },
+
+    /**
+     * Submits the registration information.
+     */
+    registerDialog_onSubmit: function() {
+      this.registerDialog.isRegisterDialogOpen = false;
     },
 
     /**
@@ -639,6 +682,7 @@ const appViewModel = new Vue({
       //this.$emit("add-to-map", this.searchBar.selectedResults.map( i => this.searchBar.searchResults[i]))
     },
 
+    // TODO: Check out the naming convention of this function.
     /**
      * 
      * @param {*} layers 
@@ -653,18 +697,42 @@ const appViewModel = new Vue({
      * Executed when the tab is selected.
      * @param {String} state - The state of the application.
      */
-    navigationTabs_onTabSelected: function (state) {
+    navigationTabs_onTabSelected: function(state) {
       this.applicationState_ChangeState(state);
       alert('navigationTabs_onTabSelected: ' + this.applicationState.currentState);
+    },
+
+    questions_OnToggleButtonClicked() {
+
+      let isChecked = false;
+
+      for (let i = 0; i < this.navigationTabs.questions.toggleButtonIndexes.length; i++) {
+        if (this.navigationTabs.questions.toggleButtonClicked === this.navigationTabs.questions.toggleButtonIndexes[i]) {
+          isChecked = true;
+          break;
+        }
+      }
+      
+      let func = this.navigationTabs.questions.toggleButtonFunctions[
+        this.navigationTabs.questions.toggleButtonClicked
+      ].name;
+      
+      this[func](isChecked);
+
     },
 
     /**
      * Executes when the selected question changes.
      */
-    askQuestions_OnSelectedQuestionChanged() {
+    questions_OnSelectedQuestionChanged() {
       this.composeQuestionMap();
     },
 
+    questions_ToggleBaseMapGallery(isChecked) {
+
+      Legends.basemapGallery.visible = isChecked;
+
+    },
 
 
 
@@ -683,7 +751,7 @@ const appViewModel = new Vue({
      * Composes the map associated with the current question.
      */
     composeQuestionMap() {
-      Spatial.createQuestionMapLayers(this.navigationTabs.askQuestionsTab.selectedQuestion.value);
+      Spatial.createQuestionMapLayers(this.navigationTabs.questions.selectedQuestion.value);
     },
 
     
@@ -706,7 +774,7 @@ const appViewModel = new Vue({
 //   //alert('DOM updated');
 //   //console.log('DOM updated');
 //   //console.log(appViewModel);
-//   //console.log(appViewModel.askQuestionsTab.questionItems);
+//   //console.log(appViewModel.questionsTab.questionItems);
 
 // });
 

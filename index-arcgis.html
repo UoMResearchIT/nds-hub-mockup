@@ -224,7 +224,7 @@
         
       </v-app-bar>
 
-      <!-- TODO: Change to 'initial' if a page is needed v-if="applicationState.currentState === 'askQuestions'" -->
+      <!-- TODO: Change to 'initial' if a page is needed v-if="applicationState.currentState === 'questions'" -->
       <v-navigation-drawer  id ="navigation-drawer"
                             app
                             clipped
@@ -233,7 +233,8 @@
                             width="550">
 
         <template v-slot:prepend>
-          <v-tabs background-color="accent"
+          <v-tabs id="navigationTabs"
+                  background-color="accent"
                   dark
                   fixed
                   fixed-tabs
@@ -245,52 +246,57 @@
           </v-tabs>
         </template>
 
-        
-        <v-container  id="askQuestionsContainer"
-                      v-if="applicationState.currentState === 'askQuestions'">
+        <v-container  id="questionsContainer"
+                      v-if="applicationState.currentState === 'questions'">
 
-          <v-card id="askQuestionsCard"
+          <v-card id="questionsCard"
                   tile>
-            <v-card-title>Ask a Question</v-card-title>
-            <v-combobox :items="navigationTabs.askQuestionsTab.questionItems"
-                        v-model="navigationTabs.askQuestionsTab.selectedQuestion"
-                        v-on:Change="askQuestions_OnSelectedQuestionChanged">
+            
+            <v-card-actions class="d-flex justify-space-between">
+              <v-card-title>Ask a Question</v-card-title>
+              <v-btn-toggle multiple
+                            v-model="navigationTabs.questions.toggleButtonIndexes"
+                            v-on:change="questions_OnToggleButtonClicked();">
+                <v-btn  id="questionsToggleBaseMapGallery"
+                        v-on:click="navigationTabs.questions.toggleButtonClicked = 0;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <!-- <v-btn  v-on:click="navigationTabs.questions.toggleButtonClicked = 1;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  v-on:click="navigationTabs.questions.toggleButtonClicked = 2;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  v-on:click="navigationTabs.questions.toggleButtonClicked = 3;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn> -->
+              </v-btn-toggle>
+              
+
+              
+              
+              
+            </v-card-actions>
+            
+            
+
+            <v-combobox :items="navigationTabs.questions.questionItems"
+                        v-model="navigationTabs.questions.selectedQuestion"
+                        v-on:Change="questions_OnSelectedQuestionChanged">
             </v-combobox>
           </v-card>
 
           <v-card id="timeSeriesMapLegend"
                   tile
                   v-if="true">
-            <v-card-actions>
-              <!-- v-model="value" -->
-              <v-btn-toggle multiple
-                            >
-                <v-btn  id="timeSeriesMapLegend-ToggleBaseMapGallery"
-                        value="">
-                  <v-icon>mdi-apps</v-icon>
-                </v-btn>
-                <v-btn  
-                        value="">
-                  <v-icon>mdi-apps</v-icon>
-                </v-btn>
-                <v-btn  
-                        value="">
-                  <v-icon>mdi-apps</v-icon>
-                </v-btn>
-                <v-btn  
-                        value="">
-                  <v-icon>mdi-apps</v-icon>
-                </v-btn>
-              </v-btn-toggle>
-            </v-card-actions>
+ 
+          </v-card>
 
+          <v-card id="questionsBasemap">
 
-            
-            <div id="askQuestionsBaseMapListContainer"></div>
+            <div id="questions-basemapListContainer"></div>
             <br>
-            <!-- <div id="askQuestionsBaseMapGalleryContainer"></div> -->
-
-
+            <!-- <div id="questionsBaseMapGalleryContainer"></div> -->
           </v-card>
           
           <!-- <v-card v-if="questionTab_activeQuestion" dark>
@@ -448,7 +454,7 @@
                   class="d-flex justify-space-around">
             
               <v-btn  class="pa-6 ma-6"
-                      @click="applicationState_toState('askQuestions')"
+                      @click="applicationState_toState('questions')"
                       color="primary"
                       dark>
                 <v-icon>mdi-play</v-icon>
@@ -627,7 +633,7 @@
                 class="d-flex justify-space-around">
           
             <v-btn  class="pa-6 ma-6"
-                    @click="applicationState_toState('askQuestions')"
+                    @click="applicationState_toState('questions')"
                     color="primary"
                     dark>
               <v-icon>mdi-play</v-icon>
@@ -796,12 +802,12 @@
         </v-container> -->
 
         <!-- <div id="map"
-             v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
+             v-if="applicationState.currentState === 'questions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
              >
         </div> -->
 
         <div  id="arcgisMap"
-              v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
+              v-if="applicationState.currentState === 'questions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'"
               >  
         </div>
 
@@ -815,7 +821,7 @@
           
         </v-container> -->
 
-        <!-- <v-card v-if="applicationState.currentState === 'askQuestions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'">
+        <!-- <v-card v-if="applicationState.currentState === 'questions' || applicationState.currentState === 'exploreData' || applicationState.currentState === 'runModels'">
                    
 
         </v-card> -->
