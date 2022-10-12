@@ -922,7 +922,33 @@ const appViewModel = new Vue({
    * This is the model in the MVVM pattern.
    * @return {object} - The reactive properties of the model of the application.
    */
-  computed: {},
+  computed: {
+    searchBar_SearchResultsInTreeView(){
+      const r = this.searchBar.searchResults.map(r => AppData.metadata.getTreeViewRecord(r));
+      return r
+  },
+  testTreeViewData() {
+    return [
+      {
+        id: 1,
+        name: 'Root',
+        children: [
+          { id: 2, name: 'Child #1' },
+          { id: 3, name: 'Child #2' },
+          {
+            id: 4,
+            name: 'Child #3',
+            children: [
+              { id: 5, name: 'Grandchild #1' },
+              { id: 6, name: 'Grandchild #2' },
+            ],
+          },
+        ],
+      },
+    ]
+
+  }
+},
 
   /**
    *
@@ -1079,8 +1105,14 @@ const appViewModel = new Vue({
      * Add the selected items on map.
      */
     searchBar_AddToMap() {
-      alert("add to map");
-      //this.$emit("add-to-map", this.searchBar.selectedResults.map( i => this.searchBar.searchResults[i]))
+      console.log(this.searchBar.selectedResults)
+      const n_records = this.searchBar.selectedResults.filter(sr => sr.treeViewLevel === 'record').length
+      const n_services = this.searchBar.selectedResults.filter(sr => sr.treeViewLevel === 'service').length
+      const n_sublayers = this.searchBar.selectedResults.filter(sr => sr.treeViewLevel === 'sublayer').length
+      alert('Added to searchBar.selectResults \n' + n_records + ' records, ' + n_services + ' services, and ' + n_sublayers + ' sublayers.')
+      
+      
+      // this.$emit("add-to-map", this.searchBar.selectedResults.map( i => this.searchBar.searchResults[i]))
     },
 
     // TODO: Check out the naming convention of this function.

@@ -101,26 +101,9 @@
                     </v-autocomplete>
                   </v-toolbar>
 
-                  <v-list>
-                    <v-subheader v-show="searchBar.searchResults.length">Search Results</v-subheader>
-          
-                    <v-list-item-group  v-model="searchBar.selectedResults"
-                                        multiple
-                                        active-class="">
-                      <v-list-item v-for="(result, i) in searchBar.searchResults" :key="i">
-                        <template v-slot:default="{ active }">
-                          <v-list-item-action>
-                            <v-checkbox :input-value="active"></v-checkbox>
-                          </v-list-item-action>
-              
-                          <v-list-item-content>
-                            <v-list-item-title>{{result}}</v-list-item-title>
-                            <v-list-item-subtitle>some desc</v-list-item-subtitle>
-                          </v-list-item-content>
-                        </template>
-                      </v-list-item>
-                    </v-list-item-group>
-                  </v-list>
+             
+
+
                   
                   <v-btn  :disabled="searchBar.selectedResults.length === 0"
                           color="secondary"
