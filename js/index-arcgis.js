@@ -39,6 +39,25 @@ function (esriConfig, Map, MapView, BasemapGallery, BasemapLayerList) {
   ESRI.BasemapLayerList = BasemapLayerList;
 });
 
+/**
+ * General purpose utilities.
+ */
+const Utilities = {
+
+  /**
+   * Removes a member from an array.
+   * @param {Array} array - The array from which a member will be removed.
+   * @param {Any} member - The member to be removed from the array.
+   * @returns {Array} - The array with the member removed.
+   */
+  arrayRemove(array, member) {
+    return array.filter(function (element) {
+      return element !== member;
+    });
+  }
+
+}
+
 const BaseMaps = {
 
   /**
@@ -126,20 +145,22 @@ const Legends = {
   questions: {
 
     /**
-     * The 
+     * The widget showing the list of current basemap layers.
      */
     baseMapLayerList: undefined,
-
+    
     /**
      * Updates the questions basemap legend.
      */
     updateBasemapLegend: function() {
 
-      // TODO: Add logic depending on current tab.
-      Legends.questions.baseMapLayerList =  new ESRI.BasemapLayerList({
+      //alert('questions.updateBasemapLegend()')
+
+      Legends.questions.baseMapLayerList = new ESRI.BasemapLayerList({
         container: "questions-basemapListContainer",
         view: ArcSpatial.mapView,
       });
+      console.log('Legends.questions.baseMapLayerList:', Legends.questions.baseMapLayerList);
 
     }
 
@@ -151,11 +172,24 @@ const Legends = {
   exploreData: {
 
     /**
+     * The widget showing the list of current basemap layers.
+     */
+    baseMapLayerList: undefined,
+    
+    /**
      * Updates the exploreData basemap legend.
      */
     updateBasemapLegend: function() {
 
-      alert('exploreData.updateBasemapLegend() not implemented yet.')
+      //alert('exploreData.updateBasemapLegend()')
+
+      Legends.exploreData.baseMapLayerList = new ESRI.BasemapLayerList({
+        container: "exploreData-basemapListContainer",
+        view: ArcSpatial.mapView,
+      });
+      console.log('Legends.exploreData.baseMapLayerList:', Legends.exploreData.baseMapLayerList);
+
+      // console.log(ArcSpatial.mapView.ui);
 
     }
 
@@ -167,22 +201,26 @@ const Legends = {
   runModels: {
 
     /**
+     * The widget showing the list of current basemap layers.
+     */
+    baseMapLayerList: undefined,
+
+    /**
      * Updates the exploreData basemap legend.
      */
     updateBasemapLegend: function() {
 
-      alert('runModels.updateBasemapLegend() not implemented yet.')
+      //alert('runModels.updateBasemapLegend()')
+
+      Legends.runModels.baseMapLayerList = new ESRI.BasemapLayerList({
+        container: "runModels-basemapListContainer",
+        view: ArcSpatial.mapView,
+      });
+      console.log('Legends.runModels.baseMapLayerList:', Legends.runModels.baseMapLayerList);
 
     }
   
   },
-
-
-
-  /**
-   * The widget showing the list of basemap layers.
-   */
-  questionsBaseMapLayerList: undefined,
 
 }
 
@@ -333,6 +371,11 @@ const appViewModel = new Vue({
       states: [ "welcome", "initial", "questions", "exploreData", "runModels" ],
 
       /**
+       * The possible states of the navigation drawer.
+       */
+      navigationDrawerStates: [ "questions", "exploreData", "runModels" ],
+
+      /**
        * Indicates whether the user is logged in or not.
        */
       isUserLoggedIn: false, // TODO: Change to false when the application is ready.
@@ -441,7 +484,7 @@ const appViewModel = new Vue({
        * The tabs of the application.
        */
       tabs: [
-        { state: 'questions', title: 'Ask a Question',        icon: 'mdi-head-question' },
+        { state: 'questions',    title: 'Ask a Question',        icon: 'mdi-head-question' },
         { state: 'exploreData',  title: 'Do more with Data',     icon: 'mdi-database-search' },
         { state: 'runModels',    title: 'Create or Run a model', icon: 'mdi-chart-box' },
       ],
@@ -450,13 +493,23 @@ const appViewModel = new Vue({
        * The questions tab.
        */
       questions: {
-
+        
+        /**
+         * Indicates all buttons that have been checked.
+         * The array holds the checked buttons' indexes.
+         */
         toggleButtonIndexes: [0],
 
+        /**
+         * Keeps the index of the last button that was toggled.
+         */
         toggleButtonClicked: undefined,
 
+        /**
+         * Keeps the names of all functions associated with the buttons.
+         */
         toggleButtonFunctions: [
-          { name: 'questions_ToggleBaseMapGallery' },
+          { name: 'legend_ToggleBaseMapGallery' },
           { name: 'questions_1' },
           { name: 'questions_2' },
           { name: 'questions_3' },
@@ -466,7 +519,61 @@ const appViewModel = new Vue({
 
         questionItems: AppData.questions.getComboboxItems(),
 
-        
+      },
+
+      /**
+       * The explore data tab.
+       */
+      exploreData: {
+
+        /**
+         * Indicates all buttons that have been checked.
+         * The array holds the checked buttons' indexes.
+         */
+        toggleButtonIndexes: [0],
+
+        /**
+         * Keeps the index of the last button that was toggled.
+         */
+        toggleButtonClicked: undefined,
+
+        /**
+         * Keeps the names of all functions associated with the buttons.
+         */
+        toggleButtonFunctions: [
+          { name: 'legend_ToggleBaseMapGallery' },
+          { name: 'exploreData_1' },
+          { name: 'exploreData_2' },
+          { name: 'exploreData_3' },
+        ],
+
+      },
+
+      /**
+       * The run models tab.
+       */
+      runModels: {
+
+        /**
+         * Indicates all buttons that have been checked.
+         * The array holds the checked buttons' indexes.
+         */
+        toggleButtonIndexes: [0],
+
+        /**
+         * Keeps the index of the last button that was toggled.
+         */
+        toggleButtonClicked: undefined,
+
+        /**
+         * Keeps the names of all functions associated with the buttons.
+         */
+        toggleButtonFunctions: [
+          { name: 'legend_ToggleBaseMapGallery' },
+          { name: 'runModels_1' },
+          { name: 'runModels_2' },
+          { name: 'runModels_3' },
+        ],
 
       }
 
@@ -483,11 +590,7 @@ const appViewModel = new Vue({
     },
 
 
-
     
-
-    // questionItems: AppData.questions.getComboboxItems(),
-      
       
     /**
      * The items used to create the treeview hierarchy.
@@ -555,7 +658,7 @@ const appViewModel = new Vue({
      */
     applicationState_ChangeState(state) {
       this.applicationState.currentState = state;
-      alert('applicationState_ChangeState: ' + state);
+      //alert('applicationState_ChangeState: ' + state);
       this.applicationState_OnStateChanged();
     },
 
@@ -565,7 +668,7 @@ const appViewModel = new Vue({
     applicationState_OnStateChanged() {
 
       this.$nextTick(function() {
-        alert('applicationState_OnStateChanged - next tick: ' + this.applicationState.currentState);
+        //alert('applicationState_OnStateChanged - next tick: ' + this.applicationState.currentState);
         Legends[this.applicationState.currentState].updateBasemapLegend();
       });
 
@@ -584,7 +687,7 @@ const appViewModel = new Vue({
      * @param {String} state 
      * @return {void}
      */
-     applicationState_toState: function(state) {
+    applicationState_toState: function(state) {
 
       if (this.applicationState.states.includes(state)){
         this.applicationState.currentState = state;
@@ -717,39 +820,108 @@ const appViewModel = new Vue({
      */
     navigationTabs_onTabSelected: function(state) {
       this.applicationState_ChangeState(state);
-      alert('navigationTabs_onTabSelected: ' + this.applicationState.currentState);
+      //alert('navigationTabs_onTabSelected: ' + this.applicationState.currentState);
     },
 
-    questions_OnToggleButtonClicked() {
 
+
+
+    legend_HeaderToolbarToggleButtonClick: function(index) {
+      
+      // Check the index of the toggle button that was clicked.
+      if (index === 0) {
+
+        // The toggle basemap gallery button has been clicked.
+        // This is a button that has its twins placed in the questions, exploreData, and runModels containers.
+        // Treat a click on one of these toggle buttons as a click on all others.
+        this.navigationTabs.questions.toggleButtonClicked = 0;
+        this.navigationTabs.exploreData.toggleButtonClicked = 0;
+        this.navigationTabs.runModels.toggleButtonClicked = 0;
+
+      }
+
+    },
+
+    /**
+     * Raised when a toggle button is clicked.
+     */
+    legend_OnHeaderToolbarToggleButtonClicked() {
+
+      //alert(this.applicationState.currentState + ': legend_OnLegendHeaderToolbarToggleButtonClicked()');
+
+      // A function is associated with the toggle button.
+      // Call the function based on the current application state.
+
+      let func = this.navigationTabs[this.applicationState.currentState].toggleButtonFunctions[0].name;
+      this[func]();
+      
+    },
+
+    /**
+     * Synchronises all toggle buttons in the legend header toolbar.
+     * @param {Boolean} isChecked | The state of the toggle button.
+     */
+    legend_SynchroniseLegendHeaderToolbarToggleButtons: function(isChecked) {
+
+      // Loop through all possible navigation drawer states.
+      for (let i = 0; i < this.applicationState.navigationDrawerStates.length; i++) {
+        
+        let state = this.applicationState.navigationDrawerStates[i];
+
+        // The toggle button that was clicked has its associated model data synchronised.
+        // The model data of its twin buttons need to be synchronised as well.
+        // Do that only to buttons other than the button of the current state.
+        if (state !== this.applicationState.currentState) {
+          
+          this.navigationTabs[state].toggleButtonIndexes.includes(0) ?
+            this.navigationTabs[state].toggleButtonIndexes = Utilities.arrayRemove(this.navigationTabs[state].toggleButtonIndexes, 0) :
+            this.navigationTabs[state].toggleButtonIndexes.push(0);
+          
+        }
+        
+      }
+
+    },
+
+    /**
+     * Toggles the visibility of the basemap gallery widget.
+     */
+    legend_ToggleBaseMapGallery: function() {
+
+      // Assume the button is not checked.
       let isChecked = false;
 
-      for (let i = 0; i < this.navigationTabs.questions.toggleButtonIndexes.length; i++) {
-        if (this.navigationTabs.questions.toggleButtonClicked === this.navigationTabs.questions.toggleButtonIndexes[i]) {
+      let currentState = this.applicationState.currentState;
+
+      // Loop through the list of checked toggle button indexes to check if the button last clicked is checked.
+      for (let j = 0; j < this.navigationTabs[currentState].toggleButtonIndexes.length; j++) {
+        if (this.navigationTabs[currentState].toggleButtonClicked === this.navigationTabs[currentState].toggleButtonIndexes[j]) {
+          // Found the button being in a checked state.
           isChecked = true;
           break;
         }
       }
-      
-      let func = this.navigationTabs.questions.toggleButtonFunctions[
-        this.navigationTabs.questions.toggleButtonClicked
-      ].name;
-      
-      this[func](isChecked);
+
+      // Synchronise all the toggle buttons.
+      this.legend_SynchroniseLegendHeaderToolbarToggleButtons(isChecked);
+
+      // Toggle the basemap gallery.
+      Legends.basemapGallery.visible = isChecked;
+
+      // Clear the last buttons clicked.
+      this.navigationTabs.questions.toggleButtonClicked = undefined;
+      this.navigationTabs.exploreData.toggleButtonClicked = undefined;
+      this.navigationTabs.runModels.toggleButtonClicked = undefined;
 
     },
 
+
+    
     /**
      * Executes when the selected question changes.
      */
     questions_OnSelectedQuestionChanged() {
       this.composeQuestionMap();
-    },
-
-    questions_ToggleBaseMapGallery(isChecked) {
-
-      Legends.basemapGallery.visible = isChecked;
-
     },
 
 
@@ -773,10 +945,9 @@ const appViewModel = new Vue({
     },
 
     
-
   }
 
-})
+});
 
 
 
@@ -787,15 +958,9 @@ const appViewModel = new Vue({
  * ================================================================================
  */
 
-// Vue.nextTick(function() {
-//   // DOM updated
-//   //alert('DOM updated');
-//   //console.log('DOM updated');
-//   //console.log(appViewModel);
-//   //console.log(appViewModel.questionsTab.questionItems);
-
-// });
 
 
-// Vue.nextTick is called after an element has been created and inserted into the DOM.
+
+
+
 

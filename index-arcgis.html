@@ -256,9 +256,9 @@
               <v-card-title>Ask a Question</v-card-title>
               <v-btn-toggle multiple
                             v-model="navigationTabs.questions.toggleButtonIndexes"
-                            v-on:change="questions_OnToggleButtonClicked();">
+                            v-on:change="legend_OnHeaderToolbarToggleButtonClicked();">
                 <v-btn  id="questionsToggleBaseMapGallery"
-                        v-on:click="navigationTabs.questions.toggleButtonClicked = 0;">
+                        v-on:click="legend_HeaderToolbarToggleButtonClick(0);">
                   <v-icon>mdi-apps</v-icon>
                 </v-btn>
                 <!-- <v-btn  v-on:click="navigationTabs.questions.toggleButtonClicked = 1;">
@@ -271,15 +271,8 @@
                   <v-icon>mdi-apps</v-icon>
                 </v-btn> -->
               </v-btn-toggle>
-              
-
-              
-              
-              
             </v-card-actions>
             
-            
-
             <v-combobox :items="navigationTabs.questions.questionItems"
                         v-model="navigationTabs.questions.selectedQuestion"
                         v-on:Change="questions_OnSelectedQuestionChanged">
@@ -299,33 +292,82 @@
             <!-- <div id="questionsBaseMapGalleryContainer"></div> -->
           </v-card>
           
-          <!-- <v-card v-if="questionTab_activeQuestion" dark>
-            <v-card-title>Question Description</v-card-title>
-            <v-card-text>{{ questionTab_activeQuestion.description }}</v-card-text>
-
-            
-            
-            <v-row justify="center">
-            <v-card-subtitle>APIs</v-card-subtitle>
-            
-            <v-chip-group>
-            <v-chip v-for="d in questionTab_activeAnswer.ref.api"
-                   :key="d.name">
-            <a :href="d.link" class="secondary--text">{{ d.name }}</a>
-            </v-chip>
-            </v-chip-group>
-            </v-row>
-          </v-card> -->
         </v-container>
 
         <v-container  id="exploreDataContainer"
                       v-if="applicationState.currentState === 'exploreData'">
-          <p>Explore Data</p>
+          
+          <v-card id="exploreDataCard"
+                  tile>
+            
+            <v-card-actions class="d-flex justify-space-between">
+              <v-card-title>Explore Data</v-card-title>
+              <v-btn-toggle multiple
+                            v-model="navigationTabs.exploreData.toggleButtonIndexes"
+                            v-on:change="legend_OnHeaderToolbarToggleButtonClicked();">
+                <v-btn  id="exploreDataToggleBaseMapGallery"
+                        v-on:click="legend_HeaderToolbarToggleButtonClick(0);">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <!-- <v-btn  v-on:click="navigationTabs.exploreData.toggleButtonClicked = 1;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  v-on:click="navigationTabs.exploreData.toggleButtonClicked = 2;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  v-on:click="navigationTabs.exploreData.toggleButtonClicked = 3;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn> -->
+              </v-btn-toggle>
+            </v-card-actions>
+            
+          </v-card>
+
+          <v-card id="exploreDataBasemap">
+
+            <div id="exploreData-basemapListContainer"></div>
+            <br>
+            <!-- <div id="exploreDataBaseMapGalleryContainer"></div> -->
+          </v-card>
+          
         </v-container>
 
         <v-container  id="runModelsContainer"
                       v-if="applicationState.currentState === 'runModels'">
-          <p>Run Models</p>
+          
+          <v-card id="runModelsCard"
+                  tile>
+            
+            <v-card-actions class="d-flex justify-space-between">
+              <v-card-title>Run Models</v-card-title>
+              <v-btn-toggle multiple
+                            v-model="navigationTabs.runModels.toggleButtonIndexes"
+                            v-on:change="legend_OnHeaderToolbarToggleButtonClicked();">
+                <v-btn  id="runModelsToggleBaseMapGallery"
+                        v-on:click="legend_HeaderToolbarToggleButtonClick(0);">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <!-- <v-btn  v-on:click="navigationTabs.runModels.toggleButtonClicked = 1;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  v-on:click="navigationTabs.runModels.toggleButtonClicked = 2;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn>
+                <v-btn  v-on:click="navigationTabs.runModels.toggleButtonClicked = 3;">
+                  <v-icon>mdi-apps</v-icon>
+                </v-btn> -->
+              </v-btn-toggle>
+            </v-card-actions>
+            
+          </v-card>
+
+          <v-card id="runModelsDataBasemap">
+
+            <div id="runModels-basemapListContainer"></div>
+            <br>
+            <!-- <div id="runModelsBaseMapGalleryContainer"></div> -->
+          </v-card>
+
         </v-container>
 
 
