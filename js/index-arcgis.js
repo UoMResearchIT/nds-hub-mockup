@@ -160,7 +160,9 @@ const Legends = {
         container: "questions-basemapListContainer",
         view: ArcSpatial.mapView,
       });
-      console.log('Legends.questions.baseMapLayerList:', Legends.questions.baseMapLayerList);
+      //console.log('Legends.questions.baseMapLayerList:', Legends.questions.baseMapLayerList);
+
+      console.log(ArcSpatial.mapView.allLayerViews);
 
     }
 
@@ -187,9 +189,9 @@ const Legends = {
         container: "exploreData-basemapListContainer",
         view: ArcSpatial.mapView,
       });
-      console.log('Legends.exploreData.baseMapLayerList:', Legends.exploreData.baseMapLayerList);
+      //console.log('Legends.exploreData.baseMapLayerList:', Legends.exploreData.baseMapLayerList);
 
-      // console.log(ArcSpatial.mapView.ui);
+      console.log(ArcSpatial.mapView.allLayerViews);
 
     }
 
@@ -216,7 +218,9 @@ const Legends = {
         container: "runModels-basemapListContainer",
         view: ArcSpatial.mapView,
       });
-      console.log('Legends.runModels.baseMapLayerList:', Legends.runModels.baseMapLayerList);
+      //console.log('Legends.runModels.baseMapLayerList:', Legends.runModels.baseMapLayerList);
+
+      console.log(ArcSpatial.mapView.allLayerViews);
 
     }
   
@@ -682,6 +686,7 @@ const appViewModel = new Vue({
       return this.applicationState.isUserLoggedIn ? "Logout" : "Login";
     },
 
+    // TODO: Needs Removal.
     /**
      * Switches the application state.
      * @param {String} state 
@@ -700,6 +705,19 @@ const appViewModel = new Vue({
         `);
       }
 
+    },
+
+    /**
+     * Enters in the application without logging in.
+     */
+    enter() {
+      
+      this.applicationState.currentState = "questions";
+
+      this.$nextTick(function() {
+        ArcSpatial.initializeMap();
+      });
+      
     },
 
     /**
