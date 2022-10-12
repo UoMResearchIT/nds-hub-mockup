@@ -80,42 +80,30 @@
                       <slot name="search-item"></slot>
                     </v-toolbar-title>
                   
-                    <v-autocomplete v-model="searchBar.select"
-                                    :loading="searchBar.loading"
-                                    :items="searchBar.items"
-                                    :search-input.sync="searchBar.search"
+                    <v-autocomplete :loading="searchBar.loading"
+                                    :items="searchBar.pool"
+                                    :search-input.sync="searchBar.input"
                                     cache-items
                                     class="mx-4"
                                     flat
                                     hide-no-data
                                     hide-details
                                     solo-inverted
-                                    @keydown.enter="onEnter">
+                                    @keydown.enter="searchBar_OnEnter">
                     </v-autocomplete>
                   </v-toolbar>
 
-                  <v-list>
-                    <v-subheader v-show="searchBar.searchResults.length">Search Results</v-subheader>
-          
-                    <v-list-item-group  v-model="searchBar.selectedResults"
-                                        multiple
-                                        active-class="">
-                      <v-list-item v-for="(result, i) in searchBar.searchResults" :key="i">
-                        <template v-slot:default="{ active }">
-                          <v-list-item-action>
-                            <v-checkbox :input-value="active"></v-checkbox>
-                          </v-list-item-action>
-              
-                          <v-list-item-content>
-                            <v-list-item-title>{{result}}</v-list-item-title>
-                            <v-list-item-subtitle>some desc</v-list-item-subtitle>
-                          </v-list-item-content>
-                        </template>
-                      </v-list-item>
-                    </v-list-item-group>
-                  </v-list>
+                  <v-treeview
+                  v-model="searchBar.selectedResults"
+                  :items="searchBar_SearchResultsInTreeView"
+                  selection-type="independent" 
+                  selectable
+                  return-object
+                  open-all
+                ></v-treeview>
+                <!-- if selection-type is 'leaf' there will be error, no sure why but i m too hurry to leave now. -->
                   
-                  <v-btn  :disabled="searchBar.selectedResults.length === 0"
+                  <v-btn  :disabled="!searchBar.selectedResults.length"
                           color="secondary"
                           elevation="2"
                           block
