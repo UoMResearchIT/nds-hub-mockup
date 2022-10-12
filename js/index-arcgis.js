@@ -1066,15 +1066,13 @@ const appViewModel = new Vue({
      * @returns {Array} - The array of the selected search results.
      */
     searchBar_OnEnter() {
-      console.log(this.searchBar.input);
       const results = AppData.metadata.records.filter((record) => {
         return (
           record.title.toLowerCase().match(this.searchBar.input) ||
           record.name.toLowerCase().match(this.searchBar.input)
         );
       });
-      console.log(`N results: ${results.length}`);
-      console.log(`${results.map(i => {return i.title})}`);
+      this.searchBar.searchResults = results
     },
 
     /**
