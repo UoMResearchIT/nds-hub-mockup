@@ -1008,7 +1008,7 @@ const appViewModel = new Vue({
         //alert('applicationState_OnStateChanged - next tick: ' + this.applicationState.currentState);
         // Legends[this.applicationState.currentState].updateBasemapLegend();
       // });
-    },
+    // },
 
     /**
      * Gets the text of the login button.
