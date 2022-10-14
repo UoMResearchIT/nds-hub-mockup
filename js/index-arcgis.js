@@ -1002,11 +1002,12 @@ const appViewModel = new Vue({
     /**
      * Raised when the state of the application has been changed.
      */
-    applicationState_OnStateChanged() {
-      this.$nextTick(function () {
+    
+    // applicationState_OnStateChanged() {
+      // this.$nextTick(function () {
         //alert('applicationState_OnStateChanged - next tick: ' + this.applicationState.currentState);
-        Legends[this.applicationState.currentState].updateBasemapLegend();
-      });
+        // Legends[this.applicationState.currentState].updateBasemapLegend();
+      // });
     },
 
     /**
