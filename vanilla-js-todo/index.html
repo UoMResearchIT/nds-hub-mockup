@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App VanillaJS</title>
+  </head>
+  <body>
+    <h1>Todo App VanillaJS</h1>
+    <input type="text" id="todo-input" onkeyup="addTodo()" />
+    <button id="todo-button" onclick="addTodo()">Add Todo</button>
+    <ul id="todo-list"></ul>
+  </body>
+
+  <script>
+    // getDOMElements
+    const todoInput = document.getElementById("todo-input");
+
+    const todoInputValue = () => todoInput.value;
+    const todoList = document.getElementById("todo-list");
+
+    function addTodo() {
+      const todo = document.createElement("li");
+      todo.innerText = todoInputValue();
+      todoList.appendChild(todo);
+    }
+
+    ;
+  </script>
+</html>
