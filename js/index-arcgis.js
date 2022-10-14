@@ -1040,8 +1040,7 @@ const appViewModel = new Vue({
      */
     enter() {
       this.applicationState.currentState = "questions";
-
-      this.$nextTick(function () {
+      this.$nextTick(function () { // better not use nextTick.
         ArcSpatial.initializeMap();
       });
     },
